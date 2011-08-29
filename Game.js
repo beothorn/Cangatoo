@@ -47,7 +47,7 @@ function Game(){
 	this.elements.push(square);
 	
 	this.isThereAnObjectOnPoint = function(x,y){
-		return true;
+		return false;
 	}
 	
 	this.gameLoop = function(keyboardState){
@@ -75,20 +75,20 @@ function Square(){
 	
 	this.x=50;
 	this.y=50;
-	this.width = 100;
-	this.height = 100;
+	this.width = 50;
+	this.height = 80;
 	
-	this.xAcceleration = 50;//PixelPerSecond
-	this.yAcceleration = 50;
+	this.xAcceleration = 250;//PixelPerSecond
+	this.yAcceleration = 450;
 	
 	this.xSpeed = 0;
 	this.ySpeed = 0;
 	
-	this.xMaxSpeed = 100;
-	this.yMaxSpeed = 500;
+	this.xMaxSpeed = 800;
+	this.yMaxSpeed = 1000;
 	
-	this.gravity = 100;
-	this.xFriction = 100;
+	this.gravity = 800;
+	this.xFriction = 500;
 	this.yFriction = 0;
 	
 	
@@ -144,18 +144,31 @@ function Square(){
 		if(this.ySpeed>this.yMaxSpeed)
 			this.ySpeed=this.yMaxSpeed;
 	}
+
+	this.canJump = function(game){
+		var xFoot = this.x+(this.width/2);
+	        var yFoot = this.y + this.height+2;
+		return game.isThereAnObjectOnPoint(xFoot,yFoot) || yFoot > this.bottomLimit;
+	}
 	
 	this.step = function(delta, gameCommandState, game){
-		if(gameCommandState.left){
+		if(gameCommandState.left && this.canJump(game)){
+			if(this.xSpeed>0)
+				this.xSpeed = 0;
 			this.xSpeed-=this.xAcceleration;
 		}
-		if(gameCommandState.right){
+		if(gameCommandState.right && this.canJump(game)){
+			if(this.xSpeed<0)
+                                this.xSpeed = 0;
 			this.xSpeed+=this.xAcceleration;
+		}
+		if(!gameCommandState.left && !gameCommandState.right && this.canJump(game)){
+			this.xSpeed = 0;
 		}
 		if(gameCommandState.up){
 			var xFoot = this.x+(this.width/2);
 			var yFoot = this.y + this.height+2;
-			if(game.isThereAnObjectOnPoint(xFoot,yFoot))
+			if(this.canJump(game))
 				this.ySpeed-=this.yAcceleration;
 		}
 		if(gameCommandState.down){
@@ -167,7 +180,7 @@ function Square(){
 		this.x+=(delta*this.xSpeed)/1000;
 		this.y+=(delta*this.ySpeed)/1000;
 		
-		this.applyFriction(delta);
+		//this.applyFriction(delta);
 		this.wrapOnBoundaries();
 	};
 	
