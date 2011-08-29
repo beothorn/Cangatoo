@@ -46,15 +46,17 @@ function Game(){
 	var square = new Square();
 	this.elements.push(square);
 	
+	this.isThereAnObjectOnPoint = function(x,y){
+		return true;
+	}
 	
-  this.gameLoop = function(keyboardState){
-  	
-  	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	this.gameLoop = function(keyboardState){
+  		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
 		for (var i in this.elements)
 		{
-			this.elements[i].step(delta,keyboardState);
+			this.elements[i].step(delta,keyboardState, this);
 		}
 		for (var i in this.elements)
 		{
@@ -62,7 +64,6 @@ function Game(){
 		}
 		this.lastLoopTime = new Date().getTime();
 	}
-  
 }
 
 function Square(){
@@ -144,7 +145,7 @@ function Square(){
 			this.ySpeed=this.yMaxSpeed;
 	}
 	
-	this.step = function(delta, gameCommandState){
+	this.step = function(delta, gameCommandState, game){
 		if(gameCommandState.left){
 			this.xSpeed-=this.xAcceleration;
 		}
@@ -152,7 +153,10 @@ function Square(){
 			this.xSpeed+=this.xAcceleration;
 		}
 		if(gameCommandState.up){
-			this.ySpeed-=this.yAcceleration;
+			var xFoot = this.x+(this.width/2);
+			var yFoot = this.y + this.height+2;
+			if(game.isThereAnObjectOnPoint(xFoot,yFoot))
+				this.ySpeed-=this.yAcceleration;
 		}
 		if(gameCommandState.down){
 			this.ySpeed+=this.yAcceleration;
