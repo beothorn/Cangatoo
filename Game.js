@@ -1,17 +1,9 @@
-const FPS = 30;
-const leftArrow  = 	37;
-const upArrow    = 	38;
-const rightArrow = 	39;
-const downArrow  = 	40;
-
-var canvas = null;
-var context2D = null;
-var square = null;
-var lastLoopTime = new Date().getTime();
-
 window.onload = init;
 
-var elements = new Array();
+var down  = 	40;
+var right = 	39;
+var up    = 	38;
+var left  = 	37;
 
 function KeyboardState(){
 	this.left = false;
@@ -21,6 +13,57 @@ function KeyboardState(){
 }
 
 var keyboardState = new KeyboardState();
+
+document.onkeydown = function(event){
+	if(event.keyCode == left)
+		keyboardState.left = true;
+	if(event.keyCode == right)
+		keyboardState.right = true;
+	if(event.keyCode == up)
+		keyboardState.up = true;
+	if(event.keyCode == down)
+		keyboardState.down = true;
+}
+	
+document.onkeyup = function(event){
+  	if(event.keyCode == left)
+		keyboardState.left = false;
+	if(event.keyCode == right)
+		keyboardState.right = false;
+	if(event.keyCode == up)
+		keyboardState.up = false;
+	if(event.keyCode == down)
+		keyboardState.down = false;
+}
+
+function Game(){
+	this.lastLoopTime = new Date().getTime();
+	this.elements = new Array();
+
+	this.canvas = document.getElementById('canvas');
+	this.context = this.canvas.getContext('2d');
+	
+	var square = new Square();
+	this.elements.push(square);
+	
+	
+  this.gameLoop = function(keyboardState){
+  	
+  	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		var currentTime = new Date().getTime();
+		var delta = currentTime - this.lastLoopTime;
+		for (var i in this.elements)
+		{
+			this.elements[i].step(delta,keyboardState);
+		}
+		for (var i in this.elements)
+		{
+			this.elements[i].draw(this.context);
+		}
+		this.lastLoopTime = new Date().getTime();
+	}
+  
+}
 
 function Square(){
 	
@@ -35,7 +78,7 @@ function Square(){
 	this.height = 100;
 	
 	this.xAcceleration = 50;//PixelPerSecond
-	this.yAcceleration = 200;
+	this.yAcceleration = 50;
 	
 	this.xSpeed = 0;
 	this.ySpeed = 0;
@@ -45,7 +88,7 @@ function Square(){
 	
 	this.gravity = 100;
 	this.xFriction = 100;
-	this.yFriction = 100;
+	this.yFriction = 0;
 	
 	
 	this.wrapOnBoundaries = function(){
@@ -93,16 +136,12 @@ function Square(){
 	this.limitSpeed = function(){
 		if(this.xSpeed<-this.xMaxSpeed)
 			this.xSpeed=-this.xMaxSpeed;
-		}
 		if(this.xSpeed>this.xMaxSpeed)
 			this.xSpeed=this.xMaxSpeed;
-		}
 		if(this.ySpeed<-this.yMaxSpeed)
 			this.ySpeed=-this.yMaxSpeed;
-		}
 		if(this.ySpeed>this.yMaxSpeed)
 			this.ySpeed=this.yMaxSpeed;
-		}
 	}
 	
 	this.step = function(delta, gameCommandState){
@@ -119,8 +158,6 @@ function Square(){
 			this.ySpeed+=this.yAcceleration;
 		}
 		
-		
-		
 		this.limitSpeed();
 		this.ySpeed+=(delta*this.gravity)/1000;
 		this.x+=(delta*this.xSpeed)/1000;
@@ -129,56 +166,22 @@ function Square(){
 		this.applyFriction(delta);
 		this.wrapOnBoundaries();
 	};
+	
 	this.draw = function(context){
 		context.strokeRect(this.x, this.y, this.width, this.height);
 		context.strokeRect(this.leftLimit, this.topLimit, this.rightLimit-this.leftLimit, this.bottomLimit-this.topLimit);
 	};
 }
 
+var game;
+
 function init()
 {
-	canvas = document.getElementById('canvas');
-	context2D = canvas.getContext('2d');
-	setInterval(gameLoop, 1000 / FPS);
-	square = new Square();
-	elements.push(square);
-	document.onkeydown = function(event){
-		console.log(event.keyCode);
-		if(event.keyCode == leftArrow)
-			keyboardState.left = true;
-		if(event.keyCode == rightArrow)
-			keyboardState.right = true;
-		if(event.keyCode == upArrow)
-			keyboardState.up = true;
-		if(event.keyCode == downArrow)
-			keyboardState.down = true;
-	}
-	
-  document.onkeyup = function(event){
-  	console.log("!"+event.keyCode);
-  	if(event.keyCode == leftArrow)
-			keyboardState.left = false;
-		if(event.keyCode == rightArrow)
-			keyboardState.right = false;
-		if(event.keyCode == upArrow)
-			keyboardState.up = false;
-		if(event.keyCode == downArrow)
-			keyboardState.down = false;
-  }
+	var FPS = 30;
+	game = new Game();
+	setInterval(loop, 1000 / FPS);
 }
 
-function gameLoop()
-{
-	var currentTime = new Date().getTime();
-	var delta = currentTime - lastLoopTime;
-	context2D.clearRect(0, 0, canvas.width, canvas.height);
-	for (var i in elements)
-	{
-		elements[i].step(delta,keyboardState);
-	}
-	for (var i in elements)
-	{
-		elements[i].draw(context2D);
-	}
-	lastLoopTime = new Date().getTime();
+function loop(){
+	game.gameLoop(keyboardState);
 }
