@@ -70,12 +70,12 @@ function Game(){
 	}
 	
 	this.gameLoop = function(keyboardState){
-  		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
-		for(var i=0;i<(this.elements.lenght-1);i++){
+		for(var i=0;i<(this.elements.length-1);i++){
 			var element1 =this.elements[i];
-			for(var j=i+1;(j<this.elements.lenght);j++){
+			for(var j=i+1;(j<this.elements.length);j++){
 				var element2 =this.elements[j];
 				element1.testCollisionWith(element2);
 			}

@@ -90,14 +90,37 @@ function MainCharacter(){
 	}
 
 	this.collidesWith = function(otherElement){
-		return false;
+		if(otherElement.x+otherElement.width<this.x)
+			return false;
+		if(otherElement.x>this.x+this.width)
+			return false;
+		if(otherElement.y+otherElement.height<this.y)
+			return false;
+		if(otherElement.y>this.y+this.height)
+			return false;
+		return true;
 	}
 
 	this.testCollisionWith = function(otherElement){
-		//should get speed vector, normalize it and invert
+		if(!this.collidesWith(otherElement))
+			return;
+		
+		var normX = 0;
+		var normY = -1;
+		if(this.xSpeed != 0 || this.ySpeed != 0 ){
+			var vectorLength = Math.sqrt(Math.pow(this.xSpeed,2) + Math.pow(this.ySpeed,2));
+			normX = this.xSpeed / vectorLength;
+			normY = this.ySpeed / vectorLength;
+			if((this.xSpeed>0 && normX>0) ||(this.xSpeed<0 && normX<0))
+				normX = normX*-1;
+			if((this.ySpeed>0 && normY>0) ||(this.ySpeed<0 && normY<0))
+				normY = normY*-1 ;
+		}
+		
 		while(this.collidesWith(otherElement)){
-			this.ySpeed = 0;
-			this.y--;//shoul add inverted normalized speed vector to position until theres no more collision
+			this.ySpeed=0;
+			this.y+=normY;
+			this.x+=normX;
 		}
 	}
 	
