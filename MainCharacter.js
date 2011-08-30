@@ -88,6 +88,18 @@ function MainCharacter(){
 	this.canJump = function(game){
 		return game.isThereAnObjectOnPoint(this.getBottomX(),this.getBottomY()+1) || this.getBottomY() == this.bottomLimit;
 	}
+
+	this.collidesWith = function(otherElement){
+		return false;
+	}
+
+	this.testCollisionWith = function(otherElement){
+		//should get speed vector, normalize it and invert
+		while(this.collidesWith(otherElement)){
+			this.ySpeed = 0;
+			this.y--;//shoul add inverted normalized speed vector to position until theres no more collision
+		}
+	}
 	
 	this.step = function(delta, gameCommandState, game){
 		if(gameCommandState.left && this.canJump(game)){
@@ -118,11 +130,6 @@ function MainCharacter(){
 		
 		if(!this.canJump(game))
 			this.ySpeed+=(delta*this.gravity)/1000;
-		
-		while(game.isThereAnObjectOnPoint(this.getBottomX(),this.getBottomY()+1)){
-			this.y--;
-			this.ySpeed = 0;
-		}
 		
 		this.x+=(delta*this.xSpeed)/1000;
 		this.y+=(delta*this.ySpeed)/1000;

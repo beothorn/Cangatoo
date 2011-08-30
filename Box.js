@@ -4,7 +4,10 @@ function Box(){
 	this.y=554;
 	this.width = 83;
 	this.height = 32;
-	
+
+	this.testCollisionWith = function(otherElement){
+        }
+
 	this.step = function(delta, gameCommandState, game){
 	};
 	
