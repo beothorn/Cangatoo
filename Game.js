@@ -70,9 +70,14 @@ function Game(){
 	}
 	
 	this.gameLoop = function(keyboardState){
+		console.log("a");
   	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
+		for (var i in this.elements)
+		{
+			this.elements[i].step(delta,keyboardState, this);
+		}
 		for(var i=0;i<(this.elements.length-1);i++){
 			var element1 =this.elements[i];
 			for(var j=i+1;(j<this.elements.length);j++){
@@ -82,13 +87,10 @@ function Game(){
 		}
 		for (var i in this.elements)
 		{
-			this.elements[i].step(delta,keyboardState, this);
-		}
-		for (var i in this.elements)
-		{
 			this.elements[i].draw(this.context);
 		}
 		this.lastLoopTime = new Date().getTime();
+		console.log("b");
 	}
 }
 
