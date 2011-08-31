@@ -1,9 +1,9 @@
 function Box(){
 	
-	this.x=220;
-	this.y=554;
+	this.x=120;
+	this.y=464;
 	this.width = 83;
-	this.height = 32;
+	this.height = 132;
 
 	this.testCollisionWith = function(otherElement){
         }

@@ -10,7 +10,7 @@ function MainCharacter(){
 	this.width = 50;
 	this.height = 80;
 	
-	this.xAcceleration = 200;//PixelPerSecond
+	this.xAcceleration = 100;//PixelPerSecond
 	this.yAcceleration = 450;
 	
 	this.xSpeed = 0;
@@ -86,51 +86,89 @@ function MainCharacter(){
 	}
 	
 	this.canJump = function(game){
-		return game.isThereAnObjectOnPoint(this.getBottomX(),this.getBottomY()+1) || this.getBottomY() == this.bottomLimit;
+		var firstPoint = game.isThereAnObjectOnPoint(this.x,this.y+this.height+1);
+		var secondPoint = game.isThereAnObjectOnPoint(this.x+this.width,this.y+this.height+1);
+		var onGround = this.y+this.height == this.bottomLimit;
+		return firstPoint || secondPoint || onGround;
 	}
 
-	this.collidesWith = function(otherElement){
-		if(otherElement.x+otherElement.width<this.x)
+	const NO_COLLISION = 0;
+	const HORIZONTAL = 1;
+	const VERTICAL = 2;
+
+	this.isPointInside = function(px,py,rx,ry,rw,rh){
+		if(px>rx+rw)
 			return false;
-		if(otherElement.x>this.x+this.width)
+		if(px<rx)
 			return false;
-		if(otherElement.y+otherElement.height<this.y)
+		if(py>ry+rh)
 			return false;
-		if(otherElement.y>this.y+this.height)
+		if(py<ry)
 			return false;
 		return true;
 	}
 
+	this.collidesWith = function(otherElement){
+		if(otherElement.x+otherElement.width<this.x)
+			return NO_COLLISION;
+		if(otherElement.x>this.x+this.width)
+			return NO_COLLISION;
+		if(otherElement.y+otherElement.height<this.y)
+			return NO_COLLISION;
+		if(otherElement.y>this.y+this.height)
+		return NO_COLLISION;
+		var leftTop = this.isPointInside(this.x,this.y,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
+		var rightTop = this.isPointInside(this.x+this.width,this.y,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
+
+		if(leftTop && rightTop)
+			return VERTICAL;
+		var leftBottom = this.isPointInside(this.x,this.y+this.height,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
+                var rightBottom = this.isPointInside(this.x+this.width,this.y+this.height,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
+		if(leftBottom && rightBottom)
+                        return VERTICAL;
+		if(leftBottom && leftTop)
+			return HORIZONTAL;
+		if(rightBottom && rightTop)
+			return HORIZONTAL;
+		
+		return HORIZONTAL;//only one point collided
+	}
+
 	this.testCollisionWith = function(otherElement){
-		if(!this.collidesWith(otherElement))
+		var collisionResult = this.collidesWith(otherElement);
+		if(collisionResult == NO_COLLISION)
 			return;
 		
 		var normX = 0;
-		var normY = -1;
+		var normY = 0;
 		if(this.xSpeed != 0 || this.ySpeed != 0 ){
 			var vectorLength = Math.sqrt(Math.pow(this.xSpeed,2) + Math.pow(this.ySpeed,2));
 			normX = this.xSpeed / vectorLength;
 			normY = this.ySpeed / vectorLength;
-			if((this.xSpeed>0 && normX>0) ||(this.xSpeed<0 && normX<0))
-				normX = normX*-1;
-			if((this.ySpeed>0 && normY>0) ||(this.ySpeed<0 && normY<0))
-				normY = normY*-1 ;
 		}
-		
+	
+		if(collisionResult == HORIZONTAL){
+			normX = normX * -1;
+		}
+		if(collisionResult == VERTICAL){
+			normY = normY * -1;
+		}
+	
 		while(this.collidesWith(otherElement)){
-			this.ySpeed=0;
 			this.y+=normY;
 			this.x+=normX;
 		}
+		//this.xSpeed = 0;
+		//this.ySpeed = 0;
 	}
 	
 	this.step = function(delta, gameCommandState, game){
-		if(gameCommandState.left && this.canJump(game)){
+		if(gameCommandState.left){
 			if(this.xSpeed>0)
 				this.xSpeed = 0;
 			this.xSpeed-=this.xAcceleration;
 		}
-		if(gameCommandState.right && this.canJump(game)){
+		if(gameCommandState.right){
 			if(this.xSpeed<0)
                                 this.xSpeed = 0;
 			this.xSpeed+=this.xAcceleration;
@@ -157,7 +195,7 @@ function MainCharacter(){
 		this.x+=(delta*this.xSpeed)/1000;
 		this.y+=(delta*this.ySpeed)/1000;
 		
-		//this.applyFriction(delta);
+		this.applyFriction(delta);
 		this.wrapOnBoundaries();
 		
 		var xFoot = this.x+(this.width/2);
