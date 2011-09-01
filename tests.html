@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+		<title>Tests</title>
+		<script type="text/javascript" src="testMainElement.js"></script>
+		<script type="text/javascript" >
+			function assertTrue(actual,message){
+				if(actual)
+					document.write("<tr bgcolor=\"green\"><td>true</td><td>"+actual+"</td><td> "+message+"</td></tr>");
+				else
+					document.write("<tr bgcolor=\"red\"><td>true</td><td>"+actual+"</td><td> "+message+"</td></tr>");
+			}
+
+			function runTestsFor(testClass){
+				document.write(testClass.constructor.name+":</br>");
+				document.write("<table border=\"1\">");
+				document.write("<tr><td>Expected</td><td>Actual</td><td>Message</td></tr>");
+				for(var property in testClass){
+					eval("testClass."+property+"()")
+				}
+				document.write("</table>");
+			}			
+
+			function runTests(){
+				runTestsFor(new TestMainElement());
+			}
+		</script>
+	</head>
+	<body onLoad="runTests()">
+	</body>
+</html>
