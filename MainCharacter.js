@@ -92,51 +92,20 @@ function MainCharacter(){
 		return firstPoint || secondPoint || onGround;
 	}
 
-	const NO_COLLISION = 0;
-	const HORIZONTAL = 1;
-	const VERTICAL = 2;
-
-	this.isPointInside = function(px,py,rx,ry,rw,rh){
-		if(px>rx+rw)
-			return false;
-		if(px<rx)
-			return false;
-		if(py>ry+rh)
-			return false;
-		if(py<ry)
-			return false;
-		return true;
-	}
-
 	this.collidesWith = function(otherElement){
 		if(otherElement.x+otherElement.width<this.x)
-			return NO_COLLISION;
+			return false;
 		if(otherElement.x>this.x+this.width)
-			return NO_COLLISION;
+			return false;
 		if(otherElement.y+otherElement.height<this.y)
-			return NO_COLLISION;
+			return false;
 		if(otherElement.y>this.y+this.height)
-		return NO_COLLISION;
-		var leftTop = this.isPointInside(this.x,this.y,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
-		var rightTop = this.isPointInside(this.x+this.width,this.y,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
-
-		if(leftTop && rightTop)
-			return VERTICAL;
-		var leftBottom = this.isPointInside(this.x,this.y+this.height,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
-                var rightBottom = this.isPointInside(this.x+this.width,this.y+this.height,otherElement.x,otherElement.y,otherElement.width,otherElement.height);
-		if(leftBottom && rightBottom)
-                        return VERTICAL;
-		if(leftBottom && leftTop)
-			return HORIZONTAL;
-		if(rightBottom && rightTop)
-			return HORIZONTAL;
-		
-		return HORIZONTAL;//only one point collided
+			return false;
+		return true
 	}
 
 	this.testCollisionWith = function(otherElement){
-		var collisionResult = this.collidesWith(otherElement);
-		if(collisionResult == NO_COLLISION)
+		if(!this.collidesWith(otherElement))
 			return;
 		
 		var normX = 0;
@@ -147,12 +116,8 @@ function MainCharacter(){
 			normY = this.ySpeed / vectorLength;
 		}
 	
-		if(collisionResult == HORIZONTAL){
-			normX = normX * -1;
-		}
-		if(collisionResult == VERTICAL){
-			normY = normY * -1;
-		}
+		normX = normX * -1;
+		normY = normY * -1;
 	
 		while(this.collidesWith(otherElement)){
 			this.y+=normY;

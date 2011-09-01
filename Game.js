@@ -68,6 +68,16 @@ function Game(){
 		}
 		return false;
 	}
+
+	this.testCollisions = function(){
+		for(var i=0;i<(this.elements.length-1);i++){
+                         var element1 =this.elements[i];
+                         for(var j=i+1;(j<this.elements.length);j++){
+                                var element2 =this.elements[j];
+                                 element1.testCollisionWith(element2);
+                         }
+                 }		
+	}
 	
 	this.gameLoop = function(keyboardState){
   		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -77,13 +87,7 @@ function Game(){
 		{
 			this.elements[i].step(delta,keyboardState, this);
 		}
-		for(var i=0;i<(this.elements.length-1);i++){
-			var element1 =this.elements[i];
-			for(var j=i+1;(j<this.elements.length);j++){
-				var element2 =this.elements[j];
-				element1.testCollisionWith(element2);
-			}
-		}
+		this.testCollisions();
 		for (var i in this.elements)
 		{
 			this.elements[i].draw(this.context);
