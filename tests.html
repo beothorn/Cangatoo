@@ -4,19 +4,23 @@
 		<title>Tests</title>
 		<script type="text/javascript" src="testMainElement.js"></script>
 		<script type="text/javascript" >
+			var currentMethod = "will hold method name";
 			function assertTrue(actual,message){
-				if(actual)
-					document.write("<tr bgcolor=\"green\"><td>true</td><td>"+actual+"</td><td> "+message+"</td></tr>");
-				else
-					document.write("<tr bgcolor=\"red\"><td>true</td><td>"+actual+"</td><td> "+message+"</td></tr>");
+				var color = "green";
+				if(!actual)
+					color = "red";
+					document.write("<tr bgcolor=\""+color+"\"><td>"+currentMethod+"</td><td>true</td><td>"+actual+"</td><td> "+message+"</td></tr>");
 			}
 
 			function runTestsFor(testClass){
-				document.write(testClass.constructor.name+":</br>");
 				document.write("<table border=\"1\">");
-				document.write("<tr><td>Expected</td><td>Actual</td><td>Message</td></tr>");
+				document.write("<tr><td>"+testClass.constructor.name+"</td></tr>");
+				document.write("<tr><td>Test</td><td>Expected</td><td>Actual</td><td>Message</td></tr>");
 				for(var property in testClass){
-					eval("testClass."+property+"()")
+					if(typeof(eval("testClass."+property)) == 'function' && property.indexOf("test")==0){
+						currentMethod = property;
+						eval("testClass."+property+"()")
+					}
 				}
 				document.write("</table>");
 			}			
