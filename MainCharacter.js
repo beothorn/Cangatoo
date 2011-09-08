@@ -175,7 +175,7 @@ function Element(_x,_y){
 		this.x += (delta*this.xSpeed)/1000;
 		this.y += (delta*this.ySpeed)/1000;
 		
-		this.ySpeed-=(delta*this.gravity)/1000;
+		this.ySpeed+=(delta*this.gravity)/1000;
 		
 		this.applyFriction(delta);
 		this.wrapOnBoundaries();
@@ -184,106 +184,82 @@ function Element(_x,_y){
 
 function MainCharacter(){
 	
-	var element = new Element(50,50);
+	this.element = new Element(50,50);
 	
-	element.leftLimit = 52;
-	element.topLimit = 32;
-	element.rightLimit = 536;
-	element.bottomLimit = 596;
+	this.element.leftLimit = 52;
+	this.element.topLimit = 32;
+	this.element.rightLimit = 536;
+	this.element.bottomLimit = 596;
 	
-	element.width = 50;
-	element.height = 80;
-	element.gravity = 800;
+	this.element.width = 50;
+	this.element.height = 80;
+	this.element.gravity = 800;
 	
-	element.setMaxXSpeed(500);
-	element.setMaxYSpeed(1000);
+	this.element.setMaxXSpeed(500);
+	this.element.setMaxYSpeed(1000);
 	
-	element.setXFriction(500);
+	this.element.setXFriction(500);
 	
 	this.xAcceleration = 100;//PixelPerSecond
 	this.yAcceleration = 450;
 
+	this.getX = function(){
+		return this.element.x;
+	}
+	this.getY = function(){
+		return this.element.y;
+	}
+	this.getWidth = function(){
+		return this.element.width;
+	}
+	
+	this.getHeight = function(){
+		return this.element.height;
+	}
+	
 	this.getBottomX = function(){
-		return this.x+(this.width/2);
+		return this.element.x+(this.element.width/2);
 	}
 	
 	this.getBottomY = function(){
-		return this.y + this.height;
+		return this.element.y + this.element.height;
 	}
 	
 	this.canJump = function(game){
-		var firstPoint = game.isThereAnObjectOnPoint(this.x,this.y+this.height+1);
-		var secondPoint = game.isThereAnObjectOnPoint(this.x+this.width,this.y+this.height+1);
-		var onGround = this.y+this.height == this.bottomLimit;
+		var firstPoint = game.isThereAnObjectOnPoint(this.element.x,this.element.y+this.element.height+1);
+		var secondPoint = game.isThereAnObjectOnPoint(this.element.x+this.element.width,this.element.y+this.element.height+1);
+		var onGround = this.element.y+this.element.height == this.element.bottomLimit;
 		return firstPoint || secondPoint || onGround;
 	}
 
 	this.testCollisionWith = function(otherElement){
-		if(!this.collidesWith(otherElement))
-			return;
-		
-		var normX = 0;
-		var normY = 0;
-		if(this.xSpeed != 0 || this.ySpeed != 0 ){
-			var vectorLength = Math.sqrt(Math.pow(this.xSpeed,2) + Math.pow(this.ySpeed,2));
-			normX = this.xSpeed / vectorLength;
-			normY = this.ySpeed / vectorLength;
-		}
-	
-		normX = normX * -1;
-		normY = normY * -1;
-	
-		while(this.collidesWith(otherElement)){
-			this.y+=normY;
-			this.x+=normX;
-		}
-		//this.xSpeed = 0;
-		//this.ySpeed = 0;
+		this.element.resolveCollisionWith(otherElement);
 	}
 	
 	this.step = function(delta, gameCommandState, game){
 		if(gameCommandState.left){
-			if(this.xSpeed>0)
-				this.xSpeed = 0;
-			this.xSpeed-=this.xAcceleration;
+			if(this.element.xSpeed>0)
+				this.element.xSpeed = 0;
+			this.element.xAccelerate(-this.xAcceleration);
 		}
 		if(gameCommandState.right){
-			if(this.xSpeed<0)
-                                this.xSpeed = 0;
-			this.xSpeed+=this.xAcceleration;
+			if(this.element.xSpeed<0)
+				this.element.xSpeed = 0;
+			this.element.xAccelerate(this.xAcceleration);
 		}
 		if(!gameCommandState.left && !gameCommandState.right && this.canJump(game)){
-			this.xSpeed = 0;
+			this.element.xSpeed = 0;
 		}
 		if(gameCommandState.up){
-			var xFoot = this.x+(this.width/2);
-			var yFoot = this.y + this.height+2;
 			if(this.canJump(game))
-				this.ySpeed-=this.yAcceleration;
-		}
-		if(gameCommandState.down){
-			this.ySpeed+=this.yAcceleration;
+				this.element.yAccelerate(-this.yAcceleration);
 		}
 		
-		this.limitSpeed();
-		
-		
-		if(!this.canJump(game))
-			this.ySpeed+=(delta*this.gravity)/1000;
-		
-		this.x+=(delta*this.xSpeed)/1000;
-		this.y+=(delta*this.ySpeed)/1000;
-		
-		this.applyFriction(delta);
-		this.wrapOnBoundaries();
-		
-		var xFoot = this.x+(this.width/2);
-	  var yFoot = this.y + this.height+2;
-		
+		this.element.step(delta);
 	};
 	
 	this.draw = function(context){
-		context.strokeRect(this.x, this.y, this.width, this.height);
-		context.strokeRect(this.leftLimit, this.topLimit, this.rightLimit-this.leftLimit, this.bottomLimit-this.topLimit);
+		context.strokeRect(this.element.x, this.element.y, this.element.width, this.element.height);
+		context.strokeRect(this.element.leftLimit, this.element.topLimit, this.element.rightLimit-this.element.leftLimit, this.element.bottomLimit-this.element.topLimit);
 	};
 }

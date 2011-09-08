@@ -48,13 +48,17 @@ function Game(){
 	}
 	
 	this.isObjectOnPoint = function(x,y,element){
-		if(x<element.x)
+		var elX = element.getX();
+		if(x<elX)
 			return false;
-		if(x>element.x+element.width)
+		var elX2 = element.getX()+element.getWidth();
+		if(x>elX2)
 			return false;
-		if(y<element.y)
+		var elY = element.getY();
+		if(y<elY)
 			return false;
-		if(y>element.y+element.height)
+		var elY2 = element.getY()+element.getHeight();
+		if(y>elY2)
 			return false;
 		return true;
 	}
@@ -71,16 +75,16 @@ function Game(){
 
 	this.testCollisions = function(){
 		for(var i=0;i<(this.elements.length-1);i++){
-                         var element1 =this.elements[i];
-                         for(var j=i+1;(j<this.elements.length);j++){
-                                var element2 =this.elements[j];
-                                 element1.testCollisionWith(element2);
-                         }
-                 }		
+			 var element1 =this.elements[i];
+			 for(var j=i+1;(j<this.elements.length);j++){
+			 	 var element2 =this.elements[j];
+				 element1.testCollisionWith(element2);
+			 }
+		 }		
 	}
 	
 	this.gameLoop = function(keyboardState){
-  		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
 		for (var i in this.elements)
