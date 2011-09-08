@@ -88,4 +88,36 @@ function TestElement(){
 		element.step(deltaOneSecond);
 		assertEquals(-20,element.ySpeed);
 	}
+	
+	this.testCollisionCheckTrue = function(){
+		var element1 = new Element(0,0);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(10,10);
+		element2.width = 10;
+		element2.height = 10;
+		
+		assertTrue(element1.collidesWith(element2));
+	}
+	
+	this.testCollisionCheckFalse = function(){
+		var element1 = new Element(0,0);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(11,11);
+		element2.width = 10;
+		element2.height = 10;
+		
+		assertFalse(element1.collidesWith(element2));
+	}
+	
+	this.testCollisionBouncingFromUp = function(){
+		var element1 = new Element(0,0);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(0,11);
+		element2.width = 10;
+		element2.height = 10;
+		element2.immovable = true;
+	}
 }

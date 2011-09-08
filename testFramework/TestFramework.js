@@ -37,6 +37,11 @@ function assertTrue(actual){
 		throw "Should be true but was false.";
 }
 
+function assertFalse(actual){
+	if(actual)
+		throw "Should be false but was true.";
+}
+
 function assertEquals(expected,actual){
 	if(expected!=actual)
 		throw "Should be "+ expected +" but was "+ actual;
