@@ -61,6 +61,74 @@ function Element(_x,_y){
 		this.yFriction = newYFriction;
 	}
 	
+	this.moveToIntersectionPointAndBounce = function(intersection,movementLine,bounceHorizontally){
+		var insideX = movementLine.x1 - intersection.x;
+		var insideY = movementLine.y1 - intersection.y; 
+		this.x -= insideX;
+		this.y -= insideY;
+		
+		if(bounceHorizontally){
+			this.x -= insideX;
+			this.y += insideY;
+			this.xSpeed = this.xSpeed * -1;
+		}else{
+			this.x += insideX;
+			this.y -= insideY;
+			this.ySpeed = this.ySpeed * -1;
+		}
+	}
+	
+	this.resolveCollisionWith = function(otherElement){		
+		var topLeftX = otherElement.x;
+		var topLeftY = otherElement.y;
+		var bottomLeftY = otherElement.y+otherElement.height;
+		var topRightX = otherElement.x+otherElement.width;
+		
+		var otherElementLeftSide  = {x1: topLeftX  ,y1: topLeftY    ,x2: topLeftX   ,y2: bottomLeftY};
+		var otherElementRightSide = {x1: topRightX ,y1: topLeftY    ,x2: topRightX  ,y2: bottomLeftY};
+		var otherElementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
+		var otherElementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
+		
+		var selfTopLeftX = this.x;
+		var selftopLeftY = this.y;
+		var selfBottomLeftY = this.y+this.height;
+		var selfTopRightX = this.x+this.width;
+		
+		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selftopLeftY    ,x2: selfTopLeftX-this.xSpeed   ,y2: selftopLeftY-this.ySpeed   };
+		var topRightMovement   = {x1: selfTopRightX ,y1: selftopLeftY    ,x2: selfTopRightX-this.xSpeed  ,y2: selftopLeftY-this.ySpeed   };
+		var bottomLeftMovement = {x1: selfTopLeftX  ,y1: selfBottomLeftY ,x2: selfTopLeftX-this.xSpeed   ,y2: selfBottomLeftY-this.ySpeed};
+		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-this.xSpeed  ,y2: selfBottomLeftY-this.ySpeed};
+		
+		var movementLines = [topLeftMovement,topRightMovement,bottomLeftMovement,bottomRightMovement];
+		var i;
+		for(i=0;i<4;i++){
+			var intersection;
+			intersection = lineIntersect(movementLines[i],otherElementUpSide);
+			if(intersection != null){
+				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],false);
+				return;
+			}
+			
+			intersection = lineIntersect(movementLines[i],otherElementDownSide);
+			if(intersection != null){
+				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],false);
+				return;
+			}
+			
+			intersection = lineIntersect(movementLines[i],otherElementLeftSide);
+			if(intersection != null){
+				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],true);
+				return;
+			}
+			
+			intersection = lineIntersect(movementLines[i],otherElementRightSide);
+			if(intersection != null){
+				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],true);
+				return;
+			}
+		}
+	}
+	
 	this.applyFriction = function(delta){
 		if(this.xSpeed>0){
 			this.xSpeed-=(delta*this.xFriction)/1000;
@@ -148,18 +216,6 @@ function MainCharacter(){
 		var secondPoint = game.isThereAnObjectOnPoint(this.x+this.width,this.y+this.height+1);
 		var onGround = this.y+this.height == this.bottomLimit;
 		return firstPoint || secondPoint || onGround;
-	}
-
-	this.collidesWith = function(otherElement){
-		if(otherElement.x+otherElement.width<this.x)
-			return false;
-		if(otherElement.x>this.x+this.width)
-			return false;
-		if(otherElement.y+otherElement.height<this.y)
-			return false;
-		if(otherElement.y>this.y+this.height)
-			return false;
-		return true
 	}
 
 	this.testCollisionWith = function(otherElement){

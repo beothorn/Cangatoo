@@ -1,33 +1,31 @@
-function lineIntersect(x1,y1,x2,y2,x3,y3,x4,y4)
-{
+function lineIntersect(line1,line2){
    var mua,mub;
    var denom,numera,numerb;
    var _x,_y;
 
-   denom  = (y4-y3) * (x2-x1) - (x4-x3) * (y2-y1);
-   numera = (x4-x3) * (y1-y3) - (y4-y3) * (x1-x3);
-   numerb = (x2-x1) * (y1-y3) - (y2-y1) * (x1-x3);
+   denom  = (line2.y2-line2.y1) * (line1.x2-line1.x1) - (line2.x2-line2.x1) * (line1.y2-line1.y1);
+   numera = (line2.x2-line2.x1) * (line1.y1-line2.y1) - (line2.y2-line2.y1) * (line1.x1-line2.x1);
+   numerb = (line1.x2-line1.x1) * (line1.y1-line2.y1) - (line1.y2-line1.y1) * (line1.x1-line2.x1);
    
    /* Are the line coincident? */
    if (numera == 0 && numerb == 0 && denom == 0) {
-   	 
-   	 if(x1>x4){
+   	 if(line1.x1>line2.x2){
    	 	 return null;
    	 }
-   	 if(x3>x2){
+   	 if(line2.x1>line1.x2){
    	 	 return null;
    	 }
-   	 if(y1>y4){
+   	 if(line1.y1>line2.y2){
    	 	 return null;
    	 }
-   	 if(y3>y2){
+   	 if(line2.y1>line1.y2){
    	 	 return null;
    	 }
-   	 if(x1<x3 || y1<y3){
-   	 	 return {x : x3, y : y3};
+   	 if(line1.x1<line2.x1 || line1.y1<line2.y1){
+   	 	 return {x : line2.x1, y : line2.y1};
    	 }
-   	 if(x1>x3 || y1>y3){
-   	 	 return {x : x1, y : y1};
+   	 if(line1.x1>line2.x1 || line1.y1>line2.y1){
+   	 	 return {x : line1.x1, y : line1.y1};
    	 }
    }
 
@@ -43,7 +41,7 @@ function lineIntersect(x1,y1,x2,y2,x3,y3,x4,y4)
       return null;
    }
    
-   _x = x1 + mua * (x2 - x1);
-   _y = y1 + mua * (y2 - y1);
+   _x = line1.x1 + mua * (line1.x2 - line1.x1);
+   _y = line1.y1 + mua * (line1.y2 - line1.y1);
    return {x : _x, y : _y};
 }

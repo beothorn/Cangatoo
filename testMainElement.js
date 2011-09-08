@@ -89,35 +89,63 @@ function TestElement(){
 		assertEquals(-20,element.ySpeed);
 	}
 	
-	this.testCollisionCheckTrue = function(){
-		var element1 = new Element(0,0);
-		element1.width = 10;
-		element1.height = 10;
-		var element2 = new Element(10,10);
-		element2.width = 10;
-		element2.height = 10;
-		
-		assertTrue(element1.collidesWith(element2));
-	}
-	
-	this.testCollisionCheckFalse = function(){
-		var element1 = new Element(0,0);
-		element1.width = 10;
-		element1.height = 10;
-		var element2 = new Element(11,11);
-		element2.width = 10;
-		element2.height = 10;
-		
-		assertFalse(element1.collidesWith(element2));
-	}
-	
 	this.testCollisionBouncingFromUp = function(){
-		var element1 = new Element(0,0);
+		var element1 = new Element(1,0);
 		element1.width = 10;
 		element1.height = 10;
 		var element2 = new Element(0,11);
 		element2.width = 10;
+		element2.height = 50;
+		element1.yAccelerate(10);
+		var deltaOneSecond = 1000;
+		element1.step(deltaOneSecond);
+		element1.resolveCollisionWith(element2);
+		assertEquals(-8,element1.y);
+		assertEquals(-10,element1.ySpeed);
+	}
+	
+	this.testCollisionBouncingFromDown = function(){
+		var element1 = new Element(1,0);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(0,11);
+		element2.width = 10;
+		element2.height = 50;
+		element2.yAccelerate(-10);
+		var deltaOneSecond = 1000;
+		element2.step(deltaOneSecond);
+		element2.resolveCollisionWith(element1);
+		assertEquals(19,element2.y);
+		assertEquals(10,element2.ySpeed);
+	}
+	
+	this.testCollisionBouncingFromLeft = function(){
+		var element1 = new Element(0,1);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(11,0);
+		element2.width = 10;
 		element2.height = 10;
-		element2.immovable = true;
+		element1.xAccelerate(10);
+		var deltaOneSecond = 1000;
+		element1.step(deltaOneSecond);
+		element1.resolveCollisionWith(element2);
+		assertEquals(-8,element1.x);
+		assertEquals(-10,element1.xSpeed);
+	}
+	
+	this.testCollisionBouncingFromRight = function(){
+		var element1 = new Element(0,1);
+		element1.width = 10;
+		element1.height = 10;
+		var element2 = new Element(11,0);
+		element2.width = 10;
+		element2.height = 10;
+		element2.xAccelerate(-10);
+		var deltaOneSecond = 1000;
+		element2.step(deltaOneSecond);
+		element2.resolveCollisionWith(element1);
+		assertEquals(19,element2.x);
+		assertEquals(10,element2.xSpeed);
 	}
 }
