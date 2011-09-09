@@ -73,14 +73,21 @@ function Game(){
 		return false;
 	}
 
-	this.testCollisions = function(){
+	this.testCollisions = function(delta){
 		for(var i=0;i<(this.elements.length-1);i++){
 			 var element1 =this.elements[i];
 			 for(var j=i+1;(j<this.elements.length);j++){
 			 	 var element2 =this.elements[j];
-				 element1.testCollisionWith(element2);
+				 element1.testCollisionWith(element2,delta);
 			 }
 		 }		
+	}
+	
+	this.drawElements = function(){
+		for (var i in this.elements)
+		{
+			this.elements[i].draw(this.context);
+		}
 	}
 	
 	this.gameLoop = function(keyboardState){
@@ -91,11 +98,8 @@ function Game(){
 		{
 			this.elements[i].step(delta,keyboardState, this);
 		}
-		this.testCollisions();
-		for (var i in this.elements)
-		{
-			this.elements[i].draw(this.context);
-		}
+		this.testCollisions(delta);
+		this.drawElements();
 		this.lastLoopTime = new Date().getTime();
 	}
 }

@@ -1,7 +1,7 @@
 function Box(){
 	
 	this.x=120;
-	this.y=464;
+	this.y=164;
 	this.width = 83;
 	this.height = 132;
 
@@ -19,7 +19,7 @@ function Box(){
 		return this.height;
 	}
 	
-	this.testCollisionWith = function(otherElement){
+	this.testCollisionWith = function(otherElement,delta){
   }
 
 	this.step = function(delta, gameCommandState, game){

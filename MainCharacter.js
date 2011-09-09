@@ -61,6 +61,18 @@ function Element(_x,_y){
 		this.yFriction = newYFriction;
 	}
 	
+	this.getValueForDelta = function(value,delta){
+		return (delta*value)/1000;
+	}
+	
+	this.getXSpeedForDelta = function(delta){
+		return this.getValueForDelta(this.xSpeed,delta);
+	}
+	
+	this.getYSpeedForDelta = function(delta){
+		return this.getValueForDelta(this.ySpeed,delta);
+	}
+	
 	this.moveToIntersectionPointAndBounce = function(intersection,movementLine,bounceHorizontally){
 		var insideX = movementLine.x1 - intersection.x;
 		var insideY = movementLine.y1 - intersection.y; 
@@ -78,7 +90,10 @@ function Element(_x,_y){
 		}
 	}
 	
-	this.resolveCollisionWith = function(otherElement){		
+	this.resolveCollisionWith = function(otherElement,delta){
+		if(this == otherElement)
+			return;
+		
 		var topLeftX = otherElement.x;
 		var topLeftY = otherElement.y;
 		var bottomLeftY = otherElement.y+otherElement.height;
@@ -94,10 +109,10 @@ function Element(_x,_y){
 		var selfBottomLeftY = this.y+this.height;
 		var selfTopRightX = this.x+this.width;
 		
-		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selftopLeftY    ,x2: selfTopLeftX-this.xSpeed   ,y2: selftopLeftY-this.ySpeed   };
-		var topRightMovement   = {x1: selfTopRightX ,y1: selftopLeftY    ,x2: selfTopRightX-this.xSpeed  ,y2: selftopLeftY-this.ySpeed   };
-		var bottomLeftMovement = {x1: selfTopLeftX  ,y1: selfBottomLeftY ,x2: selfTopLeftX-this.xSpeed   ,y2: selfBottomLeftY-this.ySpeed};
-		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-this.xSpeed  ,y2: selfBottomLeftY-this.ySpeed};
+		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selftopLeftY    ,x2: selfTopLeftX-this.getXSpeedForDelta(delta)   ,y2: selftopLeftY-this.getYSpeedForDelta(delta)   };
+		var topRightMovement   = {x1: selfTopRightX ,y1: selftopLeftY    ,x2: selfTopRightX-this.getXSpeedForDelta(delta)  ,y2: selftopLeftY-this.getYSpeedForDelta(delta)   };
+		var bottomLeftMovement = {x1: selfTopLeftX  ,y1: selfBottomLeftY ,x2: selfTopLeftX-this.getXSpeedForDelta(delta)   ,y2: selfBottomLeftY-this.getYSpeedForDelta(delta)};
+		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-this.getXSpeedForDelta(delta)  ,y2: selfBottomLeftY-this.getYSpeedForDelta(delta)};
 		
 		var movementLines = [topLeftMovement,topRightMovement,bottomLeftMovement,bottomRightMovement];
 		var i;
@@ -105,24 +120,28 @@ function Element(_x,_y){
 			var intersection;
 			intersection = lineIntersect(movementLines[i],otherElementUpSide);
 			if(intersection != null){
+				console.log("Collision up at "+intersection);
 				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],false);
 				return;
 			}
 			
 			intersection = lineIntersect(movementLines[i],otherElementDownSide);
 			if(intersection != null){
+				console.log("Collision down at "+intersection);
 				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],false);
 				return;
 			}
 			
 			intersection = lineIntersect(movementLines[i],otherElementLeftSide);
 			if(intersection != null){
+				console.log("Collision left at "+intersection);
 				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],true);
 				return;
 			}
 			
 			intersection = lineIntersect(movementLines[i],otherElementRightSide);
 			if(intersection != null){
+				console.log("Collision right at "+intersection);
 				this.moveToIntersectionPointAndBounce(intersection,movementLines[i],true);
 				return;
 			}
@@ -131,22 +150,22 @@ function Element(_x,_y){
 	
 	this.applyFriction = function(delta){
 		if(this.xSpeed>0){
-			this.xSpeed-=(delta*this.xFriction)/1000;
+			this.xSpeed-=this.getValueForDelta(this.xFriction,delta);
 			if(this.xSpeed<0)
 				this.xSpeed=0;
 		}
 		if(this.xSpeed<0){
-			this.xSpeed+=(delta*this.xFriction)/1000;
+			this.xSpeed+=this.getValueForDelta(this.xFriction,delta);
 			if(this.xSpeed>0)
 				this.xSpeed=0;
 		}
 		if(this.ySpeed>0){
-			this.ySpeed-=(delta*this.yFriction)/1000;
+			this.ySpeed-=this.getValueForDelta(this.yFriction,delta);
 			if(this.ySpeed<0)
 				this.ySpeed=0;
 		}
 		if(this.ySpeed<0){
-			this.ySpeed+=(delta*this.yFriction)/1000;
+			this.ySpeed+=this.getValueForDelta(this.yFriction,delta);
 			if(this.ySpeed>0)
 				this.ySpeed=0;
 		}
@@ -172,10 +191,10 @@ function Element(_x,_y){
 	}
 	
 	this.step = function(delta){
-		this.x += (delta*this.xSpeed)/1000;
-		this.y += (delta*this.ySpeed)/1000;
+		this.x += this.getXSpeedForDelta(delta);
+		this.y += this.getYSpeedForDelta(delta);
 		
-		this.ySpeed+=(delta*this.gravity)/1000;
+		this.ySpeed+=this.getValueForDelta(this.gravity,delta);
 		
 		this.applyFriction(delta);
 		this.wrapOnBoundaries();
@@ -186,14 +205,13 @@ function MainCharacter(){
 	
 	this.element = new Element(50,50);
 	
-	this.element.leftLimit = 52;
-	this.element.topLimit = 32;
-	this.element.rightLimit = 536;
-	this.element.bottomLimit = 596;
+	this.element.leftLimit = 0;
+	this.element.topLimit = 0;
+	this.element.rightLimit = 800;
+	this.element.bottomLimit = 300;
 	
 	this.element.width = 50;
 	this.element.height = 80;
-	this.element.gravity = 800;
 	
 	this.element.setMaxXSpeed(500);
 	this.element.setMaxYSpeed(1000);
@@ -232,11 +250,16 @@ function MainCharacter(){
 		return firstPoint || secondPoint || onGround;
 	}
 
-	this.testCollisionWith = function(otherElement){
-		this.element.resolveCollisionWith(otherElement);
+	this.testCollisionWith = function(otherElement,delta){
+		this.element.resolveCollisionWith(otherElement,delta);
 	}
 	
 	this.step = function(delta, gameCommandState, game){
+		if(this.canJump(game))
+			this.element.gravity = 0;
+		else
+			this.element.gravity = 800;
+		
 		if(gameCommandState.left){
 			if(this.element.xSpeed>0)
 				this.element.xSpeed = 0;
