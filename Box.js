@@ -25,7 +25,8 @@ function Box(){
 	this.step = function(delta, gameCommandState, game){
 	};
 	
-	this.draw = function(context){
+	this.draw = function(context,delta){
+		context.strokeStyle = "gray";
 		context.strokeRect(this.x, this.y, this.width, this.height);
 	};
 }

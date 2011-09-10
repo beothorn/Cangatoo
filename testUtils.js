@@ -22,6 +22,22 @@ function TestUtils(){
 		assertEquals(5,point.x);
 		assertEquals(0,point.y);
 	}
+
+	this.testLinesIntersectionOnStartPoint = function(){
+		var line1 = {x1:0,y1:0,x2:10,y2:0};
+		var line2 = {x1:0,y1:0,x2:-10,y2:-15};
+		var point = lineIntersect(line1,line2);
+		assertEquals(0,point.x);
+		assertEquals(0,point.y);
+	}
+	
+	this.testLinesIntersectionOnExactLine = function(){
+		var line1 = {x1:0,y1:0,x2:0,y2:50};
+		var line2 = {x1:0,y1:10,x2:10,y2:10};
+		var point = lineIntersect(line1,line2);
+		assertEquals(0,point.x);
+		assertEquals(10,point.y);
+	}
 	
 	this.testLinesNotIntersect = function(){
 		var line1 = {x1:0,y1:0,x2:4,y2:0};

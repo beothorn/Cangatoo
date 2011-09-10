@@ -99,24 +99,25 @@ function TestElement(){
 		element1.yAccelerate(-10);
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
-		element1.resolveCollisionWith(element2);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
 		assertEquals(-10,element1.y);
 		assertEquals(-10,element1.ySpeed);
 	}
 	
-	this.testCollisionBouncingFromUp = function(){
+	this.testCollisionNoBounceFromUp = function(){
 		var element1 = new Element(1,0);
 		element1.width = 10;
 		element1.height = 10;
+		element1.elasticity =0;
 		var element2 = new Element(0,11);
 		element2.width = 10;
 		element2.height = 50;
 		element1.yAccelerate(10);
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
-		element1.resolveCollisionWith(element2);
-		assertEquals(-8,element1.y);
-		assertEquals(-10,element1.ySpeed);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
+		assertEquals(1,element1.y);
+		assertEquals(0,element1.ySpeed);
 	}
 	
 	this.testCollisionBouncingFromDown = function(){
@@ -126,25 +127,59 @@ function TestElement(){
 		var element2 = new Element(0,11);
 		element2.width = 10;
 		element2.height = 50;
+		element2.elasticity =1;
 		element2.yAccelerate(-10);
 		var deltaOneSecond = 1000;
 		element2.step(deltaOneSecond);
-		element2.resolveCollisionWith(element1);
+		element2.resolveCollisionWith(element1,deltaOneSecond);
 		assertEquals(19,element2.y);
 		assertEquals(10,element2.ySpeed);
+	}
+	
+	this.testCollisionNoBounceFromLeftFloatLocation = function(){
+		var element1 = new Element(0.1,1);
+		element1.width = 10;
+		element1.height = 10;
+		element1.elasticity = 0;
+		var element2 = new Element(10,0);
+		element2.width = 10;
+		element2.height = 10;
+		element1.xAccelerate(5);
+		var deltaOneSecond = 1000;
+		element1.step(deltaOneSecond);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
+		assertEquals(0,element1.x);
+		assertEquals(0,element1.xSpeed);
+	}
+	
+	this.testCollisionNoBounceFromLeftFloatSpeed = function(){
+		var element1 = new Element(0,1);
+		element1.width = 10;
+		element1.height = 10;
+		element1.elasticity = 0;
+		var element2 = new Element(10,0);
+		element2.width = 10;
+		element2.height = 10;
+		element1.xAccelerate(5.1);
+		var deltaOneSecond = 1000;
+		element1.step(deltaOneSecond);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
+		assertEquals(0,element1.x);
+		assertEquals(0,element1.xSpeed);
 	}
 	
 	this.testCollisionBouncingFromLeft = function(){
 		var element1 = new Element(0,1);
 		element1.width = 10;
 		element1.height = 10;
+		element1.elasticity =1;
 		var element2 = new Element(11,0);
 		element2.width = 10;
 		element2.height = 10;
 		element1.xAccelerate(10);
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
-		element1.resolveCollisionWith(element2);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
 		assertEquals(-8,element1.x);
 		assertEquals(-10,element1.xSpeed);
 	}
@@ -156,10 +191,11 @@ function TestElement(){
 		var element2 = new Element(11,0);
 		element2.width = 10;
 		element2.height = 10;
+		element2.elasticity =1;
 		element2.xAccelerate(-10);
 		var deltaOneSecond = 1000;
 		element2.step(deltaOneSecond);
-		element2.resolveCollisionWith(element1);
+		element2.resolveCollisionWith(element1,deltaOneSecond);
 		assertEquals(19,element2.x);
 		assertEquals(10,element2.xSpeed);
 	}
@@ -174,8 +210,8 @@ function TestElement(){
 		element1.xAccelerate(-10);
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
-		element1.resolveCollisionWith(element1);
-		element1.resolveCollisionWith(element2);
+		element1.resolveCollisionWith(element1,deltaOneSecond);
+		element1.resolveCollisionWith(element2,deltaOneSecond);
 		assertEquals(-10,element1.x);
 		assertEquals(-10,element1.xSpeed);
 	}

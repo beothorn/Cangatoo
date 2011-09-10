@@ -83,23 +83,26 @@ function Game(){
 		 }		
 	}
 	
-	this.drawElements = function(){
+	this.drawElements = function(delta){
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		for (var i in this.elements)
 		{
-			this.elements[i].draw(this.context);
+			this.elements[i].draw(this.context,delta);
 		}
 	}
 	
 	this.gameLoop = function(keyboardState){
-  	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
+		if(delta>40)
+			delta = 40;
 		for (var i in this.elements)
 		{
 			this.elements[i].step(delta,keyboardState, this);
 		}
+		this.drawElements(delta);
 		this.testCollisions(delta);
-		this.drawElements();
+		this.drawElements(delta);
 		this.lastLoopTime = new Date().getTime();
 	}
 }
