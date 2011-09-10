@@ -116,7 +116,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
 		element1.resolveCollisionWith(element2,deltaOneSecond);
-		assertEquals(1,element1.y);
+		assertEquals(0,element1.y);
 		assertEquals(0,element1.ySpeed);
 	}
 	
@@ -132,7 +132,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element2.step(deltaOneSecond);
 		element2.resolveCollisionWith(element1,deltaOneSecond);
-		assertEquals(19,element2.y);
+		assertEquals(20,element2.y);
 		assertEquals(10,element2.ySpeed);
 	}
 	
@@ -148,7 +148,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
 		element1.resolveCollisionWith(element2,deltaOneSecond);
-		assertEquals(0,element1.x);
+		assertEquals(-1,element1.x);
 		assertEquals(0,element1.xSpeed);
 	}
 	
@@ -164,7 +164,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
 		element1.resolveCollisionWith(element2,deltaOneSecond);
-		assertEquals(0,element1.x);
+		assertEquals(-1,element1.x);
 		assertEquals(0,element1.xSpeed);
 	}
 	
@@ -180,7 +180,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element1.step(deltaOneSecond);
 		element1.resolveCollisionWith(element2,deltaOneSecond);
-		assertEquals(-8,element1.x);
+		assertEquals(-9,element1.x);
 		assertEquals(-10,element1.xSpeed);
 	}
 	
@@ -196,7 +196,7 @@ function TestElement(){
 		var deltaOneSecond = 1000;
 		element2.step(deltaOneSecond);
 		element2.resolveCollisionWith(element1,deltaOneSecond);
-		assertEquals(19,element2.x);
+		assertEquals(20,element2.x);
 		assertEquals(10,element2.xSpeed);
 	}
 	
