@@ -1,9 +1,9 @@
-function Box(){
+function Box(_x,_y,_width,_height){
 	
-	this.x=120;
-	this.y=164;
-	this.width = 83;
-	this.height = 132;
+	this.x=_x;
+	this.y=_y;
+	this.width = _width;
+	this.height = _height;
 
 	this.getX = function(){
 		return this.x;

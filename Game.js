@@ -115,8 +115,10 @@ function init()
 	game = new Game();
 	var mainCharacter = new MainCharacter();
 	game.addElement(mainCharacter);
-	var box = new Box();
-	game.addElement(box);
+	
+	game.addElement(new Box(120,164,83,32));
+	game.addElement(new Box(12,16,32,32));
+	game.addElement(new Box(140,164,32,32));
 	
 	setInterval(loop, 1000 / FPS);
 }
