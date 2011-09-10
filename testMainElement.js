@@ -48,7 +48,7 @@ function TestElement(){
 		assertEquals(10,element.xSpeed);
 		var deltaOneSecond = 1000;
 		element.step(deltaOneSecond);
-		assertEquals(element.x,10);
+		assertEquals(element.x,9);
 		assertEquals(element.xSpeed,9);
 	}
 	
@@ -59,7 +59,7 @@ function TestElement(){
 		assertEquals(-10,element.xSpeed);
 		var deltaOneSecond = 1000;
 		element.step(deltaOneSecond);
-		assertEquals(element.x,-10);
+		assertEquals(element.x,-9);
 		assertEquals(element.xSpeed,-9);
 	}
 	
@@ -137,7 +137,7 @@ function TestElement(){
 	}
 	
 	this.testCollisionNoBounceFromLeftFloatLocation = function(){
-		var element1 = new Element(0.1,1);
+		var element1 = new Element(0,1);
 		element1.width = 10;
 		element1.height = 10;
 		element1.elasticity = 0;
