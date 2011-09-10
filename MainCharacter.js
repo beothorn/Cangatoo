@@ -80,10 +80,18 @@ function Element(_x,_y){
 		this.y -= insideY;
 		
 		if(bounceHorizontally){
+			if(insideX>0)
+				this.x-=1;
+			else
+				this.x+=1;
 			this.x -= Math.round(insideX * this.elasticity);
 			this.y += insideY;
 			this.xSpeed = this.xSpeed * -1 * this.elasticity;
 		}else{
+			if(insideY>0)
+				this.y-=1;
+			else
+				this.y+=1;
 			this.x += insideX;
 			this.y -= Math.round(insideY * this.elasticity);
 			this.ySpeed = this.ySpeed * -1 * this.elasticity;
@@ -121,10 +129,10 @@ function Element(_x,_y){
 		var bottomLeftY = topLeftY+otherElement.height;
 		var topRightX = topLeftX+otherElement.width;
 		
-		var otherElementLeftSide  = {x1: topLeftX  ,y1: topLeftY+1    ,x2: topLeftX   ,y2: bottomLeftY-1};
-		var otherElementRightSide = {x1: topRightX ,y1: topLeftY+1    ,x2: topRightX  ,y2: bottomLeftY-1};
-		var otherElementUpSide    = {x1: topLeftX+1  ,y1: topLeftY    ,x2: topRightX-1  ,y2: topLeftY   };
-		var otherElementDownSide  = {x1: topLeftX+1  ,y1: bottomLeftY ,x2: topRightX-1  ,y2: bottomLeftY};
+		var otherElementLeftSide  = {x1: topLeftX  ,y1: topLeftY    ,x2: topLeftX   ,y2: bottomLeftY-1};
+		var otherElementRightSide = {x1: topRightX ,y1: topLeftY    ,x2: topRightX  ,y2: bottomLeftY-1};
+		var otherElementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
+		var otherElementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
 		
 		var selfTopLeftX = this.x;
 		var selftopLeftY = this.y;
