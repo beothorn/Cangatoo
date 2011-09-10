@@ -74,9 +74,7 @@ function Element(_x,_y){
 		return this.getValueForDelta(this.ySpeed,delta);
 	}
 	
-	this.moveToIntersectionPointAndBounce = function(intersection,movementLine,bounceHorizontally){
-		var insideX = Math.round(movementLine.x1 - intersection.x);
-		var insideY = Math.round(movementLine.y1 - intersection.y);
+	this.moveToIntersectionPointAndBounce = function(insideX,insideY,bounceHorizontally){
 		
 		this.x -= insideX;
 		this.y -= insideY;
@@ -142,7 +140,8 @@ function Element(_x,_y){
 		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-roundSpeedX  ,y2: selfBottomLeftY-roundSpeedY};
 		
 		var movementLines = [topLeftMovement,topRightMovement,bottomLeftMovement,bottomRightMovement];
-		var i;
+		var insideRectangleMovement = new Array();
+		var i; 
 		for(i=0;i<4;i++){
 			var distanceUp = 0;
 			var distanceDown = 0;
@@ -154,30 +153,12 @@ function Element(_x,_y){
 			var intersectionLeft;
 			var intersectionRight;
 			
-			if(this.ySpeed>=0){
-				intersectionUp = lineIntersect(movementLines[i],otherElementUpSide);
-				if(intersectionUp != null){
-					var insideX = movementLines[i].x1 - intersectionUp.x;
-					var insideY = movementLines[i].y1 - intersectionUp.y;
-					distanceUp = Math.abs(insideX) + Math.abs(insideY);
-				}
-			}
-			
-			if(this.ySpeed<=0){
-				intersectionDown = lineIntersect(movementLines[i],otherElementDownSide);
-				if(intersectionDown != null){
-					var insideX = movementLines[i].x1 - intersectionDown.x;
-					var insideY = movementLines[i].y1 - intersectionDown.y;
-					distanceDown = Math.abs(insideX) + Math.abs(insideY);
-				}
-			}
-			
 			if(this.xSpeed>=0){
 				intersectionLeft = lineIntersect(movementLines[i],otherElementLeftSide);
 				if(intersectionLeft != null){
 					var insideX = movementLines[i].x1 - intersectionLeft.x;
 					var insideY = movementLines[i].y1 - intersectionLeft.y;
-					distanceLeft = Math.abs(insideX) + Math.abs(insideY);
+					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
 				}
 			}
 			
@@ -186,29 +167,46 @@ function Element(_x,_y){
 				if(intersectionRight != null){
 					var insideX = movementLines[i].x1 - intersectionRight.x;
 					var insideY = movementLines[i].y1 - intersectionRight.y;
-					distanceRight = Math.abs(insideX) + Math.abs(insideY);
+					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
 				}
 			}
 			
-			if(!this.allZeroes(distanceUp,distanceDown,distanceLeft,distanceRight)){
-				if(this.isBiggest(distanceUp,distanceDown,distanceLeft,distanceRight)){
-					this.moveToIntersectionPointAndBounce(intersectionUp,movementLines[i],false);
-					return;
+			if(this.ySpeed>=0){
+				intersectionUp = lineIntersect(movementLines[i],otherElementUpSide);
+				if(intersectionUp != null){
+					var insideX = movementLines[i].x1 - intersectionUp.x;
+					var insideY = movementLines[i].y1 - intersectionUp.y;
+					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
 				}
-				if(this.isBiggest(distanceDown,distanceUp,distanceLeft,distanceRight)){
-					this.moveToIntersectionPointAndBounce(intersectionDown,movementLines[i],false);
-					return;
-				}
-				if(this.isBiggest(distanceLeft,distanceDown,distanceUp,distanceRight)){
-					this.moveToIntersectionPointAndBounce(intersectionLeft,movementLines[i],true);
-					return;
-				}
-				if(this.isBiggest(distanceRight,distanceDown,distanceLeft,distanceUp)){
-					this.moveToIntersectionPointAndBounce(intersectionRight,movementLines[i],true);
-					return;
+			}
+			
+			if(this.ySpeed<=0){
+				intersectionDown = lineIntersect(movementLines[i],otherElementDownSide);
+				if(intersectionDown != null){
+					var insideX = movementLines[i].x1 - intersectionDown.x;
+					var insideY = movementLines[i].y1 - intersectionDown.y;
+					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
 				}
 			}
 		}
+		
+		var biggestMove = null;
+		var biggestDistance = 0;
+		for(i=0;i<insideRectangleMovement.length;i++){
+			var insideRectangleMovementToCompare = insideRectangleMovement[i];
+			var distance = Math.abs(insideRectangleMovementToCompare.x) + Math.abs(insideRectangleMovementToCompare.y);
+			if(biggestMove != null){
+				if(distance>biggestDistance){
+					biggestMove = insideRectangleMovementToCompare;
+					biggestDistance = distance;
+				}
+			}else{
+				biggestMove = insideRectangleMovementToCompare;
+				biggestDistance = distance;
+			}
+		}
+		if(biggestMove!=null)
+			this.moveToIntersectionPointAndBounce(biggestMove.x,biggestMove.y,biggestMove.bounceHor);
 	}
 	
 	this.applyFriction = function(delta){
