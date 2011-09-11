@@ -100,7 +100,6 @@ function Game(){
 		{
 			this.elements[i].step(delta,keyboardState, this);
 		}
-		this.drawElements(delta);
 		this.testCollisions(delta);
 		this.drawElements(delta);
 		this.lastLoopTime = new Date().getTime();
@@ -118,7 +117,7 @@ function init()
 	
 	game.addElement(new Box(120,164,83,32));
 	game.addElement(new Box(12,16,32,32));
-	game.addElement(new Box(140,164,32,32));
+	game.addElement(new Box(140,230,32,32));
 	
 	setInterval(loop, 1000 / FPS);
 }
