@@ -1,7 +1,5 @@
 window.onload = init;
 
-
-
 function Output(){
 	this.write = function(text){
 		return;
@@ -9,6 +7,42 @@ function Output(){
 			this.textArea = document.getElementById('output');
 		this.textArea.innerHTML += text+"\n";  
 	}
+}
+
+var down  = 	40;
+var right = 	39;
+var up    = 	38;
+var left  = 	37;
+
+function KeyboardState(){
+	this.left = false;
+	this.right = false;
+	this.up = false;
+	this.down = false;
+}
+
+var globalGameState = new KeyboardState();
+
+document.onkeydown = function(event){
+	if(event.keyCode == left)
+		globalGameState.left = true;
+	if(event.keyCode == right)
+		globalGameState.right = true;
+	if(event.keyCode == up)
+		globalGameState.up = true;
+	if(event.keyCode == down)
+		globalGameState.down = true;
+}
+	
+document.onkeyup = function(event){
+  if(event.keyCode == left)
+		globalGameState.left = false;
+	if(event.keyCode == right)
+		globalGameState.right = false;
+	if(event.keyCode == up)
+		globalGameState.up = false;
+	if(event.keyCode == down)
+		globalGameState.down = false;
 }
 
 var output = new Output();
@@ -33,5 +67,5 @@ function startGameLoop(){
 }
 
 function loop(){
-	game.gameLoop();
+	game.gameLoop(globalGameState);
 }

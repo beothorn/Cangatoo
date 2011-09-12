@@ -51,30 +51,30 @@ function MainCharacter(){
 		this.element.resolveCollisionWith(otherElement,delta);
 	}
 	
-	this.step = function(delta, gameCommandState, game){
+	this.step = function(delta, globalGameState, game){
 		if(this.canJump(game))
 			this.element.gravity = 0;
 		else
 			this.element.gravity = 800;
 		
-		if(gameCommandState.left){
+		if(globalGameState.left){
 			if(this.element.xSpeed>0)
 				this.element.xSpeed = 0;
 			this.element.xAccelerate(-this.xAcceleration);
 		}
-		if(gameCommandState.right){
+		if(globalGameState.right){
 			if(this.element.xSpeed<0)
 				this.element.xSpeed = 0;
 			this.element.xAccelerate(this.xAcceleration);
 		}
-		if(!gameCommandState.left && !gameCommandState.right && this.canJump(game)){
+		if(!globalGameState.left && !globalGameState.right && this.canJump(game)){
 			this.element.xSpeed = 0;
 		}
-		if(gameCommandState.up){
+		if(globalGameState.up){
 			if(this.canJump(game))
 				this.element.yAccelerate(-this.yAcceleration);
 		}
-		//if(gameCommandState.down){
+		//if(globalGameState.down){
 		//		this.element.yAccelerate(this.yAcceleration);
 		//}
 		

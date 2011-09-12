@@ -370,42 +370,6 @@ function Element(_x,_y){
 	}
 }
 
-var down  = 	40;
-var right = 	39;
-var up    = 	38;
-var left  = 	37;
-
-function KeyboardState(){
-	this.left = false;
-	this.right = false;
-	this.up = false;
-	this.down = false;
-}
-
-var keyboardState = new KeyboardState();
-
-document.onkeydown = function(event){
-	if(event.keyCode == left)
-		keyboardState.left = true;
-	if(event.keyCode == right)
-		keyboardState.right = true;
-	if(event.keyCode == up)
-		keyboardState.up = true;
-	if(event.keyCode == down)
-		keyboardState.down = true;
-}
-	
-document.onkeyup = function(event){
-  	if(event.keyCode == left)
-		keyboardState.left = false;
-	if(event.keyCode == right)
-		keyboardState.right = false;
-	if(event.keyCode == up)
-		keyboardState.up = false;
-	if(event.keyCode == down)
-		keyboardState.down = false;
-}
-
 function Game(drawCanvas){
 	this.lastLoopTime = new Date().getTime();
 	this.elements = new Array();
@@ -461,14 +425,14 @@ function Game(drawCanvas){
 		}
 	}
 	
-	this.gameLoop = function(){
+	this.gameLoop = function(globalGameState){
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
 		if(delta>40)
 			delta = 40;
 		for (var i in this.elements)
 		{
-			this.elements[i].step(delta,keyboardState, this);
+			this.elements[i].step(delta,globalGameState, this);
 		}
 		
 		this.testCollisions(delta);
