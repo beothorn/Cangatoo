@@ -82,16 +82,18 @@ function Element(_x,_y){
 		if(bounceHorizontally){
 			if(insideX>0)
 				this.x-=1;
-			else
+			if(insideX<0)
 				this.x+=1;
+			
 			this.x -= Math.round(insideX * this.elasticity);
 			this.y += insideY;
 			this.xSpeed = this.xSpeed * -1 * this.elasticity;
 		}else{
 			if(insideY>0)
 				this.y-=1;
-			else
+			if(insideY<0)
 				this.y+=1;
+			
 			this.x += insideX;
 			this.y -= Math.round(insideY * this.elasticity);
 			this.ySpeed = this.ySpeed * -1 * this.elasticity;
@@ -263,6 +265,15 @@ function Element(_x,_y){
 			this.moveToIntersectionPointAndBounce(biggestMove.x*-1,biggestMove.y*-1,biggestMove.bounceHor);
 			return;
 		}
+		
+		var selfRectangle =  {x1: this.x ,y1: this.y ,x2: this.x+this.width ,y2: this.y+this.height};
+		var otherRectangle = {x1: otherElement.x ,y1: otherElement.y ,x2: otherElement.x+otherElement.width ,y2: otherElement.y+otherElement.height};
+		
+		if(rectanglesIntersect(selfRectangle,otherRectangle)){
+			console.error("Invalid state!");
+			console.error("{x1:"+selfRectangle.x1+",y1:"+selfRectangle.y1+",x2:"+selfRectangle.x2+",y2:"+selfRectangle.y2+
+				"} -- {x1:"+otherRectangle.x1+",y1:"+otherRectangle.y1+",x2:"+otherRectangle.x2+",y2:"+otherRectangle.y2+"}");
+		}
 	}
 	
 	this.applyFriction = function(delta){
@@ -316,5 +327,112 @@ function Element(_x,_y){
 		this.ySpeed+=Math.round(this.getValueForDelta(this.gravity,delta));
 		
 		this.wrapOnBoundaries();
+	}
+}
+
+var down  = 	40;
+var right = 	39;
+var up    = 	38;
+var left  = 	37;
+
+function KeyboardState(){
+	this.left = false;
+	this.right = false;
+	this.up = false;
+	this.down = false;
+}
+
+var keyboardState = new KeyboardState();
+
+document.onkeydown = function(event){
+	if(event.keyCode == left)
+		keyboardState.left = true;
+	if(event.keyCode == right)
+		keyboardState.right = true;
+	if(event.keyCode == up)
+		keyboardState.up = true;
+	if(event.keyCode == down)
+		keyboardState.down = true;
+}
+	
+document.onkeyup = function(event){
+  	if(event.keyCode == left)
+		keyboardState.left = false;
+	if(event.keyCode == right)
+		keyboardState.right = false;
+	if(event.keyCode == up)
+		keyboardState.up = false;
+	if(event.keyCode == down)
+		keyboardState.down = false;
+}
+
+function Game(){
+	this.lastLoopTime = new Date().getTime();
+	this.elements = new Array();
+
+	this.canvas = document.getElementById('canvas');
+	this.context = this.canvas.getContext('2d');
+	
+	this.addElement = function(element){
+		this.elements.push(element);
+	}
+	
+	this.isObjectOnPoint = function(x,y,element){
+		var elX = element.getX();
+		if(x<elX)
+			return false;
+		var elX2 = element.getX()+element.getWidth();
+		if(x>elX2)
+			return false;
+		var elY = element.getY();
+		if(y<elY)
+			return false;
+		var elY2 = element.getY()+element.getHeight();
+		if(y>elY2)
+			return false;
+		return true;
+	}
+	
+	this.isThereAnObjectOnPoint = function(x,y){
+		for (var i in this.elements)
+		{
+			if(this.isObjectOnPoint(x,y,this.elements[i])){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	this.testCollisions = function(delta){
+		for(var i=0;i<(this.elements.length-1);i++){
+			 var element1 =this.elements[i];
+			 for(var j=i+1;(j<this.elements.length);j++){
+			 	 var element2 =this.elements[j];
+				 element1.testCollisionWith(element2,delta);
+			 }
+		 }		
+	}
+	
+	this.drawElements = function(delta){
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		for (var i in this.elements)
+		{
+			this.elements[i].draw(this.context,delta);
+		}
+	}
+	
+	this.gameLoop = function(keyboardState){
+		var currentTime = new Date().getTime();
+		var delta = currentTime - this.lastLoopTime;
+		if(delta>40)
+			delta = 40;
+		for (var i in this.elements)
+		{
+			this.elements[i].step(delta,keyboardState, this);
+		}
+		
+		this.testCollisions(delta);
+		this.drawElements(delta);
+		this.lastLoopTime = new Date().getTime();
 	}
 }

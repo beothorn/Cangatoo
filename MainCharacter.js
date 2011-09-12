@@ -4,7 +4,7 @@ function MainCharacter(){
 	
 	this.element.leftLimit = 0;
 	this.element.topLimit = 0;
-	this.element.rightLimit = 400;
+	this.element.rightLimit = 1000;
 	this.element.bottomLimit = 300;
 	
 	this.element.width = 50;

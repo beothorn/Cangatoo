@@ -45,3 +45,39 @@ function lineIntersect(line1,line2){
    _y = line1.y1 + mua * (line1.y2 - line1.y1);
    return {x : _x, y : _y};
 }
+
+function isPointInsideRectangle(point,rectangle){
+	if(point.x<rectangle.x1)
+		return false;
+	if(point.x>rectangle.x2)
+		return false;
+	if(point.y<rectangle.y1)
+		return false;
+	if(point.y>rectangle.y2)
+		return false;
+	return true;
+}
+
+function rectangleHaveAPointInside(rectA,rectB){
+	var rectATopLeft = {x:rectA.x1,y:rectA.y1};
+	if(isPointInsideRectangle(rectATopLeft,rectB))
+		return true;
+	var rectATopRight = {x:rectA.x1,y:rectA.y2};
+	if(isPointInsideRectangle(rectATopRight,rectB))
+		return true;
+	var rectABottomLeft = {x:rectA.x2,y:rectA.y1};
+	if(isPointInsideRectangle(rectABottomLeft,rectB))
+		return true;
+	var rectABottomRight = {x:rectA.x2,y:rectA.y2};
+	if(isPointInsideRectangle(rectABottomRight,rectB))
+		return true;
+	return false;
+}
+
+function rectanglesIntersect(rectA,rectB){
+	if(rectangleHaveAPointInside(rectA,rectB))
+		return true;
+	if(rectangleHaveAPointInside(rectB,rectA))
+		return true;
+	return false;
+}
