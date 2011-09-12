@@ -255,6 +255,26 @@ function Element(_x,_y){
 		if(this == otherElement)
 			return;
 		
+		//DEBUG---------------------------------------------------------------------
+		var topLeftX = otherElement.x;
+		var topLeftY = otherElement.y;
+		var bottomLeftY = topLeftY+otherElement.height;
+		var topRightX = topLeftX+otherElement.width;
+		
+		var selfTopLeftX = this.x;
+		var selfTopLeftY = this.y;
+		var selfBottomLeftY = selfTopLeftY+this.height;
+		var selfTopRightX = selfTopLeftX+this.width;
+		
+		var roundSpeedX = Math.round(this.getXSpeedForDelta(delta));
+		var roundSpeedY = Math.round(this.getYSpeedForDelta(delta));
+		
+		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selfTopLeftY    ,x2: selfTopLeftX-roundSpeedX   ,y2: selfTopLeftY-roundSpeedY   };
+		var topRightMovement   = {x1: selfTopRightX ,y1: selfTopLeftY    ,x2: selfTopRightX-roundSpeedX  ,y2: selfTopLeftY-roundSpeedY   };
+		var bottomLeftMovement = {x1: selfTopLeftX  ,y1: selfBottomLeftY ,x2: selfTopLeftX-roundSpeedX   ,y2: selfBottomLeftY-roundSpeedY};
+		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-roundSpeedX  ,y2: selfBottomLeftY-roundSpeedY};
+		//--------------------------------------------------------------------------
+		
 		var biggestMove = this.testSelfMovementLinesOnOther(otherElement,delta);
 		if(biggestMove!=null){
 			this.moveToIntersectionPointAndBounce(biggestMove.x,biggestMove.y,biggestMove.bounceHor);
@@ -270,8 +290,8 @@ function Element(_x,_y){
 		var otherRectangle = {x1: otherElement.x ,y1: otherElement.y ,x2: otherElement.x+otherElement.width ,y2: otherElement.y+otherElement.height};
 		
 		if(rectanglesIntersect(selfRectangle,otherRectangle)){
-			console.error("Invalid state!");
-			console.error("{x1:"+selfRectangle.x1+",y1:"+selfRectangle.y1+",x2:"+selfRectangle.x2+",y2:"+selfRectangle.y2+
+			output.write("Invalid state!");
+			output.write("{x1:"+selfRectangle.x1+",y1:"+selfRectangle.y1+",x2:"+selfRectangle.x2+",y2:"+selfRectangle.y2+
 				"} -- {x1:"+otherRectangle.x1+",y1:"+otherRectangle.y1+",x2:"+otherRectangle.x2+",y2:"+otherRectangle.y2+"}");
 		}
 	}
@@ -366,11 +386,11 @@ document.onkeyup = function(event){
 		keyboardState.down = false;
 }
 
-function Game(){
+function Game(drawCanvas){
 	this.lastLoopTime = new Date().getTime();
 	this.elements = new Array();
 
-	this.canvas = document.getElementById('canvas');
+	this.canvas = drawCanvas;
 	this.context = this.canvas.getContext('2d');
 	
 	this.addElement = function(element){
@@ -421,7 +441,7 @@ function Game(){
 		}
 	}
 	
-	this.gameLoop = function(keyboardState){
+	this.gameLoop = function(){
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
 		if(delta>40)
