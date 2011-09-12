@@ -261,6 +261,11 @@ function Element(_x,_y){
 		var bottomLeftY = topLeftY+otherElement.height;
 		var topRightX = topLeftX+otherElement.width;
 		
+		var otherElementLeftSide  = {x1: topLeftX  ,y1: topLeftY    ,x2: topLeftX   ,y2: bottomLeftY};
+		var otherElementRightSide = {x1: topRightX ,y1: topLeftY    ,x2: topRightX  ,y2: bottomLeftY};
+		var otherElementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
+		var otherElementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
+		
 		var selfTopLeftX = this.x;
 		var selfTopLeftY = this.y;
 		var selfBottomLeftY = selfTopLeftY+this.height;
@@ -291,8 +296,17 @@ function Element(_x,_y){
 		
 		if(rectanglesIntersect(selfRectangle,otherRectangle)){
 			output.write("Invalid state!");
-			output.write("{x1:"+selfRectangle.x1+",y1:"+selfRectangle.y1+",x2:"+selfRectangle.x2+",y2:"+selfRectangle.y2+
-				"} -- {x1:"+otherRectangle.x1+",y1:"+otherRectangle.y1+",x2:"+otherRectangle.x2+",y2:"+otherRectangle.y2+"}");
+			output.write("#####################################################################################################################");
+			output.write("var otherElementLeftSide  = {x1: "+otherElementLeftSide.x1+"  ,y1: "+otherElementLeftSide.y1+"    ,x2: "+otherElementLeftSide.x2+"   ,y2: "+otherElementLeftSide.y2+"};");
+			output.write("var otherElementRightSide = {x1: "+otherElementRightSide.x1+" ,y1: "+otherElementRightSide.y1+"    ,x2: "+otherElementRightSide.x2+"  ,y2: "+otherElementRightSide.y2+"}");
+			output.write("var otherElementUpSide    = {x1: "+otherElementUpSide.x1+" ,y1: "+otherElementUpSide.y1+"    ,x2: "+otherElementUpSide.x2+"  ,y2: "+otherElementUpSide.y2+"}");
+			output.write("var otherElementDownSide  = {x1: "+otherElementDownSide.x1+" ,y1: "+otherElementDownSide.y1+"    ,x2: "+otherElementDownSide.x2+"  ,y2: "+otherElementDownSide.y2+"}");
+			output.write("");
+			output.write("var topLeftMovement    = {x1: "+topLeftMovement.x1+" ,y1: "+topLeftMovement.y1+"    ,x2: "+topLeftMovement.x2+"  ,y2: "+topLeftMovement.y2+"}");
+			output.write("var topRightMovement   = {x1: "+topRightMovement.x1+" ,y1: "+topRightMovement.y1+"    ,x2: "+topRightMovement.x2+"  ,y2: "+topRightMovement.y2+"}");
+			output.write("var bottomLeftMovement = {x1: "+bottomLeftMovement.x1+" ,y1: "+bottomLeftMovement.y1+"    ,x2: "+bottomLeftMovement.x2+"  ,y2: "+bottomLeftMovement.y2+"}");
+			output.write("var bottomRightMovement= {x1: "+bottomRightMovement.x1+" ,y1: "+bottomRightMovement.y1+"    ,x2: "+bottomRightMovement.x2+"  ,y2: "+bottomRightMovement.y2+"}");
+			output.write("#####################################################################################################################");
 		}
 	}
 	
