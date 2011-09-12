@@ -6,6 +6,8 @@ function Element(_x,_y){
 	
 	this.xSpeed = 0;
 	this.ySpeed = 0;
+	this.xLastDelta = 0;
+	this.yLastDelta = 0;
 	this.xMaxSpeed = 99999;
 	this.yMaxSpeed = 99999;
 	this.xFriction = 0;
@@ -207,8 +209,8 @@ function Element(_x,_y){
 		var selfBottomLeftY = selfTopLeftY+this.height;
 		var selfTopRightX = selfTopLeftX+this.width;
 		
-		var roundSpeedX = Math.round(this.getXSpeedForDelta(delta));
-		var roundSpeedY = Math.round(this.getYSpeedForDelta(delta));
+		var roundSpeedX = Math.round(this.xLastDelta);
+		var roundSpeedY = Math.round(this.yLastDelta);
 		
 		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selfTopLeftY    ,x2: selfTopLeftX-roundSpeedX   ,y2: selfTopLeftY-roundSpeedY   };
 		var topRightMovement   = {x1: selfTopRightX ,y1: selfTopLeftY    ,x2: selfTopRightX-roundSpeedX  ,y2: selfTopLeftY-roundSpeedY   };
@@ -237,8 +239,8 @@ function Element(_x,_y){
 		var otherBottomLeftY = otherTopLeftY+otherElement.height;
 		var otherTopRightX = otherTopLeftX+otherElement.width;
 		
-		var roundSpeedX = Math.round(this.getXSpeedForDelta(delta)) *-1;
-		var roundSpeedY = Math.round(this.getYSpeedForDelta(delta)) *-1;
+		var roundSpeedX = Math.round(this.xLastDelta) *-1;
+		var roundSpeedY = Math.round(this.yLastDelta) *-1;
 		
 		var topLeftMovement    = {x1: otherTopLeftX  ,y1: otherTopLeftY    ,x2: otherTopLeftX-roundSpeedX   ,y2: otherTopLeftY-roundSpeedY   };
 		var topRightMovement   = {x1: otherTopRightX ,y1: otherTopLeftY    ,x2: otherTopRightX-roundSpeedX  ,y2: otherTopLeftY-roundSpeedY   };
@@ -271,8 +273,8 @@ function Element(_x,_y){
 		var selfBottomLeftY = selfTopLeftY+this.height;
 		var selfTopRightX = selfTopLeftX+this.width;
 		
-		var roundSpeedX = Math.round(this.getXSpeedForDelta(delta));
-		var roundSpeedY = Math.round(this.getYSpeedForDelta(delta));
+		var roundSpeedX = Math.round(this.xLastDelta);
+		var roundSpeedY = Math.round(this.yLastDelta);
 		
 		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selfTopLeftY    ,x2: selfTopLeftX-roundSpeedX   ,y2: selfTopLeftY-roundSpeedY   };
 		var topRightMovement   = {x1: selfTopRightX ,y1: selfTopLeftY    ,x2: selfTopRightX-roundSpeedX  ,y2: selfTopLeftY-roundSpeedY   };
@@ -294,19 +296,19 @@ function Element(_x,_y){
 		var selfRectangle =  {x1: this.x ,y1: this.y ,x2: this.x+this.width ,y2: this.y+this.height};
 		var otherRectangle = {x1: otherElement.x ,y1: otherElement.y ,x2: otherElement.x+otherElement.width ,y2: otherElement.y+otherElement.height};
 		
+		output.write("#####################################################################################################################");
+		output.write("var otherElementLeftSide  = {x1: "+otherElementLeftSide.x1+"  ,y1: "+otherElementLeftSide.y1+"    ,x2: "+otherElementLeftSide.x2+"   ,y2: "+otherElementLeftSide.y2+"};");
+		output.write("var otherElementRightSide = {x1: "+otherElementRightSide.x1+" ,y1: "+otherElementRightSide.y1+"    ,x2: "+otherElementRightSide.x2+"  ,y2: "+otherElementRightSide.y2+"}");
+		output.write("var otherElementUpSide    = {x1: "+otherElementUpSide.x1+" ,y1: "+otherElementUpSide.y1+"    ,x2: "+otherElementUpSide.x2+"  ,y2: "+otherElementUpSide.y2+"}");
+		output.write("var otherElementDownSide  = {x1: "+otherElementDownSide.x1+" ,y1: "+otherElementDownSide.y1+"    ,x2: "+otherElementDownSide.x2+"  ,y2: "+otherElementDownSide.y2+"}");
+		output.write("");
+		output.write("var topLeftMovement    = {x1: "+topLeftMovement.x1+" ,y1: "+topLeftMovement.y1+"    ,x2: "+topLeftMovement.x2+"  ,y2: "+topLeftMovement.y2+"}");
+		output.write("var topRightMovement   = {x1: "+topRightMovement.x1+" ,y1: "+topRightMovement.y1+"    ,x2: "+topRightMovement.x2+"  ,y2: "+topRightMovement.y2+"}");
+		output.write("var bottomLeftMovement = {x1: "+bottomLeftMovement.x1+" ,y1: "+bottomLeftMovement.y1+"    ,x2: "+bottomLeftMovement.x2+"  ,y2: "+bottomLeftMovement.y2+"}");
+		output.write("var bottomRightMovement= {x1: "+bottomRightMovement.x1+" ,y1: "+bottomRightMovement.y1+"    ,x2: "+bottomRightMovement.x2+"  ,y2: "+bottomRightMovement.y2+"}");
+		output.write("#####################################################################################################################");
 		if(rectanglesIntersect(selfRectangle,otherRectangle)){
-			output.write("Invalid state!");
-			output.write("#####################################################################################################################");
-			output.write("var otherElementLeftSide  = {x1: "+otherElementLeftSide.x1+"  ,y1: "+otherElementLeftSide.y1+"    ,x2: "+otherElementLeftSide.x2+"   ,y2: "+otherElementLeftSide.y2+"};");
-			output.write("var otherElementRightSide = {x1: "+otherElementRightSide.x1+" ,y1: "+otherElementRightSide.y1+"    ,x2: "+otherElementRightSide.x2+"  ,y2: "+otherElementRightSide.y2+"}");
-			output.write("var otherElementUpSide    = {x1: "+otherElementUpSide.x1+" ,y1: "+otherElementUpSide.y1+"    ,x2: "+otherElementUpSide.x2+"  ,y2: "+otherElementUpSide.y2+"}");
-			output.write("var otherElementDownSide  = {x1: "+otherElementDownSide.x1+" ,y1: "+otherElementDownSide.y1+"    ,x2: "+otherElementDownSide.x2+"  ,y2: "+otherElementDownSide.y2+"}");
-			output.write("");
-			output.write("var topLeftMovement    = {x1: "+topLeftMovement.x1+" ,y1: "+topLeftMovement.y1+"    ,x2: "+topLeftMovement.x2+"  ,y2: "+topLeftMovement.y2+"}");
-			output.write("var topRightMovement   = {x1: "+topRightMovement.x1+" ,y1: "+topRightMovement.y1+"    ,x2: "+topRightMovement.x2+"  ,y2: "+topRightMovement.y2+"}");
-			output.write("var bottomLeftMovement = {x1: "+bottomLeftMovement.x1+" ,y1: "+bottomLeftMovement.y1+"    ,x2: "+bottomLeftMovement.x2+"  ,y2: "+bottomLeftMovement.y2+"}");
-			output.write("var bottomRightMovement= {x1: "+bottomRightMovement.x1+" ,y1: "+bottomRightMovement.y1+"    ,x2: "+bottomRightMovement.x2+"  ,y2: "+bottomRightMovement.y2+"}");
-			output.write("#####################################################################################################################");
+			clearInterval(intervalID);
 		}
 	}
 	
@@ -353,6 +355,8 @@ function Element(_x,_y){
 	}
 	
 	this.step = function(delta){
+		var oldX = this.x;
+		var oldY = this.y;
 		this.applyFriction(delta);
 		
 		this.x += Math.round(this.getXSpeedForDelta(delta));
@@ -361,6 +365,8 @@ function Element(_x,_y){
 		this.ySpeed+=Math.round(this.getValueForDelta(this.gravity,delta));
 		
 		this.wrapOnBoundaries();
+		this.xLastDelta = this.x - oldX;
+		this.yLastDelta = this.y - oldY;
 	}
 }
 

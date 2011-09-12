@@ -74,6 +74,9 @@ function MainCharacter(){
 			if(this.canJump(game))
 				this.element.yAccelerate(-this.yAcceleration);
 		}
+		//if(gameCommandState.down){
+		//		this.element.yAccelerate(this.yAcceleration);
+		//}
 		
 		this.element.step(delta);
 	};
