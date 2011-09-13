@@ -32,6 +32,14 @@ function MainCharacter(){
 		return this.element.height;
 	}
 	
+	this.getXForCollisionCheck = function(){
+		return this.element.getXForCollisionCheck();
+	}
+	
+	this.getYForCollisionCheck = function(){
+		return this.element.getYForCollisionCheck();
+	}
+	
 	this.getBottomX = function(){
 		return this.element.x+(this.element.width/2);
 	}

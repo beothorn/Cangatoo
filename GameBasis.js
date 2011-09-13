@@ -6,6 +6,8 @@ const RIGHT = 3;
 function Element(_x,_y){
 	this.x=_x;
 	this.y=_y;
+	this.xForCollisionCheck=_x;
+	this.yForCollisionCheck=_y;
 	this.width = 0;
 	this.height = 0;
 	
@@ -28,15 +30,25 @@ function Element(_x,_y){
 	this.getX = function(){
 		return this.x;
 	}
+	
 	this.getY = function(){
 		return this.y;
 	}
+	
 	this.getWidth = function(){
 		return this.width;
 	}
 	
 	this.getHeight = function(){
 		return this.height;
+	}
+	
+	this.getXForCollisionCheck = function(){
+		return this.xForCollisionCheck;
+	}
+	
+	this.getYForCollisionCheck = function(){
+		return this.yForCollisionCheck;
 	}
 	
 	this.limitXSpeed = function(){
@@ -179,8 +191,8 @@ function Element(_x,_y){
 		var otherRect = {x1:upSide.x1,y1:upSide.y1,x2:downSide.x2,y2:downSide.y2};
 		for(i=0;i<insideRectangleMovement.length;i++){
 			var insideRectangleMovementToCompare = insideRectangleMovement[i];
-			var newX1 = element.getX() - insideRectangleMovementToCompare.x;
-			var newY1 = element.getY() - insideRectangleMovementToCompare.y;
+			var newX1 = element.getXForCollisionCheck() - insideRectangleMovementToCompare.x;
+			var newY1 = element.getYForCollisionCheck() - insideRectangleMovementToCompare.y;
 			
 			if(insideRectangleMovementToCompare.side == RIGHT || insideRectangleMovementToCompare.side == LEFT){
 				if(insideRectangleMovementToCompare.x>0)
@@ -208,8 +220,8 @@ function Element(_x,_y){
 	}
 	
 	this.testSelfMovementLinesOnOther = function(otherElement){
-		var topLeftX = otherElement.getX();
-		var topLeftY = otherElement.getY();
+		var topLeftX = otherElement.getXForCollisionCheck();
+		var topLeftY = otherElement.getYForCollisionCheck();
 		var bottomLeftY = topLeftY+otherElement.getHeight();
 		var topRightX = topLeftX+otherElement.getWidth();
 		
@@ -218,8 +230,8 @@ function Element(_x,_y){
 		var otherElementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
 		var otherElementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
 		
-		var selfTopLeftX = this.x;
-		var selfTopLeftY = this.y;
+		var selfTopLeftX = this.getXForCollisionCheck();
+		var selfTopLeftY = this.getYForCollisionCheck();
 		var selfBottomLeftY = selfTopLeftY+this.height;
 		var selfTopRightX = selfTopLeftX+this.width;
 		
@@ -238,8 +250,8 @@ function Element(_x,_y){
 	}
 	
 	this.testOtherMovementLinesOnSelf = function(otherElement){
-		var topLeftX = this.x;
-		var topLeftY = this.y;
+		var topLeftX = this.getXForCollisionCheck();
+		var topLeftY = this.getYForCollisionCheck();
 		var bottomLeftY = topLeftY+this.height;
 		var topRightX = topLeftX+this.width;
 		
@@ -248,8 +260,8 @@ function Element(_x,_y){
 		var elementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
 		var elementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
 		
-		var otherTopLeftX = otherElement.getX();
-		var otherTopLeftY = otherElement.getY();
+		var otherTopLeftX = otherElement.getXForCollisionCheck();
+		var otherTopLeftY = otherElement.getYForCollisionCheck();
 		var otherBottomLeftY = otherTopLeftY+otherElement.getHeight();
 		var otherTopRightX = otherTopLeftX+otherElement.getWidth();
 		
@@ -271,8 +283,8 @@ function Element(_x,_y){
 		if(this == otherElement)
 			return;
 		
-		var selfRectangle =  {x1: this.x ,y1: this.y ,x2: this.x+this.width ,y2: this.y+this.height};
-		var otherRectangle = {x1: otherElement.getX() ,y1: otherElement.getY() ,x2: otherElement.getX()+otherElement.getWidth() ,y2: otherElement.getY()+otherElement.getHeight()};
+		var selfRectangle =  {x1: this.getXForCollisionCheck() ,y1: this.getYForCollisionCheck() ,x2: this.getXForCollisionCheck()+this.width ,y2: this.y+this.height};
+		var otherRectangle = {x1: otherElement.getXForCollisionCheck() ,y1: otherElement.getYForCollisionCheck() ,x2: otherElement.getXForCollisionCheck()+otherElement.getWidth() ,y2: otherElement.getYForCollisionCheck()+otherElement.getHeight()};
 		
 		if(!rectanglesIntersect(selfRectangle,otherRectangle)){
 			return;
@@ -356,10 +368,7 @@ function Element(_x,_y){
 		}
 	}
 	
-	this.step = function(delta){
-		var oldX = this.x;
-		var oldY = this.y;
-		
+	this.stepsThatChangePosition = function(delta){
 		this.applyFriction(delta);
 		
 		this.x += Math.round(this.getXSpeedForDelta(delta));
@@ -368,9 +377,19 @@ function Element(_x,_y){
 		this.ySpeed+=Math.round(this.getValueForDelta(this.gravity,delta));
 		
 		this.wrapOnBoundaries();
+	}
+	
+	this.step = function(delta){
+		var oldX = this.x;
+		var oldY = this.y;
+		
+		this.stepsThatChangePosition(delta);
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;
+		
+		this.xForCollisionCheck = this.x;
+		this.yForCollisionCheck = this.y;
 	}
 }
 
@@ -412,11 +431,14 @@ function Game(drawCanvas){
 	}
 
 	this.testCollisions = function(delta){
-		for(var i=0;i<(this.elements.length-1);i++){
+		var i;
+		var j;
+		for(i=0;i<this.elements.length-1;i++){
 			 var element1 =this.elements[i];
-			 for(var j=i+1;(j<this.elements.length);j++){
+			 for(j=i+1;j<this.elements.length;j++){
 			 	 var element2 =this.elements[j];
 				 element1.testCollisionWith(element2,delta);
+				 element2.testCollisionWith(element1,delta);
 			 }
 		 }		
 	}

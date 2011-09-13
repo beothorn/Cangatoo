@@ -2,6 +2,7 @@ window.onload = init;
 
 function Output(){
 	this.write = function(text){
+		return;
 		if(this.textArea==null)
 			this.textArea = document.getElementById('output');
 		this.textArea.innerHTML += text+"\n";  
@@ -52,9 +53,9 @@ function init(){
 	game = new Game(document.getElementById('canvas'));
 	var mainCharacter = new MainCharacter();
 	game.addElement(mainCharacter);
-	game.addElement(new Box(140,220,32,32));
+	//game.addElement(new Box(140,220,32,32));
 	game.addElement(new Box(300,200,32,32));
-	game.addElement(new Box(200,100,32,32));
+	//game.addElement(new Box(200,100,32,32));
 	startGameLoop();
 }
 
