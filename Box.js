@@ -16,7 +16,7 @@ function Box(_x,_y,_width,_height){
 	this.element.setMaxXSpeed(500);
 	this.element.setMaxYSpeed(1000);
 	
-	this.element.xAccelerate(-3);//BUG Should NOT ROUND
+	this.element.xAccelerate(-30);//BUG Should NOT ROUND
 	
 	//this.element.setXFriction(500);
 
