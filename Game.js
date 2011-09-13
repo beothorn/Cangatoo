@@ -2,7 +2,6 @@ window.onload = init;
 
 function Output(){
 	this.write = function(text){
-		return;
 		if(this.textArea==null)
 			this.textArea = document.getElementById('output');
 		this.textArea.innerHTML += text+"\n";  

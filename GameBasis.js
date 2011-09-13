@@ -124,7 +124,7 @@ function Element(_x,_y){
 				if(intersectionLeft != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionLeft.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionLeft.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,side:LEFT});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:RIGHT});//movement lines on left side of other means right side 
 				}
 			}
 			
@@ -133,7 +133,7 @@ function Element(_x,_y){
 				if(intersectionRight != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionRight.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionRight.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,side:RIGHT});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:LEFT});//movement lines on right side of other means left side
 				}
 			}
 			
@@ -142,7 +142,7 @@ function Element(_x,_y){
 				if(intersectionUp != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionUp.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionUp.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,side:UP});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:DOWN});//movement lines on up side of other means down side
 				}
 			}
 			
@@ -151,7 +151,7 @@ function Element(_x,_y){
 				if(intersectionDown != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionDown.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionDown.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,side:DOWN});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:UP});//movement lines on down side of other means up side
 				}
 			}
 		}
@@ -266,11 +266,32 @@ function Element(_x,_y){
 		
 		var moveThatResolvesCollision = this.testSelfMovementLinesOnOther(otherElement);
 		if(moveThatResolvesCollision!=null){
+			
+			if(moveThatResolvesCollision.side == UP)
+				output.write("UP");
+			if(moveThatResolvesCollision.side == DOWN)
+				output.write("DOWN");
+			if(moveThatResolvesCollision.side == LEFT)
+				output.write("LEFT");
+			if(moveThatResolvesCollision.side == RIGHT)
+				output.write("RIGHT");
+			
 			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x,moveThatResolvesCollision.y,moveThatResolvesCollision.side);
 			return;
 		}
 		moveThatResolvesCollision = this.testOtherMovementLinesOnSelf(otherElement);
 		if(moveThatResolvesCollision!=null){
+			
+			if(moveThatResolvesCollision.side == UP)
+				output.write("DOWN");
+			if(moveThatResolvesCollision.side == DOWN)
+				output.write("UP");
+			if(moveThatResolvesCollision.side == LEFT)
+				output.write("RIGHT");
+			if(moveThatResolvesCollision.side == RIGHT)
+				output.write("LEFT");
+				
+			
 			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x*-1,moveThatResolvesCollision.y*-1,moveThatResolvesCollision.side);
 			return;
 		}		
