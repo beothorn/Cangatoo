@@ -116,7 +116,7 @@ function Element(_x,_y){
 			if(insideX<0)
 				this.x+=1;
 			
-			this.x -= Math.round(insideX * this.elasticity);
+			this.x -= insideX * this.elasticity;
 			this.y += insideY;
 			this.xSpeed = this.xSpeed * -1 * this.elasticity;
 		}else{
@@ -126,7 +126,7 @@ function Element(_x,_y){
 				this.y+=1;
 			
 			this.x += insideX;
-			this.y -= Math.round(insideY * this.elasticity);
+			this.y -= insideY * this.elasticity;
 			this.ySpeed = this.ySpeed * -1 * this.elasticity;
 		}
 	}
@@ -148,8 +148,8 @@ function Element(_x,_y){
 			if(speedX>=0){
 				intersectionLeft = lineIntersect(movementLines[i],leftSide);
 				if(intersectionLeft != null){
-					var insideX = Math.round(movementLines[i].x1 - intersectionLeft.x);
-					var insideY = Math.round(movementLines[i].y1 - intersectionLeft.y);
+					var insideX = movementLines[i].x1 - intersectionLeft.x;
+					var insideY = movementLines[i].y1 - intersectionLeft.y;
 					insideRectangleMovement.push({x:insideX,y:insideY,side:RIGHT});//movement lines on left side of other means right side 
 				}
 			}
@@ -157,8 +157,8 @@ function Element(_x,_y){
 			if(speedX<=0){
 				intersectionRight = lineIntersect(movementLines[i],rightSide);
 				if(intersectionRight != null){
-					var insideX = Math.round(movementLines[i].x1 - intersectionRight.x);
-					var insideY = Math.round(movementLines[i].y1 - intersectionRight.y);
+					var insideX = movementLines[i].x1 - intersectionRight.x;
+					var insideY = movementLines[i].y1 - intersectionRight.y;
 					insideRectangleMovement.push({x:insideX,y:insideY,side:LEFT});//movement lines on right side of other means left side
 				}
 			}
@@ -166,8 +166,8 @@ function Element(_x,_y){
 			if(speedY>=0){
 				intersectionUp = lineIntersect(movementLines[i],upSide);
 				if(intersectionUp != null){
-					var insideX = Math.round(movementLines[i].x1 - intersectionUp.x);
-					var insideY = Math.round(movementLines[i].y1 - intersectionUp.y);
+					var insideX = movementLines[i].x1 - intersectionUp.x;
+					var insideY = movementLines[i].y1 - intersectionUp.y;
 					insideRectangleMovement.push({x:insideX,y:insideY,side:DOWN});//movement lines on up side of other means down side
 				}
 			}
@@ -175,8 +175,8 @@ function Element(_x,_y){
 			if(speedY<=0){
 				intersectionDown = lineIntersect(movementLines[i],downSide);
 				if(intersectionDown != null){
-					var insideX = Math.round(movementLines[i].x1 - intersectionDown.x);
-					var insideY = Math.round(movementLines[i].y1 - intersectionDown.y);
+					var insideX = movementLines[i].x1 - intersectionDown.x;
+					var insideY = movementLines[i].y1 - intersectionDown.y;
 					insideRectangleMovement.push({x:insideX,y:insideY,side:UP});//movement lines on down side of other means up side
 				}
 			}
@@ -235,8 +235,8 @@ function Element(_x,_y){
 		var selfBottomLeftY = selfTopLeftY+this.height;
 		var selfTopRightX = selfTopLeftX+this.width;
 		
-		var roundSpeedX = Math.round(this.xLastDelta);
-		var roundSpeedY = Math.round(this.yLastDelta);
+		var roundSpeedX = this.xLastDelta;
+		var roundSpeedY = this.yLastDelta;
 		
 		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selfTopLeftY    ,x2: selfTopLeftX-roundSpeedX   ,y2: selfTopLeftY-roundSpeedY   };
 		var topRightMovement   = {x1: selfTopRightX ,y1: selfTopLeftY    ,x2: selfTopRightX-roundSpeedX  ,y2: selfTopLeftY-roundSpeedY   };
@@ -265,8 +265,8 @@ function Element(_x,_y){
 		var otherBottomLeftY = otherTopLeftY+otherElement.getHeight();
 		var otherTopRightX = otherTopLeftX+otherElement.getWidth();
 		
-		var roundSpeedX = Math.round(this.xLastDelta) *-1;
-		var roundSpeedY = Math.round(this.yLastDelta) *-1;
+		var roundSpeedX = this.xLastDelta *-1;
+		var roundSpeedY = this.yLastDelta *-1;
 		
 		var topLeftMovement    = {x1: otherTopLeftX  ,y1: otherTopLeftY    ,x2: otherTopLeftX-roundSpeedX   ,y2: otherTopLeftY-roundSpeedY   };
 		var topRightMovement   = {x1: otherTopRightX ,y1: otherTopLeftY    ,x2: otherTopRightX-roundSpeedX  ,y2: otherTopLeftY-roundSpeedY   };
@@ -371,10 +371,10 @@ function Element(_x,_y){
 	this.stepsThatChangePosition = function(delta){
 		this.applyFriction(delta);
 		
-		this.x += Math.round(this.getXSpeedForDelta(delta));
-		this.y += Math.round(this.getYSpeedForDelta(delta));
+		this.x += this.getXSpeedForDelta(delta);
+		this.y += this.getYSpeedForDelta(delta);
 		
-		this.ySpeed+=Math.round(this.getValueForDelta(this.gravity,delta));
+		this.ySpeed+=this.getValueForDelta(this.gravity,delta);
 		
 		this.wrapOnBoundaries();
 	}
