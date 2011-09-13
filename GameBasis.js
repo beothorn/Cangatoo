@@ -1,3 +1,8 @@
+const UP = 0;
+const DOWN = 1;
+const LEFT = 2;
+const RIGHT = 3;
+
 function Element(_x,_y){
 	this.x=_x;
 	this.y=_y;
@@ -72,7 +77,9 @@ function Element(_x,_y){
 		return this.getValueForDelta(this.ySpeed,delta);
 	}
 	
-	this.moveToIntersectionPointAndBounce = function(insideX,insideY,bounceHorizontally){
+	this.moveToIntersectionPointAndBounce = function(insideX,insideY,side){
+		
+		var bounceHorizontally = side == LEFT || side == RIGHT;
 		
 		this.x -= insideX;
 		this.y -= insideY;
@@ -117,7 +124,7 @@ function Element(_x,_y){
 				if(intersectionLeft != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionLeft.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionLeft.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:LEFT});
 				}
 			}
 			
@@ -126,7 +133,7 @@ function Element(_x,_y){
 				if(intersectionRight != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionRight.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionRight.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:RIGHT});
 				}
 			}
 			
@@ -135,7 +142,7 @@ function Element(_x,_y){
 				if(intersectionUp != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionUp.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionUp.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:UP});
 				}
 			}
 			
@@ -144,7 +151,7 @@ function Element(_x,_y){
 				if(intersectionDown != null){
 					var insideX = Math.round(movementLines[i].x1 - intersectionDown.x);
 					var insideY = Math.round(movementLines[i].y1 - intersectionDown.y);
-					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
+					insideRectangleMovement.push({x:insideX,y:insideY,side:DOWN});
 				}
 			}
 		}
@@ -161,7 +168,7 @@ function Element(_x,_y){
 			var newX1 = element.x - insideRectangleMovementToCompare.x;
 			var newY1 = element.y - insideRectangleMovementToCompare.y;
 			
-			if(insideRectangleMovementToCompare.bounceHor){
+			if(insideRectangleMovementToCompare.side == RIGHT || insideRectangleMovementToCompare.side == LEFT){
 				if(insideRectangleMovementToCompare.x>0)
 					newX1-=1;
 				if(insideRectangleMovementToCompare.x<0)
@@ -259,12 +266,12 @@ function Element(_x,_y){
 		
 		var moveThatResolvesCollision = this.testSelfMovementLinesOnOther(otherElement);
 		if(moveThatResolvesCollision!=null){
-			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x,moveThatResolvesCollision.y,moveThatResolvesCollision.bounceHor);
+			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x,moveThatResolvesCollision.y,moveThatResolvesCollision.side);
 			return;
 		}
 		moveThatResolvesCollision = this.testOtherMovementLinesOnSelf(otherElement);
 		if(moveThatResolvesCollision!=null){
-			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x*-1,moveThatResolvesCollision.y*-1,moveThatResolvesCollision.bounceHor);
+			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x*-1,moveThatResolvesCollision.y*-1,moveThatResolvesCollision.side);
 			return;
 		}		
 	}
