@@ -124,7 +124,7 @@ function Element(_x,_y){
 		return true;
 	}
 	
-	this.getInsideLineFor = function(movementLines,upSide,downSide,leftSide,rightSide,speedX,speedY){
+	this.getMoveThatResolvesCollision = function(element,movementLines,upSide,downSide,leftSide,rightSide,speedX,speedY){
 		var insideRectangleMovement = new Array();
 		var i; 
 		for(i=0;i<4;i++){
@@ -141,8 +141,8 @@ function Element(_x,_y){
 			if(speedX>=0){
 				intersectionLeft = lineIntersect(movementLines[i],leftSide);
 				if(intersectionLeft != null){
-					var insideX = movementLines[i].x1 - intersectionLeft.x;
-					var insideY = movementLines[i].y1 - intersectionLeft.y;
+					var insideX = Math.round(movementLines[i].x1 - intersectionLeft.x);
+					var insideY = Math.round(movementLines[i].y1 - intersectionLeft.y);
 					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
 				}
 			}
@@ -150,8 +150,8 @@ function Element(_x,_y){
 			if(speedX<=0){
 				intersectionRight = lineIntersect(movementLines[i],rightSide);
 				if(intersectionRight != null){
-					var insideX = movementLines[i].x1 - intersectionRight.x;
-					var insideY = movementLines[i].y1 - intersectionRight.y;
+					var insideX = Math.round(movementLines[i].x1 - intersectionRight.x);
+					var insideY = Math.round(movementLines[i].y1 - intersectionRight.y);
 					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:true});
 				}
 			}
@@ -159,8 +159,8 @@ function Element(_x,_y){
 			if(speedY>=0){
 				intersectionUp = lineIntersect(movementLines[i],upSide);
 				if(intersectionUp != null){
-					var insideX = movementLines[i].x1 - intersectionUp.x;
-					var insideY = movementLines[i].y1 - intersectionUp.y;
+					var insideX = Math.round(movementLines[i].x1 - intersectionUp.x);
+					var insideY = Math.round(movementLines[i].y1 - intersectionUp.y);
 					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
 				}
 			}
@@ -168,29 +168,43 @@ function Element(_x,_y){
 			if(speedY<=0){
 				intersectionDown = lineIntersect(movementLines[i],downSide);
 				if(intersectionDown != null){
-					var insideX = movementLines[i].x1 - intersectionDown.x;
-					var insideY = movementLines[i].y1 - intersectionDown.y;
+					var insideX = Math.round(movementLines[i].x1 - intersectionDown.x);
+					var insideY = Math.round(movementLines[i].y1 - intersectionDown.y);
 					insideRectangleMovement.push({x:insideX,y:insideY,bounceHor:false});
 				}
 			}
 		}
 		
-		var biggestMove = null;
-		var biggestDistance = 0;
+		var otherRect = {x1:upSide.x1,y1:upSide.y1,x2:downSide.x2,y2:downSide.y2};
+		
 		for(i=0;i<insideRectangleMovement.length;i++){
 			var insideRectangleMovementToCompare = insideRectangleMovement[i];
-			var distance = Math.abs(insideRectangleMovementToCompare.x) + Math.abs(insideRectangleMovementToCompare.y);
-			if(biggestMove != null){
-				if(distance>biggestDistance){
-					biggestMove = insideRectangleMovementToCompare;
-					biggestDistance = distance;
-				}
+			var newX1 = element.x - insideRectangleMovementToCompare.x;
+			var newY1 = element.y - insideRectangleMovementToCompare.y;
+			
+			if(insideRectangleMovementToCompare.bounceHor){
+				if(insideRectangleMovementToCompare.x>0)
+					newX1-=1;
+				if(insideRectangleMovementToCompare.x<0)
+					newX1+=1;
 			}else{
-				biggestMove = insideRectangleMovementToCompare;
-				biggestDistance = distance;
+				if(insideRectangleMovementToCompare.y>0)
+					newY1-=1;
+				if(insideRectangleMovementToCompare.y<0)
+					newY1+=1;
+			}
+			
+			var newX2 = newX1 + element.width;
+			var newY2 = newY1 + element.height;
+			
+			var newRect = {x1:newX1,y1:newY1,x2:newX2,y2:newY2};
+			
+			if(!rectanglesIntersect(newRect,otherRect)){
+				return insideRectangleMovementToCompare;
 			}
 		}
-		return biggestMove;
+		
+		return null;
 	}
 	
 	this.testSelfMovementLinesOnOther = function(otherElement,delta){
@@ -219,8 +233,8 @@ function Element(_x,_y){
 		
 		var movementLines = [topLeftMovement,topRightMovement,bottomLeftMovement,bottomRightMovement];
 		
-		var biggestMove = this.getInsideLineFor(movementLines,otherElementUpSide,otherElementDownSide,otherElementLeftSide,otherElementRightSide,this.xSpeed,this.ySpeed);
-		return biggestMove;
+		var moveThatResolvesCollision = this.getMoveThatResolvesCollision(this,movementLines,otherElementUpSide,otherElementDownSide,otherElementLeftSide,otherElementRightSide,this.xSpeed,this.ySpeed);
+		return moveThatResolvesCollision;
 	}
 	
 	this.testOtherMovementLinesOnSelf = function(otherElement,delta){
@@ -249,67 +263,31 @@ function Element(_x,_y){
 		
 		var movementLines = [topLeftMovement,topRightMovement,bottomLeftMovement,bottomRightMovement];
 		
-		var biggestMove = this.getInsideLineFor(movementLines,elementUpSide,elementDownSide,elementLeftSide,elementRightSide,this.xSpeed*-1,this.ySpeed*-1);
-		return biggestMove;
+		var moveThatResolvesCollision = this.getMoveThatResolvesCollision(otherElement,movementLines,elementUpSide,elementDownSide,elementLeftSide,elementRightSide,this.xSpeed*-1,this.ySpeed*-1);
+		return moveThatResolvesCollision;
 	}
 	
 	this.resolveCollisionWith = function(otherElement,delta){
 		if(this == otherElement)
 			return;
 		
-		//DEBUG---------------------------------------------------------------------
-		var topLeftX = otherElement.x;
-		var topLeftY = otherElement.y;
-		var bottomLeftY = topLeftY+otherElement.height;
-		var topRightX = topLeftX+otherElement.width;
-		
-		var otherElementLeftSide  = {x1: topLeftX  ,y1: topLeftY    ,x2: topLeftX   ,y2: bottomLeftY};
-		var otherElementRightSide = {x1: topRightX ,y1: topLeftY    ,x2: topRightX  ,y2: bottomLeftY};
-		var otherElementUpSide    = {x1: topLeftX  ,y1: topLeftY    ,x2: topRightX  ,y2: topLeftY   };
-		var otherElementDownSide  = {x1: topLeftX  ,y1: bottomLeftY ,x2: topRightX  ,y2: bottomLeftY};
-		
-		var selfTopLeftX = this.x;
-		var selfTopLeftY = this.y;
-		var selfBottomLeftY = selfTopLeftY+this.height;
-		var selfTopRightX = selfTopLeftX+this.width;
-		
-		var roundSpeedX = Math.round(this.xLastDelta);
-		var roundSpeedY = Math.round(this.yLastDelta);
-		
-		var topLeftMovement    = {x1: selfTopLeftX  ,y1: selfTopLeftY    ,x2: selfTopLeftX-roundSpeedX   ,y2: selfTopLeftY-roundSpeedY   };
-		var topRightMovement   = {x1: selfTopRightX ,y1: selfTopLeftY    ,x2: selfTopRightX-roundSpeedX  ,y2: selfTopLeftY-roundSpeedY   };
-		var bottomLeftMovement = {x1: selfTopLeftX  ,y1: selfBottomLeftY ,x2: selfTopLeftX-roundSpeedX   ,y2: selfBottomLeftY-roundSpeedY};
-		var bottomRightMovement= {x1: selfTopRightX ,y1: selfBottomLeftY ,x2: selfTopRightX-roundSpeedX  ,y2: selfBottomLeftY-roundSpeedY};
-		//--------------------------------------------------------------------------
-		
-		var biggestMove = this.testSelfMovementLinesOnOther(otherElement,delta);
-		if(biggestMove!=null){
-			this.moveToIntersectionPointAndBounce(biggestMove.x,biggestMove.y,biggestMove.bounceHor);
-			return;
-		}
-		biggestMove = this.testOtherMovementLinesOnSelf(otherElement,delta);
-		if(biggestMove!=null){
-			this.moveToIntersectionPointAndBounce(biggestMove.x*-1,biggestMove.y*-1,biggestMove.bounceHor);
-			return;
-		}
-		
 		var selfRectangle =  {x1: this.x ,y1: this.y ,x2: this.x+this.width ,y2: this.y+this.height};
 		var otherRectangle = {x1: otherElement.x ,y1: otherElement.y ,x2: otherElement.x+otherElement.width ,y2: otherElement.y+otherElement.height};
 		
-		output.write("#####################################################################################################################");
-		output.write("var otherElementLeftSide  = {x1: "+otherElementLeftSide.x1+"  ,y1: "+otherElementLeftSide.y1+"    ,x2: "+otherElementLeftSide.x2+"   ,y2: "+otherElementLeftSide.y2+"};");
-		output.write("var otherElementRightSide = {x1: "+otherElementRightSide.x1+" ,y1: "+otherElementRightSide.y1+"    ,x2: "+otherElementRightSide.x2+"  ,y2: "+otherElementRightSide.y2+"}");
-		output.write("var otherElementUpSide    = {x1: "+otherElementUpSide.x1+" ,y1: "+otherElementUpSide.y1+"    ,x2: "+otherElementUpSide.x2+"  ,y2: "+otherElementUpSide.y2+"}");
-		output.write("var otherElementDownSide  = {x1: "+otherElementDownSide.x1+" ,y1: "+otherElementDownSide.y1+"    ,x2: "+otherElementDownSide.x2+"  ,y2: "+otherElementDownSide.y2+"}");
-		output.write("");
-		output.write("var topLeftMovement    = {x1: "+topLeftMovement.x1+" ,y1: "+topLeftMovement.y1+"    ,x2: "+topLeftMovement.x2+"  ,y2: "+topLeftMovement.y2+"}");
-		output.write("var topRightMovement   = {x1: "+topRightMovement.x1+" ,y1: "+topRightMovement.y1+"    ,x2: "+topRightMovement.x2+"  ,y2: "+topRightMovement.y2+"}");
-		output.write("var bottomLeftMovement = {x1: "+bottomLeftMovement.x1+" ,y1: "+bottomLeftMovement.y1+"    ,x2: "+bottomLeftMovement.x2+"  ,y2: "+bottomLeftMovement.y2+"}");
-		output.write("var bottomRightMovement= {x1: "+bottomRightMovement.x1+" ,y1: "+bottomRightMovement.y1+"    ,x2: "+bottomRightMovement.x2+"  ,y2: "+bottomRightMovement.y2+"}");
-		output.write("#####################################################################################################################");
-		if(rectanglesIntersect(selfRectangle,otherRectangle)){
-			clearInterval(intervalID);
+		if(!rectanglesIntersect(selfRectangle,otherRectangle)){
+			return;
 		}
+		
+		var moveThatResolvesCollision = this.testSelfMovementLinesOnOther(otherElement,delta);
+		if(moveThatResolvesCollision!=null){
+			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x,moveThatResolvesCollision.y,moveThatResolvesCollision.bounceHor);
+			return;
+		}
+		moveThatResolvesCollision = this.testOtherMovementLinesOnSelf(otherElement,delta);
+		if(moveThatResolvesCollision!=null){
+			this.moveToIntersectionPointAndBounce(moveThatResolvesCollision.x*-1,moveThatResolvesCollision.y*-1,moveThatResolvesCollision.bounceHor);
+			return;
+		}		
 	}
 	
 	this.applyFriction = function(delta){
