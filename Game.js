@@ -54,7 +54,8 @@ function init(){
 	var mainCharacter = new MainCharacter();
 	game.addElement(mainCharacter);
 	game.addElement(new Box(140,220,32,32));
-	//game.addElement(new Box(340,220,32,32));
+	game.addElement(new Box(300,200,32,32));
+	game.addElement(new Box(200,100,32,32));
 	startGameLoop();
 }
 

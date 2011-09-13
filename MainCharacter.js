@@ -74,9 +74,6 @@ function MainCharacter(){
 			if(this.canJump(game))
 				this.element.yAccelerate(-this.yAcceleration);
 		}
-		//if(globalGameState.down){
-		//		this.element.yAccelerate(this.yAcceleration);
-		//}
 		
 		this.element.step(delta);
 	};
@@ -86,6 +83,9 @@ function MainCharacter(){
 		context.strokeRect(this.element.x, this.element.y, this.element.width, this.element.height);
 		context.strokeRect(this.element.leftLimit, this.element.topLimit, this.element.rightLimit-this.element.leftLimit, this.element.bottomLimit-this.element.topLimit);
 		
+		
+		//DEBUG - Show movementLines
+		/**
 		var selfTopLeftX = Math.floor(this.element.x);
 		var selfTopLeftY = Math.floor(this.element.y);
 		var selfBottomLeftY = selfTopLeftY+this.element.height;
@@ -123,5 +123,6 @@ function MainCharacter(){
     context.lineTo(bottomRightMovement.x2,bottomRightMovement.y2);
     context.stroke();
     context.closePath();
+    **/
 	};
 }
