@@ -16,10 +16,11 @@ function addLine(testName,result,color){
 }
 
 function runTestsFor(testClass){
-	addLine(testClass.constructor.name + " tests","Result","white");
+	var testClassName = testClass.constructor.name;
+	addLine(testClassName + " tests","Result","white");
 	for(var property in testClass){
 		if(typeof(eval("testClass."+property)) == 'function' && property.indexOf("test")==0){
-			currentMethod = property;
+			currentMethod = testClassName+">>"+property;
 			try
 			{
 				eval("testClass."+property+"()");
