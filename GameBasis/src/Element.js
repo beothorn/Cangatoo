@@ -19,7 +19,7 @@ function Element(_x,_y){
 	this.yMaxSpeed = 99999;
 	this.xFriction = 0;
 	this.yFriction = 0;
-	this.gravity = 0;
+	this.onStepListeners  = new Array();
 	this.elasticity = 0;//1;
 	
 	this.leftLimit = -99999;
@@ -101,6 +101,10 @@ function Element(_x,_y){
 	
 	this.getYSpeedForDelta = function(delta){
 		return this.getValueForDelta(this.ySpeed,delta);
+	}
+	
+	this.addOnStepListener = function(onStepListener){
+		this.onStepListeners.push(onStepListener);
 	}
 	
 	this.moveToIntersectionPointAndBounce = function(insideX,insideY,side){
@@ -376,7 +380,10 @@ function Element(_x,_y){
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		this.ySpeed+=this.getValueForDelta(this.gravity,delta);
+		for (var i in this.onStepListeners)
+		{
+			this.onStepListeners[i].onStep(this,delta);
+		}
 		
 		this.wrapOnBoundaries();
 	}

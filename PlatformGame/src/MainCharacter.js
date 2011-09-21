@@ -2,6 +2,9 @@ function MainCharacter(){
 	
 	this.element = new Element(50,50);
 	
+	this.gravity = new Gravity(800);
+	this.element.addOnStepListener(this.gravity);
+	
 	this.element.leftLimit = 0;
 	this.element.topLimit = 0;
 	this.element.rightLimit = 1000;
@@ -61,9 +64,9 @@ function MainCharacter(){
 	
 	this.step = function(delta, globalGameState, game){
 		if(this.canJump(game))
-			this.element.gravity = 0;
+			this.gravity.setGravity(0);
 		else
-			this.element.gravity = 800;
+			this.gravity.setGravity(800);
 		
 		if(globalGameState.left){
 			if(this.element.xSpeed>0)
