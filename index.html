@@ -18,6 +18,7 @@
 		<canvas id="canvas" width="1000" height="300">
 			<p>Your browser does not support the canvas element.</p>
 		</canvas>
+		<textarea id="output" rows="10" cols="10"></textarea>
 		<br>
 		<input type="button" id="up" value="X"    onmouseover="document.onkeydown({keyCode: up   });" onmouseout="document.onkeyup({keyCode: up   });" />
 		<input type="button" id="up" value="^"    onmouseover="document.onkeydown({keyCode: up   });" onmouseout="document.onkeyup({keyCode: up   });" />
@@ -27,6 +28,15 @@
 		<input type="button" id="down" value="V"  onmouseover="document.onkeydown({keyCode: down });" onmouseout="document.onkeyup({keyCode: down });" />
 		<input type="button" id="right" value=">" onmouseover="document.onkeydown({keyCode: right});" onmouseout="document.onkeyup({keyCode: right});" />
 		<br>
-		<textarea id="output" rows="40" cols="150"></textarea>
+		<br>
+		<select id="element" onchange="document.getElementById('codeEditor').innerHTML = eval('new '+document.getElementById('element').value+'(0,0).'+document.getElementById('event').value).toString()">
+			<option>MainCharacter</option>
+			<option>Box</option>
+		</select>
+		<select id="event">
+			<option>onStep</option>
+		</select>
+		<br>
+		<textarea id="codeEditor" rows="10" cols="150" ></textarea>
 	</body>
 </html>
