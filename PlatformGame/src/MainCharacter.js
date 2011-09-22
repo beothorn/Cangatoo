@@ -2,8 +2,39 @@ function MainCharacter(){
 	
 	this.element = new Element(50,50);
 	
-	this.gravity = new Gravity(800);
-	this.element.addOnStepListener(this.gravity);
+	this.element.setOnStepListener(this);
+	
+	this.onStep =	function(element,delta,globalGameState,game){
+		var xAcceleration = 100;//PixelPerSecond
+		var yAcceleration = 450;
+		
+		var firstPoint = game.isThereAnObjectOnPoint(element.x+1,element.y+element.height+1);
+		var secondPoint = game.isThereAnObjectOnPoint(element.x-1+element.width,element.y+element.height+1);
+		var onGround = element.y+element.height == element.bottomLimit;
+		var canJump = firstPoint || secondPoint || onGround;
+		
+		var gravity = 800;		
+		if(!canJump)
+			applyGravity(element,gravity,delta);
+		
+		if(globalGameState.left){
+			if(element.xSpeed>0)
+				element.xSpeed = 0;
+			element.xAccelerate(-xAcceleration);
+		}
+		if(globalGameState.right){
+			if(element.xSpeed<0)
+				element.xSpeed = 0;
+			element.xAccelerate(xAcceleration);
+		}
+		if(!globalGameState.left && !globalGameState.right && canJump){
+			element.xSpeed = 0;
+		}
+		if(globalGameState.up){
+			if(canJump)
+				element.yAccelerate(-yAcceleration);
+		}
+	}
 	
 	this.element.leftLimit = 0;
 	this.element.topLimit = 0;
@@ -17,9 +48,6 @@ function MainCharacter(){
 	this.element.setMaxYSpeed(1000);
 	
 	this.element.setXFriction(500);
-	
-	this.xAcceleration = 100;//PixelPerSecond
-	this.yAcceleration = 450;
 
 	this.getX = function(){
 		return this.element.x;
@@ -50,43 +78,13 @@ function MainCharacter(){
 	this.getBottomY = function(){
 		return this.element.y + this.element.height;
 	}
-	
-	this.canJump = function(game){
-		var firstPoint = game.isThereAnObjectOnPoint(this.element.x+1,this.element.y+this.element.height+1);
-		var secondPoint = game.isThereAnObjectOnPoint(this.element.x-1+this.element.width,this.element.y+this.element.height+1);
-		var onGround = this.element.y+this.element.height == this.element.bottomLimit;
-		return firstPoint || secondPoint || onGround;
-	}
 
 	this.testCollisionWith = function(otherElement,delta){
 		this.element.resolveCollisionWith(otherElement,delta);
 	}
 	
 	this.step = function(delta, globalGameState, game){
-		if(this.canJump(game))
-			this.gravity.setGravity(0);
-		else
-			this.gravity.setGravity(800);
-		
-		if(globalGameState.left){
-			if(this.element.xSpeed>0)
-				this.element.xSpeed = 0;
-			this.element.xAccelerate(-this.xAcceleration);
-		}
-		if(globalGameState.right){
-			if(this.element.xSpeed<0)
-				this.element.xSpeed = 0;
-			this.element.xAccelerate(this.xAcceleration);
-		}
-		if(!globalGameState.left && !globalGameState.right && this.canJump(game)){
-			this.element.xSpeed = 0;
-		}
-		if(globalGameState.up){
-			if(this.canJump(game))
-				this.element.yAccelerate(-this.yAcceleration);
-		}
-		
-		this.element.step(delta);
+		this.element.step(delta,globalGameState,game);
 	};
 	
 	this.draw = function(context,delta){

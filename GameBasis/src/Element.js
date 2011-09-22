@@ -19,7 +19,7 @@ function Element(_x,_y){
 	this.yMaxSpeed = 99999;
 	this.xFriction = 0;
 	this.yFriction = 0;
-	this.onStepListeners  = new Array();
+	this.onStepListener;
 	this.elasticity = 0;//1;
 	
 	this.leftLimit = -99999;
@@ -103,8 +103,8 @@ function Element(_x,_y){
 		return this.getValueForDelta(this.ySpeed,delta);
 	}
 	
-	this.addOnStepListener = function(onStepListener){
-		this.onStepListeners.push(onStepListener);
+	this.setOnStepListener = function(onStepListener){
+		this.onStepListener = onStepListener;
 	}
 	
 	this.moveToIntersectionPointAndBounce = function(insideX,insideY,side){
@@ -374,25 +374,19 @@ function Element(_x,_y){
 		}
 	}
 	
-	this.stepsThatChangePosition = function(delta){
-		this.applyFriction(delta);
+	this.step = function(delta,globalGameState,game){
+		var oldX = this.x;
+		var oldY = this.y;
+		
+		if(this.onStepListener != null)
+			this.onStepListener.onStep(this,delta,globalGameState,game);
+		
+		this.applyFriction(delta);//Get this out
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		for (var i in this.onStepListeners)
-		{
-			this.onStepListeners[i].onStep(this,delta);
-		}
-		
-		this.wrapOnBoundaries();
-	}
-	
-	this.step = function(delta){
-		var oldX = this.x;
-		var oldY = this.y;
-		
-		this.stepsThatChangePosition(delta);
+		this.wrapOnBoundaries();//Get this out? add after step?
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;

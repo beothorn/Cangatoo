@@ -1,11 +1,3 @@
-function Gravity(gravity){
-	this._gravity = gravity;	
-	
-	this.setGravity = function(gravity){
-		this._gravity = gravity;
-	}
-	
-	this.onStep = function(element, delta){
-		element.yAccelerate((delta*this._gravity)/1000);
-	}
+function applyGravity(element,gravity,delta){
+	element.yAccelerate((delta*gravity)/1000);
 }
