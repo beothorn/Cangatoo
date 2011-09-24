@@ -52,10 +52,12 @@ var intervalID;
 function init(){
 	game = new Game(document.getElementById('canvas'));
 	var mainCharacter = new MainCharacter();
-	game.addElement(mainCharacter);
-	//game.addElement(new Box(140,220,32,32));
-	game.addElement(new Box(300,200,32,32));
-	//game.addElement(new Box(200,100,32,32));
+	game.addFactory(mainCharacter);
+	var boxFactory = new BoxFactory();
+	boxFactory.addElementAt(140,220);
+	boxFactory.addElementAt(300,200);
+	boxFactory.addElementAt(200,100);
+	game.addFactory(boxFactory);
 	startGameLoop();
 }
 

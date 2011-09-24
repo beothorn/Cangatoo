@@ -3,14 +3,14 @@ const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
-function Element(_factory,_x,_y){
-	this.x=_x;
-	this.y=_y;
-	this.factory = _factory;
-	this.xForCollisionCheck=_x;
-	this.yForCollisionCheck=_y;
-	this.width = 0;
-	this.height = 0;
+function Element(factory,x,y,width,height){
+	this.x=x;
+	this.y=y;
+	this.factory = factory;
+	this.xForCollisionCheck=x;
+	this.yForCollisionCheck=y;
+	this.width = width;
+	this.height = height;
 	
 	this.xSpeed = 0;
 	this.ySpeed = 0;
@@ -18,9 +18,6 @@ function Element(_factory,_x,_y){
 	this.yLastDelta = 0;
 	this.xMaxSpeed = 99999;
 	this.yMaxSpeed = 99999;
-	this.xFriction = 0;
-	this.yFriction = 0;
-	this.elasticity = 0;//1;
 	
 	this.getX = function(){
 		return this.x;
@@ -111,9 +108,7 @@ function Element(_factory,_x,_y){
 			if(insideX<0)
 				this.x+=1;
 			
-			this.x -= insideX * this.elasticity;
 			this.y += insideY;
-			this.xSpeed = this.xSpeed * -1 * this.elasticity;
 		}else{
 			if(insideY>0)
 				this.y-=1;
@@ -121,8 +116,6 @@ function Element(_factory,_x,_y){
 				this.y+=1;
 			
 			this.x += insideX;
-			this.y -= insideY * this.elasticity;
-			this.ySpeed = this.ySpeed * -1 * this.elasticity;
 		}
 	}
 	
@@ -323,37 +316,12 @@ function Element(_factory,_x,_y){
 		}		
 	}
 	
-	this.applyFriction = function(delta){
-		if(this.xSpeed>0){
-			this.xSpeed-=this.getValueForDelta(this.xFriction,delta);
-			if(this.xSpeed<0)
-				this.xSpeed=0;
-		}
-		if(this.xSpeed<0){
-			this.xSpeed+=this.getValueForDelta(this.xFriction,delta);
-			if(this.xSpeed>0)
-				this.xSpeed=0;
-		}
-		if(this.ySpeed>0){
-			this.ySpeed-=this.getValueForDelta(this.yFriction,delta);
-			if(this.ySpeed<0)
-				this.ySpeed=0;
-		}
-		if(this.ySpeed<0){
-			this.ySpeed+=this.getValueForDelta(this.yFriction,delta);
-			if(this.ySpeed>0)
-				this.ySpeed=0;
-		}
-	}
-	
 	this.step = function(delta,globalGameState,game){
 		var oldX = this.x;
 		var oldY = this.y;
 		
 		if(this.factory.onStep != null)
 			this.factory.onStep(this,delta,globalGameState,game);
-		
-		this.applyFriction(delta);//Get this out
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
