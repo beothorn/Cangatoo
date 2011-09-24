@@ -320,14 +320,12 @@ function Element(factory,x,y,width,height){
 		var oldX = this.x;
 		var oldY = this.y;
 		
-		if(this.factory.onStep != null)
-			this.factory.onStep(this,delta,globalGameState,game);
+		this.factory.onStep(this,delta,globalGameState,game);
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		if(this.factory.onAfterStep != null)
-			this.factory.onAfterStep(this,delta,globalGameState,game);
+		this.factory.onAfterStep(this,delta,globalGameState,game);
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;

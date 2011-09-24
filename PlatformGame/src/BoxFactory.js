@@ -66,4 +66,10 @@ function BoxFactory(){
 
 		bounceOnBoundaries(element,topLimit,bottomLimit,rightLimit,leftLimit)
 	}
+
+	this.onStep = function(element,delta,globalGameState,game){
+		/**
+		**/
+	}
+
 }

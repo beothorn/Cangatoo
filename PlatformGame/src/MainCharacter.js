@@ -87,4 +87,6 @@ function MainCharacter(){
 	this.onAfterStep = function(element,delta,globalGameState,game){
 		wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 	}
+
+
 }

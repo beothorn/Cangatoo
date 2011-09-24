@@ -54,10 +54,15 @@ function init(){
 	var mainCharacter = new MainCharacter();
 	game.addFactory(mainCharacter);
 	var boxFactory = new BoxFactory();
-	boxFactory.addElementAt(140,220);
-	boxFactory.addElementAt(300,200);
-	boxFactory.addElementAt(200,100);
+	//boxFactory.addElementAt(140,220);
+	//boxFactory.addElementAt(300,200);
+	//boxFactory.addElementAt(200,100);
 	game.addFactory(boxFactory);
+	
+	game.factoryTest = new ElementFactory(32,32);
+	game.factoryTest.addElementAt(140,220);
+	game.addFactory(game.factoryTest);
+	
 	startGameLoop();
 }
 
