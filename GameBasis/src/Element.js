@@ -3,9 +3,10 @@ const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
-function Element(_x,_y){
+function Element(_factory,_x,_y){
 	this.x=_x;
 	this.y=_y;
+	this.factory = _factory;
 	this.xForCollisionCheck=_x;
 	this.yForCollisionCheck=_y;
 	this.width = 0;
@@ -19,13 +20,7 @@ function Element(_x,_y){
 	this.yMaxSpeed = 99999;
 	this.xFriction = 0;
 	this.yFriction = 0;
-	this.onStepListener;
 	this.elasticity = 0;//1;
-	
-	this.leftLimit = -99999;
-	this.topLimit = -99999;
-	this.rightLimit = 99999;
-	this.bottomLimit = 99999;
 	
 	this.getX = function(){
 		return this.x;
@@ -102,11 +97,7 @@ function Element(_x,_y){
 	this.getYSpeedForDelta = function(delta){
 		return this.getValueForDelta(this.ySpeed,delta);
 	}
-	
-	this.setOnStepListener = function(onStepListener){
-		this.onStepListener = onStepListener;
-	}
-	
+
 	this.moveToIntersectionPointAndBounce = function(insideX,insideY,side){
 		
 		var bounceHorizontally = side == LEFT || side == RIGHT;
@@ -355,38 +346,20 @@ function Element(_x,_y){
 		}
 	}
 	
-	this.wrapOnBoundaries = function(){
-		if(this.x+this.width>this.rightLimit){
-			this.xSpeed = 0;
-			this.x = this.rightLimit - this.width;
-		}
-		if(this.x<this.leftLimit){
-			this.xSpeed = 0;
-			this.x = this.leftLimit;
-		}
-		if(this.y+this.height>this.bottomLimit){
-			this.ySpeed = 0;
-			this.y = this.bottomLimit - this.height;
-		}
-		if(this.y<this.topLimit){
-			this.ySpeed = 0;
-			this.y = this.topLimit;
-		}
-	}
-	
 	this.step = function(delta,globalGameState,game){
 		var oldX = this.x;
 		var oldY = this.y;
 		
-		if(this.onStepListener != null)
-			this.onStepListener.onStep(this,delta,globalGameState,game);
+		if(this.factory.onStep != null)
+			this.factory.onStep(this,delta,globalGameState,game);
 		
 		this.applyFriction(delta);//Get this out
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		this.wrapOnBoundaries();//Get this out? add after step?
+		if(this.factory.onAfterStep != null)
+			this.factory.onAfterStep(this,delta,globalGameState,game);
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;

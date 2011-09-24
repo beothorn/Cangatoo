@@ -1,11 +1,15 @@
 function Box(_x,_y,_width,_height){
 	
-	this.element = new Element(_x,_y);
-	
-	this.element.leftLimit = 0;
-	this.element.topLimit = 0;
-	this.element.rightLimit = 1000;
-	this.element.bottomLimit = 300;
+	this.onAfterStep = function(element,delta,globalGameState,game){
+		var leftLimit = 0;
+		var topLimit = 0;
+		var rightLimit = 1000;
+		var bottomLimit = 300;
+
+		bounceOnBoundaries(element,topLimit,bottomLimit,rightLimit,leftLimit)
+	}
+
+	this.element = new Element(this,_x,_y);
 	
 	this.element.width = _width;
 	this.element.height = _height;
@@ -41,7 +45,7 @@ function Box(_x,_y,_width,_height){
 	
 	this.testCollisionWith = function(otherElement,delta){
 		this.element.resolveCollisionWith(otherElement,delta);
-  }
+	}
 
 	this.step = function(delta, globalGameState, game){
 		this.element.step(delta,globalGameState,game);

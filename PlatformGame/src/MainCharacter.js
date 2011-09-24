@@ -1,16 +1,12 @@
-function MainCharacter(){
+	function MainCharacter(){
 	
-	this.element = new Element(50,50);
-	
-	this.element.setOnStepListener(this);
-	
-	this.onStep =	function(element,delta,globalGameState,game){
+	this.onStep = function(element,delta,globalGameState,game){
 		var xAcceleration = 100;//PixelPerSecond
 		var yAcceleration = 450;
 		
 		var firstPoint = game.isThereAnObjectOnPoint(element.x+1,element.y+element.height+1);
 		var secondPoint = game.isThereAnObjectOnPoint(element.x-1+element.width,element.y+element.height+1);
-		var onGround = element.y+element.height == element.bottomLimit;
+		var onGround = element.y+element.height == this.bottomLimit;
 		var canJump = firstPoint || secondPoint || onGround;
 		
 		var gravity = 800;		
@@ -35,11 +31,17 @@ function MainCharacter(){
 				element.yAccelerate(-yAcceleration);
 		}
 	}
-	
-	this.element.leftLimit = 0;
-	this.element.topLimit = 0;
-	this.element.rightLimit = 1000;
-	this.element.bottomLimit = 300;
+
+	this.leftLimit = 0;
+	this.topLimit = 0;
+	this.rightLimit = 1000;
+	this.bottomLimit = 300;
+
+	this.onAfterStep = function(element,delta,globalGameState,game){
+		wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+	}
+
+	this.element = new Element(this,50,50);
 	
 	this.element.width = 50;
 	this.element.height = 80;
@@ -90,7 +92,7 @@ function MainCharacter(){
 	this.draw = function(context,delta){
 		context.strokeStyle = "gray";
 		context.strokeRect(this.element.x, this.element.y, this.element.width, this.element.height);
-		context.strokeRect(this.element.leftLimit, this.element.topLimit, this.element.rightLimit-this.element.leftLimit, this.element.bottomLimit-this.element.topLimit);
+		context.strokeRect(this.leftLimit, this.topLimit, this.rightLimit-this.leftLimit, this.bottomLimit-this.topLimit);
 		
 		
 		//DEBUG - Show movementLines
