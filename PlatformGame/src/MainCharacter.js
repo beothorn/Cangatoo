@@ -2,6 +2,8 @@ function MainCharacter(){
 
 	this.elementArray = new Array();
 
+	this.factoryName = "MainCharacter";
+
 	this.leftLimit = 0;
 	this.topLimit = 0;
 	this.rightLimit = 1000;

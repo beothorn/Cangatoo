@@ -1,5 +1,8 @@
 function BoxFactory(){
 
+
+	this.factoryName = "Box";
+
 	this.elementArray = new Array();
 	this.width = 32;
 	this.height = 32;

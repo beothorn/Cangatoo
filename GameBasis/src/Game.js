@@ -5,6 +5,10 @@ function Game(drawCanvas){
 	this.canvas = drawCanvas;
 	this.context = this.canvas.getContext('2d');
 	
+	this.getFactories = function(){
+		return this.elementFactories;
+	}
+
 	this.addFactory = function(factory){
 		this.elementFactories.push(factory);
 	}

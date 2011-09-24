@@ -1,8 +1,9 @@
-function ElementFactory(width,height){
+function ElementFactory(factoryName,width,height){
 
 	this.elementArray = new Array();
 	this.width = width;
 	this.height = height;
+	this.factoryName = factoryName;
 
 	this.addElementAt = function(x,y){
 		var element = new Element(this,x,y,this.width,this.height);

@@ -6,6 +6,7 @@
 		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/GameUtils.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/ElementFactoriesEditor.js"></script>
 		
 		<script type="text/javascript" src="./PlatformGame/src/BoxFactory.js"></script>
 		<script type="text/javascript" src="./PlatformGame/src/MainCharacter.js"></script>
@@ -30,15 +31,9 @@
 		<input type="button" id="right" value=">" onmouseover="document.onkeydown({keyCode: right});" onmouseout="document.onkeyup({keyCode: right});" />
 		<br>
 		<br>
-		<select id="element" onchange="document.getElementById('codeEditor').innerHTML = eval('game.factoryTest.'+document.getElementById('event').value).toString()">
-			<option>game.factoryTest</option>
-			<option>Box</option>
+		<select id="elements" onchange="loadElementEvents();">
 		</select>
-		<select id="event" onchange="document.getElementById('codeEditor').innerHTML = eval('game.factoryTest.'+document.getElementById('event').value).toString()">
-			<option>onCreate</option>
-			<option>onDraw</option>
-			<option>onStep</option>
-			<option>onAfterStep</option>
+		<select id="events" onchange="fillCodeEditor();">
 		</select>
 		<br>
 		<textarea id="codeEditor" rows="10" cols="150" ></textarea>

@@ -47,10 +47,13 @@ document.onkeyup = function(event){
 
 var output = new Output();
 var game;
+var factoriesEditor;
 var intervalID;
 
 function init(){
 	game = new Game(document.getElementById('canvas'));
+	factoriesEditor = new ElementFactoriesEditor(game);
+
 	var mainCharacter = new MainCharacter();
 	game.addFactory(mainCharacter);
 	var boxFactory = new BoxFactory();
@@ -59,13 +62,49 @@ function init(){
 	//boxFactory.addElementAt(200,100);
 	game.addFactory(boxFactory);
 	
-	game.factoryTest = new ElementFactory(32,32);
+	game.factoryTest = new ElementFactory("TestBoxes",32,32);
 	game.factoryTest.addElementAt(140,220);
 	game.addFactory(game.factoryTest);
-	
+
+	fillElementsDropDown();
+	loadElementEvents();
+	fillCodeEditor()
+
 	startGameLoop();
 }
 
+function loadElementEvents(){
+	var factoriesDropDown = document.getElementById("elements");
+	//factoriesDropDown.options.remove(1);
+	var selectedFactory = factoriesDropDown.value;
+	var events = factoriesEditor.getEventsFor(selectedFactory);
+
+	var eventsDropDown = document.getElementById("events");
+	for(var i in events){
+		var option = document.createElement("option");
+		eventsDropDown.appendChild(option);
+		option.appendChild(document.createTextNode(events[i]));
+	}
+}
+
+function fillElementsDropDown(){
+	var factoriesDropDown = document.getElementById("elements");
+
+	var factoriesNames = factoriesEditor.getFactoriesNames();
+	for(var i in factoriesNames){
+		var option = document.createElement("option");
+		factoriesDropDown.appendChild(option);
+		option.appendChild(document.createTextNode(factoriesNames[i]));
+	}
+}
+
+function fillCodeEditor(){
+	var factoriesDropDown = document.getElementById("elements");
+	var eventsDropDown = document.getElementById("events");
+	var codeEditor = document.getElementById("codeEditor");
+	var factory = factoriesEditor.getFactoryByName(factoriesDropDown.value);
+	codeEditor.innerHTML = eval('factory.'+eventsDropDown.value).toString();
+}
 
 function startGameLoop(){
 	var FPS = 30;
