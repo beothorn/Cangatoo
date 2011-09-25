@@ -57,17 +57,8 @@ function init(){
 	game = new Game(document.getElementById('canvas'));
 	factoriesEditor = new ElementFactoriesEditor(game);
 
-	var mainCharacter = new MainCharacter();
-	game.addFactory(mainCharacter);
-	var boxFactory = new BoxFactory();
-	//boxFactory.addElementAt(140,220);
-	//boxFactory.addElementAt(300,200);
-	//boxFactory.addElementAt(200,100);
-	game.addFactory(boxFactory);
-	
-	game.factoryTest = new ElementFactory("TestBoxes",32,32);
-	game.factoryTest.addElementAt(140,220);
-	game.addFactory(game.factoryTest);
+	setupFactory_MainCharacter(game);
+	setupFactory_Box(game);
 
 	fillElementsDropDown();
 	loadElementEvents();

@@ -11,6 +11,12 @@ function ElementFactory(factoryName,width,height){
 		this.elementArray.push(element);
 	}
 
+	this.addElementsAt = function(pointArray){
+		for(var i in pointArray){
+			this.addElementAt(pointArray[i].x,pointArray[i].y);
+		}
+	}
+
 	this.isElementOnPoint = function(element,x,y){
 		var elX = element.getX();
 		if(x<elX)

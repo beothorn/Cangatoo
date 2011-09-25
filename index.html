@@ -8,8 +8,7 @@
 		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/ElementFactoriesEditor.js"></script>
 		
-		<script type="text/javascript" src="./PlatformGame/src/BoxFactory.js"></script>
-		<script type="text/javascript" src="./PlatformGame/src/MainCharacter.js"></script>
+		<script type="text/javascript" src="./PlatformGame/src/FactoriesSetup.js"></script>
 		<script type="text/javascript" src="./PlatformGame/src/Game.js"></script>
 		<style type="text/css" media="screen">
 		    	canvasxx, img { display:block; margin:1em auto; border:1px solid black; }
@@ -32,7 +31,7 @@
 		<br>
 		-->
 		<br>
-		<select id="elements" onchange="loadElementEvents();">
+		<select id="elements" onchange="loadElementEvents();fillCodeEditor();">
 		</select>
 		<select id="events" onchange="fillCodeEditor();">
 		</select>
