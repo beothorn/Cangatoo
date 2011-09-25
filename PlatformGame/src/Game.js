@@ -5,7 +5,10 @@ function Output(){
 		return;
 		if(this.textArea==null)
 			this.textArea = document.getElementById('output');
-		this.textArea.innerHTML += text+"\n";  
+		if(this.textArea!=null)
+			this.textArea.innerHTML += text+"\n";  
+		else
+			console.log(text);
 	}
 }
 
@@ -103,7 +106,16 @@ function fillCodeEditor(){
 	var eventsDropDown = document.getElementById("events");
 	var codeEditor = document.getElementById("codeEditor");
 	var factory = factoriesEditor.getFactoryByName(factoriesDropDown.value);
-	codeEditor.innerHTML = eval('factory.'+eventsDropDown.value).toString();
+	codeEditor.value = eval('factory.'+eventsDropDown.value).toString();
+}
+
+function writeCodeToFunction(){
+	var factoriesDropDown = document.getElementById("elements");
+	var eventsDropDown = document.getElementById("events");
+	var codeEditor = document.getElementById("codeEditor");
+	var factory = factoriesEditor.getFactoryByName(factoriesDropDown.value);
+	var replaceFunction = "factory."+eventsDropDown.value+" = "+codeEditor.value+";";
+	eval(replaceFunction);
 }
 
 function startGameLoop(){
