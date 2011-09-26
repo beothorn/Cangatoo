@@ -67,12 +67,22 @@ function init(){
 	startGameLoop();
 }
 
+function clearOptions(id)
+{
+	var selectObj = document.getElementById(id);
+	var selectParentNode = selectObj.parentNode;
+	var newSelectObj = selectObj.cloneNode(false);
+	selectParentNode.replaceChild(newSelectObj, selectObj);
+	return newSelectObj;
+}
+
 function loadElementEvents(){
 	var factoriesDropDown = document.getElementById("elements");
-	//factoriesDropDown.options.remove(1);
+	
 	var selectedFactory = factoriesDropDown.value;
 	var events = factoriesEditor.getEventsFor(selectedFactory);
 
+	clearOptions("events");
 	var eventsDropDown = document.getElementById("events");
 	for(var i in events){
 		var option = document.createElement("option");
@@ -82,8 +92,10 @@ function loadElementEvents(){
 }
 
 function fillElementsDropDown(){
+	clearOptions("elements");
 	var factoriesDropDown = document.getElementById("elements");
-
+	factoriesDropDown.options.length = 0;
+	
 	var factoriesNames = factoriesEditor.getFactoriesNames();
 	for(var i in factoriesNames){
 		var option = document.createElement("option");
