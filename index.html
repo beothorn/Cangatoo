@@ -1,6 +1,8 @@
 <html>
 	<head>
 		<title>JSPlatformer</title>
+		<script src="./lib/jquery-1.6.4.js"></script>
+		
 		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/Utils.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
@@ -16,6 +18,7 @@
 		</style>
 	</head>
 	<body>
+		<a href="http://jquery.com/">jQuery</a>
 		<canvas id="canvas" width="1000" height="300">
 			<p>Your browser does not support the canvas element.</p>
 		</canvas>
@@ -31,9 +34,13 @@
 		<br>
 		-->
 		<br>
-		<select id="elements" onchange="loadElementEvents();fillCodeEditor();">
+		<select id="test" >
+		<option>a</option>
+		<option>b</option>
 		</select>
-		<select id="events" onchange="fillCodeEditor();">
+		<select id="elements" >
+		</select>
+		<select id="events" >
 		</select>
 		<input type="button" id="saveEvent" value="save event" onclick="writeCodeToFunction();"/>
 		<br>

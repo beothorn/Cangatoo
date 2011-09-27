@@ -1,4 +1,28 @@
-window.onload = init;
+var output = new Output();
+var game;
+var factoriesEditor;
+var intervalID;
+
+$(document).ready(function(){
+	$("#test").change(function(event){
+			$(this).hide("slow");
+  });
+  $("#elements").change(function(event){
+			$(this).hide("slow");
+  });
+		
+  game = new Game(document.getElementById('canvas'));
+	factoriesEditor = new ElementFactoriesEditor(game);
+
+	setupFactory_MainCharacter(game);
+	setupFactory_Box(game);
+
+	fillElementsDropDown();
+	loadElementEvents();
+	fillCodeEditor()
+
+	startGameLoop();
+});
 
 function Output(){
 	this.write = function(text){
@@ -46,25 +70,6 @@ document.onkeyup = function(event){
 		globalGameState.up = false;
 	if(event.keyCode == down)
 		globalGameState.down = false;
-}
-
-var output = new Output();
-var game;
-var factoriesEditor;
-var intervalID;
-
-function init(){
-	game = new Game(document.getElementById('canvas'));
-	factoriesEditor = new ElementFactoriesEditor(game);
-
-	setupFactory_MainCharacter(game);
-	setupFactory_Box(game);
-
-	fillElementsDropDown();
-	loadElementEvents();
-	fillCodeEditor()
-
-	startGameLoop();
 }
 
 function clearOptions(id)
