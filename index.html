@@ -15,7 +15,28 @@
 		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
 	</head>
 	<body>
-		<a id="gameEditorToogleHide" href="#">Hide editor</a>
+	
+		<canvas id="gameCanvas" width="500" height="300">
+			<p>Your browser does not support the canvas element.</p>
+		</canvas>
+		
+		<div id="gameFlowControl">
+			<input type="button" id="restart" value="Restart"/>
+			<input type="button" id="playPause" value="Pause"/>
+		</div>
+		
+		<a id="touchControlsToogleHide" href="#">Show touch controls</a><br>
+		<div id="touchKeyboard">
+			<input type="button" id="up" value="X"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
+			<input type="button" id="up" value="^"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
+			<input type="button" id="up" value="O"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
+			<br>
+			<input type="button" id="left" value="<"  onmouseover="$(document).keydown({keyCode: left });" onmouseout="$(document).keyup({keyCode: left });" />
+			<input type="button" id="down" value="V"  onmouseover="$(document).keydown({keyCode: down });" onmouseout="$(document).keyup({keyCode: down });" />
+			<input type="button" id="right" value=">" onmouseover="$(document).keydown({keyCode: right});" onmouseout="$(document).keyup({keyCode: right});" />
+		</div>
+		
+		<a id="gameEditorToogleHide" href="#">Hide editor</a><br>
 		<div id="gameEditor">
 			<input type="button" id="createFactory" value="+"/>
 			<select id="factories" >
@@ -26,23 +47,8 @@
 			<br>
 			<textarea id="codeEditor" rows="20"></textarea>
 		</div>
-		
-		<div id="gameFlowControl">
-			<input type="button" id="restart" value="Restart"/>
-			<input type="button" id="playPause" value="Pause"/>
-		</div>
-		
-		<canvas id="gameCanvas" width="500" height="300">
-			<p>Your browser does not support the canvas element.</p>
-		</canvas>
 		<!--
-		<input type="button" id="up" value="X"    onmouseover="document.onkeydown({keyCode: up   });" onmouseout="document.onkeyup({keyCode: up   });" />
-		<input type="button" id="up" value="^"    onmouseover="document.onkeydown({keyCode: up   });" onmouseout="document.onkeyup({keyCode: up   });" />
-		<input type="button" id="up" value="O"    onmouseover="document.onkeydown({keyCode: up   });" onmouseout="document.onkeyup({keyCode: up   });" />
-		<br>
-		<input type="button" id="left" value="<"  onmouseover="document.onkeydown({keyCode: left });" onmouseout="document.onkeyup({keyCode: left });" />
-		<input type="button" id="down" value="V"  onmouseover="document.onkeydown({keyCode: down });" onmouseout="document.onkeyup({keyCode: down });" />
-		<input type="button" id="right" value=">" onmouseover="document.onkeydown({keyCode: right});" onmouseout="document.onkeyup({keyCode: right});" />
+		
 		<textarea id="output" rows="10" cols="10"></textarea>
 		<br>
 		-->

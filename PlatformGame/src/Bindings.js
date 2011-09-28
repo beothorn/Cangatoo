@@ -24,6 +24,19 @@ $(document).ready(function(){
 			fillCodeEditor();
   });
   
+  $("#touchKeyboard").hide("fast");
+  
+  $("#touchControlsToogleHide").click(function(event){
+  		event.preventDefault();
+  		if($("#touchControlsToogleHide").text() == "Hide touch controls"){
+  			$("#touchKeyboard").hide("slow");
+  			$("#touchControlsToogleHide").text("Show touch controls");
+  		}else{
+  			$("#touchKeyboard").show("slow");
+  			$("#touchControlsToogleHide").text("Hide touch controls");
+  		}
+  });
+  
   $("#gameEditorToogleHide").click(function(event){
   		event.preventDefault();
   		if($("#gameEditorToogleHide").text() == "Hide editor"){
@@ -40,7 +53,7 @@ $(document).ready(function(){
   });
   
   $("#restart").click(function(event){
-  		setupNewGame();
+  		game.restartLevel();
   });
   
   $("#playPause").click(function(event){
@@ -80,17 +93,14 @@ $(document).ready(function(){
 	setupFactory_MainCharacter(game);
 	setupFactory_Box(game);
 	
-	restartGame();
-});
-
-function restartGame(){
-	
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
 	
+	game.restartLevel();
+	
 	startGameLoop();
-}
+});
 
 function fillFactories(){
 	var factoriesNames = game.getFactoriesNames();

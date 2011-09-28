@@ -5,6 +5,13 @@ function Game(drawCanvas){
 	this.canvas = drawCanvas;
 	this.context = this.canvas.getContext('2d');
 	
+	this.restartLevel = function(){
+		for (var i in this.elementFactories)
+		{
+			this.elementFactories[i].restartFactory();
+		}
+	}
+	
 	this.getFactories = function(){
 		return this.elementFactories;
 	}
