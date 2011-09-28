@@ -11,20 +11,20 @@
 		
 		<script type="text/javascript" src="./PlatformGame/src/FactoriesSetup.js"></script>
 		<script type="text/javascript" src="./PlatformGame/src/Bindings.js"></script>
-		<style type="text/css" media="screen">
-		    	canvas, img { display:block; margin:1em auto; border:1px solid black; }
-		    	canvas { background:#FFFFFF }
-		</style>
+		
+		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
 	</head>
-	<body bgcolor="Gray">
+	<body>
+		<a id="gameEditorToogleHide" href="#">Hide editor</a>
 		<div id="gameEditor">
-			<select id="elements" >
+			<input type="button" id="createFactory" value="+"/>
+			<select id="factories" >
 			</select>
 			<select id="events" >
 			</select>
-			<input type="button" id="saveEvent" value="save event" onclick="writeCodeToFunction();"/>
+			<input type="button" id="saveCode" value="save"/>
 			<br>
-			<textarea id="codeEditor" rows="10" cols="150" ></textarea>
+			<textarea id="codeEditor" rows="20"></textarea>
 		</div>
 		
 		<div id="gameFlowControl">

@@ -15,13 +15,28 @@ var globalGameState = {
 
 $(document).ready(function(){
   
-  $("#elements").change(function(event){
+  $("#factories").change(function(event){
   		fillEvents();
 			fillCodeEditor();
   });
   
   $("#events").change(function(event){
 			fillCodeEditor();
+  });
+  
+  $("#gameEditorToogleHide").click(function(event){
+  		event.preventDefault();
+  		if($("#gameEditorToogleHide").text() == "Hide editor"){
+  			$("#gameEditor").hide("slow");
+  			$("#gameEditorToogleHide").text("Show editor");
+  		}else{
+  			$("#gameEditor").show("slow");
+  			$("#gameEditorToogleHide").text("Hide editor");
+  		}
+  });
+  
+  $("#saveCode").click(function(event){
+  		writeCodeToFunction();
   });
   
   $("#playPause").click(function(event){
@@ -71,12 +86,12 @@ $(document).ready(function(){
 function fillFactories(){
 	var factoriesNames = game.getFactoriesNames();
 	for(var i in factoriesNames){
-		$("#elements").append('<option>'+factoriesNames[i]+'</option>');		
+		$("#factories").append('<option>'+factoriesNames[i]+'</option>');		
 	}
 }
 
 function fillEvents(){
-	var selectedFactory = $("#elements option:selected").text();
+	var selectedFactory = $("#factories option:selected").text();
 	var events = game.getEventsFor(selectedFactory);
 	$("#events").empty();
 	for(var i in events){
@@ -85,14 +100,14 @@ function fillEvents(){
 }
 
 function fillCodeEditor(){
-	var selectedFactoryName = $("#elements option:selected").text();
+	var selectedFactoryName = $("#factories option:selected").text();
 	var eventSelected = $("#events option:selected").text();
 	var factory = game.getFactoryByName(selectedFactoryName);
 	$("#codeEditor").val(eval('factory.'+eventSelected).toString());
 }
 
 function writeCodeToFunction(){
-	var selectedFactoryName = $("#elements option:selected").text();
+	var selectedFactoryName = $("#factories option:selected").text();
 	var eventSelected = $("#events option:selected").text();
 	var code = $("#codeEditor").val();
 	var factory = game.getFactoryByName(selectedFactoryName);
@@ -104,7 +119,6 @@ function startGameLoop(){
 	var FPS = 30;
 	var oneSecond = 1000;
 	intervalID = setInterval(loop, oneSecond / FPS);
-	output.write("intervalID: "+intervalID);
 }
 
 function loop(){

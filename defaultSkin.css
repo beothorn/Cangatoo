@@ -1,0 +1,28 @@
+body{
+	background: gray;
+}
+
+a:link,a:visited,a:hover,a:active {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+canvas { 
+	background:#FFFFFF;
+}
+
+canvas, img { 
+	display: block; 
+	margin: 1em auto; 
+	border: 1px solid black; 
+}
+
+div.gameFlowControl{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#codeEditor{
+	width:100%;
+}

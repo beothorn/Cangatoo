@@ -1,10 +1,25 @@
 function setupFactory_Box(game){
 	var factory = new ElementFactory("Box",32,32);
 	
+	factory.onCreate = function(element){
+		this.leftLimit = 0;
+		this.topLimit = 0;
+		this.rightLimit = 1000;
+		this.bottomLimit = 300;
+		element.setMaxXSpeed(500);
+		element.setMaxYSpeed(1000);
+		element.xAccelerate(-100);
+		element.yAccelerate(-100);
+	}
+	
 	factory.onDraw = function(element,delta,context){
 		context.fillText("?",element.x+17,element.y+17);
 	}
-
+	
+	factory.onAfterStep = function(element,delta,globalGameState,game){
+		bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+	}
+	
 	var positions = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
 	factory.addElementsAt(positions);
 	game.addFactory(factory);
