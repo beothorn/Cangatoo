@@ -65,4 +65,37 @@ function Game(drawCanvas){
 		this.drawelementFactories(delta);
 		this.lastLoopTime = new Date().getTime();
 	}
+	
+	this.getFactoriesNames = function(){
+		var factoriesNames = new Array();
+		for (var i in this.elementFactories){
+			factoriesNames.push(this.elementFactories[i].factoryName);
+		}
+		return factoriesNames;
+	}
+
+	this.getEventsFor = function(factoryName){
+		var factory;
+		for (var i in this.elementFactories){
+			if(this.elementFactories[i].factoryName == factoryName)
+				factory = this.elementFactories[i];
+		}
+		if(factory == null)
+			throw "factory "+factoryName+" does not exist";
+
+		var events = new Array();
+		for(var property in factory){
+			if(typeof(eval("factory."+property)) == 'function' && property.indexOf("on")==0)
+				events.push(property);
+		}
+		return events;
+	}
+
+	this.getFactoryByName = function(factoryName){
+		for (var i in this.elementFactories){
+			if(this.elementFactories[i].factoryName == factoryName)
+				return this.elementFactories[i];
+		}
+		return null;
+	}
 }

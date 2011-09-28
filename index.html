@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>JSPlatformer</title>
+		<title>Javascript Game Creation Tool</title>
 		<script src="./lib/jquery-1.6.4.js"></script>
 		
 		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
@@ -8,18 +8,30 @@
 		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/GameUtils.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/ElementFactoriesEditor.js"></script>
 		
 		<script type="text/javascript" src="./PlatformGame/src/FactoriesSetup.js"></script>
-		<script type="text/javascript" src="./PlatformGame/src/Game.js"></script>
+		<script type="text/javascript" src="./PlatformGame/src/Bindings.js"></script>
 		<style type="text/css" media="screen">
-		    	canvasxx, img { display:block; margin:1em auto; border:1px solid black; }
-		    	canvasxx { background:url(background.png) }
+		    	canvas, img { display:block; margin:1em auto; border:1px solid black; }
+		    	canvas { background:#FFFFFF }
 		</style>
 	</head>
-	<body>
-		<a href="http://jquery.com/">jQuery</a>
-		<canvas id="canvas" width="1000" height="300">
+	<body bgcolor="Gray">
+		<div id="gameEditor">
+			<select id="elements" >
+			</select>
+			<select id="events" >
+			</select>
+			<input type="button" id="saveEvent" value="save event" onclick="writeCodeToFunction();"/>
+			<br>
+			<textarea id="codeEditor" rows="10" cols="150" ></textarea>
+		</div>
+		
+		<div id="gameFlowControl">
+			<input type="button" id="playPause" value="Pause"/>
+		</div>
+		
+		<canvas id="gameCanvas" width="1000" height="300">
 			<p>Your browser does not support the canvas element.</p>
 		</canvas>
 		<!--
@@ -33,17 +45,5 @@
 		<textarea id="output" rows="10" cols="10"></textarea>
 		<br>
 		-->
-		<br>
-		<select id="test" >
-		<option>a</option>
-		<option>b</option>
-		</select>
-		<select id="elements" >
-		</select>
-		<select id="events" >
-		</select>
-		<input type="button" id="saveEvent" value="save event" onclick="writeCodeToFunction();"/>
-		<br>
-		<textarea id="codeEditor" rows="10" cols="150" ></textarea>
 	</body>
 </html>
