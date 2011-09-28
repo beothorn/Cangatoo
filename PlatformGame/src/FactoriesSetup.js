@@ -1,10 +1,12 @@
 function setupFactory_Box(game){
-	var factory = new ElementFactory("Box",32,32);
+	var factory = new ElementFactory("Box");
 	
 	factory.onCreate = function(element){
+		element.setSprite("./PlatformGame/resources/ball.png");
+		
 		this.leftLimit = 0;
 		this.topLimit = 0;
-		this.rightLimit = 1000;
+		this.rightLimit = 500;
 		this.bottomLimit = 300;
 		element.setMaxXSpeed(500);
 		element.setMaxYSpeed(1000);
@@ -13,6 +15,7 @@ function setupFactory_Box(game){
 	}
 	
 	factory.onDraw = function(element,delta,context){
+		context.fillStyle = "white";
 		context.fillText("?",element.x+17,element.y+17);
 	}
 	
@@ -27,12 +30,15 @@ function setupFactory_Box(game){
 
 function setupFactory_MainCharacter(game){
 
-	var factory = new ElementFactory("MainCharacter",50,80);
+	var factory = new ElementFactory("MainCharacter");
 
 	factory.onCreate = function(element){
+		element.width = 50;
+		element.height = 80;
+		
 		this.leftLimit = 0;
 		this.topLimit = 0;
-		this.rightLimit = 1000;
+		this.rightLimit = 500;
 		this.bottomLimit = 300;
 		element.setMaxXSpeed(500);
 		element.setMaxYSpeed(1000);

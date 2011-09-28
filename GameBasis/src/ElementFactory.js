@@ -6,7 +6,7 @@ function ElementFactory(factoryName,width,height){
 	this.factoryName = factoryName;
 
 	this.addElementAt = function(x,y){
-		var element = new Element(this,x,y,this.width,this.height);
+		var element = new Element(this,x,y);
 		this.onCreate(element);
 		this.elementArray.push(element);
 	}
@@ -58,7 +58,11 @@ function ElementFactory(factoryName,width,height){
 	this.draw = function(context,delta){
 		context.strokeStyle = "gray";
 		for (var i in this.elementArray){
-			context.strokeRect(this.elementArray[i].x, this.elementArray[i].y, this.elementArray[i].width, this.elementArray[i].height);
+			var element = this.elementArray[i];
+			if(element.sprite == null)
+				context.strokeRect(element.x, element.y, element.width, element.height);
+			else
+				context.drawImage(element.sprite,element.x,element.y);
 			this.onDraw(this.elementArray[i],delta,context);
 		}
 	};
@@ -75,9 +79,12 @@ function ElementFactory(factoryName,width,height){
 	}	
 
 	this.onCreate = function(element){
+		element.width = 32;
+		element.height = 32;
+		
 		/**
 		* The event onCreate is called when an element is created
-		* Usually, you want to set initial values, like element.setMaxXSpeed(100) here.
+		* You want to set initial values, width, height, the element sprite, etc.
 		* Parameters:
 		* 	-element: the Element being created.
 		**/

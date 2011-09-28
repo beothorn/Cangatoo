@@ -3,14 +3,14 @@ const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
-function Element(factory,x,y,width,height){
+function Element(factory,x,y){
 	this.x=x;
 	this.y=y;
 	this.factory = factory;
 	this.xForCollisionCheck=x;
 	this.yForCollisionCheck=y;
-	this.width = width;
-	this.height = height;
+	this.width = 0;
+	this.height = 0;
 	
 	this.xSpeed = 0;
 	this.ySpeed = 0;
@@ -33,6 +33,16 @@ function Element(factory,x,y,width,height){
 	
 	this.getHeight = function(){
 		return this.height;
+	}
+	
+	this.setSprite = function(imgUrl){
+		this.sprite = new Image();
+		var element = this;
+		this.sprite.onload = function(){
+			element.width = element.sprite.height;
+			element.height = element.sprite.width;
+		};
+		this.sprite.src = imgUrl;
 	}
 	
 	this.getXForCollisionCheck = function(){

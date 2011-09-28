@@ -39,6 +39,10 @@ $(document).ready(function(){
   		writeCodeToFunction();
   });
   
+  $("#restart").click(function(event){
+  		setupNewGame();
+  });
+  
   $("#playPause").click(function(event){
   		if($("#playPause").val()=="Pause"){
   			$("#playPause").val("Play");
@@ -70,21 +74,27 @@ $(document).ready(function(){
 		if(event.keyCode == down)
 			globalGameState.down = false;
 	});
-  
-  game = new Game($("#gameCanvas")[0]);
-
+	
+	game = new Game($("#gameCanvas")[0]);
+	
 	setupFactory_MainCharacter(game);
 	setupFactory_Box(game);
+	
+	restartGame();
+});
+
+function restartGame(){
 	
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
 	
 	startGameLoop();
-});
+}
 
 function fillFactories(){
 	var factoriesNames = game.getFactoriesNames();
+	$("#factories").empty();
 	for(var i in factoriesNames){
 		$("#factories").append('<option>'+factoriesNames[i]+'</option>');		
 	}
