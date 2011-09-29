@@ -25,9 +25,7 @@ $(document).ready(function(){
 			fillCodeEditor();
   });
 
-  
   $("#touchKeyboard").hide();
-  
   $("#touchControlsToogleHide").click(function(event){
   		event.preventDefault();
   		if($("#touchControlsToogleHide").text() == "Hide touch controls"){
@@ -48,6 +46,14 @@ $(document).ready(function(){
   			$("#gameEditor").show("slow");
   			$("#gameEditorToogleHide").text("Hide editor");
   		}
+  });
+
+  $("#searchOrAdd").keypress(function(event){
+  		if(event.which == 13){
+       			var factory = new ElementFactory(this.value);
+			game.addFactory(factory);
+			fillFactories();
+       		}
   });
   
   $("#saveCode").click(function(event){
