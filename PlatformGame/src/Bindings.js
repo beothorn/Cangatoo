@@ -48,6 +48,13 @@ $(document).ready(function(){
   		}
   });
 
+  $("#factories").keydown(function(event){
+  		if(event.which == 46){//delete
+			game.removeFactoryByName(this.value);
+			fillFactories();
+       		}
+  });
+  
   $("#searchOrAdd").keypress(function(event){
   		if(event.which == 13){
        			var factory = new ElementFactory(this.value);
@@ -55,7 +62,7 @@ $(document).ready(function(){
 			fillFactories();
        		}
   });
-  
+
   $("#saveCode").click(function(event){
   		writeCodeToFunction();
   });

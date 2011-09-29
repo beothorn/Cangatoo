@@ -20,6 +20,15 @@ function Game(drawCanvas){
 		this.elementFactories.push(factory);
 	}
 	
+	this.removeFactoryByName = function(factoryName){
+		for (var i in this.elementFactories){
+			if(this.elementFactories[i].factoryName == factoryName){
+				this.elementFactories.splice(i,1);
+				return;
+			}
+		}
+	}
+
 	this.isObjectOnPoint = function(x,y,factory){
 		return factory.isObjectOnPoint(x,y);
 	}
