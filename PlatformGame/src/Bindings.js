@@ -15,6 +15,12 @@ var globalGameState = {
 
 $(document).ready(function(){
   
+  $("#exportJavascript").click(function(event){
+		var gameSourceExport = new GameSourceExport();
+		var javascriptCode = gameSourceExport.getJavascriptSourceForGame(game);
+		$('#output').val($('#output').val()+javascriptCode);
+  });
+
   $("#factories").change(function(event){
 		forceAtLeastOneSelectedFactory();
   		fillEvents();

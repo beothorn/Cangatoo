@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/GameUtils.js"></script>
 		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/GameSourceExport.js"></script>
 		
 		<script type="text/javascript" src="./PlatformGame/src/FactoriesSetup.js"></script>
 		<script type="text/javascript" src="./PlatformGame/src/Bindings.js"></script>
@@ -16,7 +17,10 @@
 	</head>
 	<body>
 	
-		<a id="touchControlsToogleHide" href="#">Show touch controls</a>|<a id="gameEditorToogleHide" href="#">Hide editor</a><br>
+		<a id="touchControlsToogleHide" href="#">Show touch controls</a>||
+		<a id="gameEditorToogleHide" href="#">Hide editor</a>||
+		<a id="exportJavascript" href="#">Export Javascript</a>
+		<br>
 
 		<div id="gameFlowControl">
 			<input type="button" id="restart" value="Restart"/>
@@ -73,10 +77,7 @@
 				</td>
 			</tr>
 		</table>
-		<!--
-		
-		<textarea id="output" rows="10" cols="10"></textarea>
 		<br>
-		-->
+		<textarea id="output" rows="60"></textarea>
 	</body>
 </html>
