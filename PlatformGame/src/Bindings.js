@@ -16,15 +16,17 @@ var globalGameState = {
 $(document).ready(function(){
   
   $("#factories").change(function(event){
+		forceAtLeastOneSelectedFactory();
   		fillEvents();
-			fillCodeEditor();
+		fillCodeEditor();
   });
   
   $("#events").change(function(event){
 			fillCodeEditor();
   });
+
   
-  $("#touchKeyboard").hide("fast");
+  $("#touchKeyboard").hide();
   
   $("#touchControlsToogleHide").click(function(event){
   		event.preventDefault();
@@ -102,12 +104,18 @@ $(document).ready(function(){
 	startGameLoop();
 });
 
+function forceAtLeastOneSelectedFactory(){
+	if ($("#factories option:selected").length == 0)
+		$("#factories").prop("selectedIndex", 0)
+}
+
 function fillFactories(){
 	var factoriesNames = game.getFactoriesNames();
 	$("#factories").empty();
 	for(var i in factoriesNames){
 		$("#factories").append('<option>'+factoriesNames[i]+'</option>');		
 	}
+	forceAtLeastOneSelectedFactory();
 }
 
 function fillEvents(){

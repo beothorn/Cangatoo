@@ -17,12 +17,26 @@ canvas, img {
 	border: 1px solid black; 
 }
 
-div.gameFlowControl{
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
+div#gameFlowControl{
+	margin: 0px auto 0px auto; 
+	text-align: center;
+}
+
+.ctrlButton{
+	width:3em;
+	height:3em;
+}
+
+#gameEditor{
+	width:100%;
+}
+
+#factories{
+	width:100%;
+	height:100%;
 }
 
 #codeEditor{
 	width:100%;
+	height:100%;
 }

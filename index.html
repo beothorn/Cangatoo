@@ -16,37 +16,60 @@
 	</head>
 	<body>
 	
-		<canvas id="gameCanvas" width="500" height="300">
-			<p>Your browser does not support the canvas element.</p>
-		</canvas>
-		
+		<a id="touchControlsToogleHide" href="#">Show touch controls</a>|<a id="gameEditorToogleHide" href="#">Hide editor</a><br>
+
 		<div id="gameFlowControl">
 			<input type="button" id="restart" value="Restart"/>
 			<input type="button" id="playPause" value="Pause"/>
 		</div>
+
+		<canvas id="gameCanvas" width="500" height="300">
+			<p>Your browser does not support the canvas element.</p>
+		</canvas>
 		
-		<a id="touchControlsToogleHide" href="#">Show touch controls</a><br>
 		<div id="touchKeyboard">
-			<input type="button" id="up" value="X"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
-			<input type="button" id="up" value="^"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
-			<input type="button" id="up" value="O"    onmouseover="$(document).keydown({keyCode: up   });" onmouseout="$(document).keyup({keyCode: up   });" />
-			<br>
-			<input type="button" id="left" value="<"  onmouseover="$(document).keydown({keyCode: left });" onmouseout="$(document).keyup({keyCode: left });" />
-			<input type="button" id="down" value="V"  onmouseover="$(document).keydown({keyCode: down });" onmouseout="$(document).keyup({keyCode: down });" />
-			<input type="button" id="right" value=">" onmouseover="$(document).keydown({keyCode: right});" onmouseout="$(document).keyup({keyCode: right});" />
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+			<tr>
+				<td>
+					<input type="button" class="ctrlButton" id="up" value="X"/>
+				</td>
+				<td>
+					<input type="button" class="ctrlButton" id="up" value="^"/>
+				</td>
+				<td>
+					<input type="button" class="ctrlButton" id="up" value="O"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" class="ctrlButton" id="left" value="<"/>
+				</td>
+				<td>
+					<input type="button" class="ctrlButton" id="down" value="V"/>
+				</td>
+				<td>
+					<input type="button" class="ctrlButton" id="right" value=">"/>
+				</td>
+			</tr>
+			</table>
 		</div>
-		
-		<a id="gameEditorToogleHide" href="#">Hide editor</a><br>
-		<div id="gameEditor">
-			<input type="button" id="createFactory" value="+"/>
-			<select id="factories" >
-			</select>
-			<select id="events" >
-			</select>
-			<input type="button" id="saveCode" value="save"/>
-			<br>
-			<textarea id="codeEditor" rows="20"></textarea>
-		</div>
+
+		<table id="gameEditor" border ="0">
+			<tr>
+				<td rowspan="2" width="10%">
+					<select id="factories" size="20"></select>
+				</td>
+				<td>
+					<select id="events" ></select>
+					<input type="button" id="saveCode" value="save"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="codeEditor" rows="20"></textarea>
+				</td>
+			</tr>
+		</table>
 		<!--
 		
 		<textarea id="output" rows="10" cols="10"></textarea>
