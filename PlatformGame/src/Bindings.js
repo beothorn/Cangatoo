@@ -36,7 +36,39 @@ $(document).ready(function(){
   			$("#touchControlsToogleHide").text("Hide touch controls");
   		}
   });
+
+  $("#upBtn").mouseover(function(event){
+	keyDown(up);
+  });
   
+  $("#upBtn").mouseout(function(event){
+	keyUp(up);
+  });
+
+  $("#downBtn").mouseover(function(event){
+	keyDown(down);
+  });
+  
+  $("#downBtn").mouseout(function(event){
+	keyUp(down);
+  });
+
+  $("#leftBtn").mouseover(function(event){
+	keyDown(left);
+  });
+  
+  $("#leftBtn").mouseout(function(event){
+	keyUp(left);
+  });
+
+  $("#rightBtn").mouseover(function(event){
+	keyDown(right);
+  });
+  
+  $("#rightBtn").mouseout(function(event){
+	keyUp(right);
+  });
+
   $("#gameEditorToogleHide").click(function(event){
   		event.preventDefault();
   		if($("#gameEditorToogleHide").text() == "Hide editor"){
@@ -82,26 +114,12 @@ $(document).ready(function(){
   });
 		
   $(document).keydown(function(event){
-	if(event.keyCode == left)
-		globalGameState.left = true;
-	if(event.keyCode == right)
-		globalGameState.right = true;
-	if(event.keyCode == up)
-		globalGameState.up = true;
-	if(event.keyCode == down)
-		globalGameState.down = true;
-	});
+	keyDown(event.keyCode);
+  });
 		
-	$(document).keyup(function(event){
-		if(event.keyCode == left)
-			globalGameState.left = false;
-		if(event.keyCode == right)
-			globalGameState.right = false;
-		if(event.keyCode == up)
-			globalGameState.up = false;
-		if(event.keyCode == down)
-			globalGameState.down = false;
-	});
+  $(document).keyup(function(event){
+    keyUp(event.keyCode);
+  });
 	
 	game = new Game($("#gameCanvas")[0]);
 	
@@ -116,6 +134,28 @@ $(document).ready(function(){
 	
 	startGameLoop();
 });
+
+function keyDown(key){
+	if(key == left)
+		globalGameState.left = true;
+	if(key == right)
+		globalGameState.right = true;
+	if(key == up)
+		globalGameState.up = true;
+	if(key == down)
+		globalGameState.down = true;
+}
+
+function keyUp(key){
+	if(key == left)
+		globalGameState.left = false;
+	if(key == right)
+		globalGameState.right = false;
+	if(key == up)
+		globalGameState.up = false;
+	if(key == down)
+		globalGameState.down = false;
+}
 
 function forceAtLeastOneSelectedFactory(){
 	if ($("#factories option:selected").length == 0)

@@ -75,6 +75,7 @@ function ElementFactory(factoryName,width,height){
 	this.onLevelStart = function(){
 		/**
 		* The event onLevelStart is called when a level is started or restarted.
+		* This will probably be automatically generated in the future.
 		**/
 	}
 	

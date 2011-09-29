@@ -27,6 +27,7 @@ function setupFactory_Box(game){
 	factory.onLevelStart = function(){
 		/**
 		* The event onLevelStart is called when a level is started or restarted.
+		* This will probably be automatically generated in the future.
 		**/
 		var positions = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
 		factory.addElementsAt(positions);
@@ -95,6 +96,7 @@ function setupFactory_MainCharacter(game){
 	factory.onLevelStart = function(){
 		/**
 		* The event onLevelStart is called when a level is started or restarted.
+		* This will probably be automatically generated in the future.
 		**/
 		var positions = [{x:50,y:50}];
 		factory.addElementsAt(positions);
