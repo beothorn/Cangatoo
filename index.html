@@ -2,17 +2,7 @@
 	<head>
 		<title>Javascript Game Creation Tool</title>
 		<script src="./lib/jquery-1.6.4.js"></script>
-		
-		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/Utils.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/GameUtils.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
-		<script type="text/javascript" src="./GameBasis/src/GameSourceExport.js"></script>
-		
-		<script type="text/javascript" src="./PlatformGame/src/FactoriesSetup.js"></script>
-		<script type="text/javascript" src="./PlatformGame/src/Bindings.js"></script>
-		
+		<script type="text/javascript" src="./PlatformGame/src/Bindings.js"></script>		
 		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
 	</head>
 	<body>
@@ -27,6 +17,8 @@
 			<input type="button" id="playPause" value="Pause"/>
 		</div>
 
+		<textarea id="pageOutput" rows="30"></textarea>
+		
 		<canvas id="gameCanvas" width="500" height="300">
 			<p>Your browser does not support the canvas element.</p>
 		</canvas>

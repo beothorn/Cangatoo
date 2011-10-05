@@ -1,24 +1,69 @@
-var game;
-var intervalID;
+var include = [
+	"./GameBasis/src/Element.js",
+	"./GameBasis/src/Utils.js",
+	"./GameBasis/src/Game.js",
+	"./GameBasis/src/GameUtils.js",
+	"./GameBasis/src/ElementFactory.js",
+	"./GameBasis/src/GameSourceExport.js",
+	"./GameBasis/src/GameSetup.js"
+];
+var factoriesSetup = "./PlatformGame/src/FactoriesSetup.js";
 
-var down  = 	40;
-var right = 	39;
-var up    = 	38;
-var left  = 	37;
-
-var globalGameState = {
-	left:false,
-	right:false,
-	up:false,
-	down:false
+function includeJSFile(includeURL){
+	var script = document.createElement( 'script' );
+	script.type = 'text/javascript';
+	script.src = includeURL;
+	$("#exportJavascript").append( script );
 }
 
 $(document).ready(function(){
   
+	for(var i in include){
+		includeJSFile(include[i]);
+	}
+	includeJSFile(factoriesSetup);
+	
+	$("#pageOutput").hide();
+		
   $("#exportJavascript").click(function(event){
-		var gameSourceExport = new GameSourceExport();
-		var javascriptCode = gameSourceExport.getJavascriptSourceForGame(game);
-		$('#output').val($('#output').val()+javascriptCode);
+		if($("#exportJavascript").text() != "Export Javascript"){
+			$("#exportJavascript").text("Export Javascript");
+			$("#pageOutput").hide("fast");
+			return;
+		}
+		
+		$("#exportJavascript").text("Hide export Javascript");
+  	$("#pageOutput").show("fast");
+  	$("#pageOutput").val(
+  		"<html>\n"+
+  		"  <head>\n"+
+  		"    <title>Game</title>\n"+
+  		"    <script type=\"text/javascript\">\n"+
+  		"      window.onload = function(){\n"+
+  		"        startGame(document.getElementById(\"gameCanvas\"))\n"+
+  		"      };\n");
+  	
+  	var gameSourceExport = new GameSourceExport();
+		var factoriesSetupJavascriptCode = gameSourceExport.getJavascriptSourceForGame(game);
+		$('#pageOutput').val($('#pageOutput').val()+factoriesSetupJavascriptCode);
+  		
+		var loadCount = 0;
+  	for(var i in include){
+  		$('#pageOutput').load(include[i],null,function(responseText){  
+				$('#pageOutput').val($('#pageOutput').val()+responseText);
+				loadCount++;
+				if(loadCount == include.length){
+					$('#pageOutput').val($('#pageOutput').val()+
+						"    </script>\n"+
+						"  </head>\n"+
+						"  <body>\n"+
+						"    <canvas id=\"gameCanvas\" width=\"500\" height=\"300\">\n"+
+						"      Your browser does not support the canvas element.\n"+
+						"    </canvas>\n"+
+						"</html>");
+				}
+			});
+  	}
   });
 
   $("#factories").change(function(event){
@@ -118,50 +163,15 @@ $(document).ready(function(){
   			startGameLoop();
   		}
   });
-		
-  $(document).keydown(function(event){
-	keyDown(event.keyCode);
-  });
-		
-  $(document).keyup(function(event){
-    keyUp(event.keyCode);
-  });
 	
-	game = new Game($("#gameCanvas")[0]);
+	var canvas = $("#gameCanvas")[0];
 	
-	setupFactory_MainCharacter(game);
-	setupFactory_Box(game);
+	startGame(canvas);
 	
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
-	
-	game.restartLevel();
-	
-	startGameLoop();
 });
-
-function keyDown(key){
-	if(key == left)
-		globalGameState.left = true;
-	if(key == right)
-		globalGameState.right = true;
-	if(key == up)
-		globalGameState.up = true;
-	if(key == down)
-		globalGameState.down = true;
-}
-
-function keyUp(key){
-	if(key == left)
-		globalGameState.left = false;
-	if(key == right)
-		globalGameState.right = false;
-	if(key == up)
-		globalGameState.up = false;
-	if(key == down)
-		globalGameState.down = false;
-}
 
 function forceAtLeastOneSelectedFactory(){
 	if ($("#factories option:selected").length == 0)
@@ -200,14 +210,4 @@ function writeCodeToFunction(){
 	var factory = game.getFactoryByName(selectedFactoryName);
 	var replaceFunction = "factory."+eventSelected+" = "+code+";";
 	eval(replaceFunction);
-}
-
-function startGameLoop(){
-	var FPS = 30;
-	var oneSecond = 1000;
-	intervalID = setInterval(loop, oneSecond / FPS);
-}
-
-function loop(){
-	game.gameLoop(globalGameState);
 }
