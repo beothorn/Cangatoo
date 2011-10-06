@@ -9,13 +9,21 @@
 	
 	<div id="menu">
 		<ul>
-			<li><a id="newGame" href="#">New game</a></li>
+			<li><h2>Game options</h2>
+				<ul>
+					<li><a id="newGame" href="#">New game</a></li>
+					<li><a id="loadGame" href="#">Load game</a></li>
+					<li><a id="exportGame" href="#">Export to html</a></li>
+				</ul>
+			</li>
 		</ul>
 		<ul>
-			<li><a id="loadGame" href="#">Load game</a></li>
-		</ul>
-		<ul>
-			<li><a id="exportGame" href="#">Export to html</a></li>
+			<li><h2>Game flow</h2>
+				<ul>
+					<li><a id="gameRestart" href="#">Restart</a></li>
+					<li><a id="gamePause" href="#">Pause</a></li>
+				</ul>
+			</li>
 		</ul>
 		<ul>
 			<li><h2>View</h2>
@@ -43,11 +51,6 @@
 			<p id="help">Cangatoo is a event oriented game editor. Its goal is to be an easy to use tool to create
 			simple 2d games using the power of html5 canvas. There is still a lot of things to be done on Cangatoo,
 			this is just the very beginning of the project.</p>
-		</div>
-		
-		<div id="gameFlowControl">
-			<input type="button" id="restart" value="Restart"/>
-			<input type="button" id="playPause" value="Pause"/>
 		</div>
 
 		<div id="exportHtml">

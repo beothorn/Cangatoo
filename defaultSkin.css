@@ -17,11 +17,6 @@ canvas, img {
 	border: 1px solid black; 
 }
 
-div#gameFlowControl{
-	margin: 0px auto 0px auto; 
-	text-align: center;
-}
-
 .ctrlButton{
 	width:3em;
 	height:3em;
@@ -54,7 +49,6 @@ div#gameFlowControl{
 /* menu BEGIN */
 
 #menu {
-width: 100%;
 background: #eee;
 float: left;
 }

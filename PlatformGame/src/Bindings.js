@@ -169,16 +169,16 @@ $(document).ready(function(){
   		writeCodeToFunction();
   });
   
-  $("#restart").click(function(event){
+  $("#gameRestart").click(function(event){
   		game.restartLevel();
   });
   
-  $("#playPause").click(function(event){
-  		if($("#playPause").val()=="Pause"){
-  			$("#playPause").val("Play");
+  $("#gamePause").click(function(event){
+  		if($("#gamePause").text()=="Pause"){
+  			$("#gamePause").text("Play");
   			clearInterval(intervalID);
   		}else{
-  			$("#playPause").val("Pause");
+  			$("#gamePause").text("Pause");
   			startGameLoop();
   		}
   });
