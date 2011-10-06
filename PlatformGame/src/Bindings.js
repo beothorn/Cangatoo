@@ -88,6 +88,19 @@ $(document).ready(function(){
   		}
   });
 
+  $("#help").hide();
+  $("#helpToogleHide").click(function(event){
+  		event.preventDefault();
+  		if($("#helpToogleHide").text() == "Hide help"){
+  			$("#help").hide("slow");
+  			$("#helpToogleHide").text("Help");
+  		}else{
+  			$("#help").show("slow");
+  			$("#helpToogleHide").text("Hide help");
+  		}
+  });
+  
+  
   $("#upBtn").mouseover(function(event){
 	keyDown(up);
   });
