@@ -71,11 +71,22 @@ function Game(drawCanvas){
 		}
 	}
 
+	this.onClick = function(globalGameState){
+		if(globalGameState.click == null)
+			return;
+		
+		for (var i in this.elementFactories)
+		{
+			this.elementFactories[i].click(globalGameState.click);
+		}
+		globalGameState.click = null;
+	}
 
 	this.gameLoop = function(globalGameState){
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
 		if(delta>40) delta = 40;
+		this.onClick(globalGameState);
 		this.stepElements(delta,globalGameState);
 		this.testCollisions(delta);
 		this.drawelementFactories(delta);

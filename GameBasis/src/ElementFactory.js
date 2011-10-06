@@ -60,6 +60,16 @@ function ElementFactory(factoryName,width,height){
 		}
 	};
 	
+	this.click = function(absoluteClickPosition){
+		for (var i in this.elementArray){
+			var element = this.elementArray[i];
+			var rect = {x1:element.x,x2:element.x+element.width,y1:element.y,y2:element.y+element.height};
+			if(isPointInsideRectangle(absoluteClickPosition,rect)){
+				this.onClick(element,absoluteClickPosition);
+			}
+		}
+	}
+	
 	this.draw = function(context,delta){
 		context.strokeStyle = "gray";
 		for (var i in this.elementArray){
@@ -102,6 +112,17 @@ function ElementFactory(factoryName,width,height){
 		**/
 	}	
 
+	this.onClick = function(element,absoluteClickPosition){		
+		/**
+		* The event onClick is called when a mouse click is done inside the element passed
+		* as parameter.
+		* You want to set initial values, width, height, the element sprite, etc.
+		* Parameters:
+		* 	-element: the Element being clicked.
+		*   -absoluteClickPosition: The click position relative to the canvas element.
+		**/
+	}
+	
 	this.onStep = function(element,delta,globalGameState,game){
 		/**
 		* The event onStep is called in every frame before 

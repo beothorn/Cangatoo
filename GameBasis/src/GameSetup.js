@@ -10,17 +10,28 @@ var globalGameState = {
 	left:false,
 	right:false,
 	up:false,
-	down:false
+	down:false,
+	click:null
 }
 
 function startGame(canvas){
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
-  
+  canvas.onclick  = function(event){
+  	var x = event.layerX - canvas.offsetLeft;
+  	var y = event.layerY - canvas.offsetTop;
+  	click({x:x,y:y});
+  };
+	
 	game = new Game(canvas);
 	setupFactories(game);
 	game.restartLevel();
 	startGameLoop();
+}
+
+
+function click(position){
+	globalGameState.click = position;
 }
 
 function keyDown(key){
@@ -44,6 +55,8 @@ function keyUp(key){
 	if(key == down)
 		globalGameState.down = false;
 }
+
+
 
 function startGameLoop(){
 	var FPS = 30;
