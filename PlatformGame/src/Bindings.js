@@ -13,7 +13,7 @@ function includeJSFile(includeURL){
 	var script = document.createElement( 'script' );
 	script.type = 'text/javascript';
 	script.src = includeURL;
-	$("#exportJavascript").append( script );
+	$(document).append( script );
 }
 
 $(document).ready(function(){
@@ -23,17 +23,14 @@ $(document).ready(function(){
 	}
 	includeJSFile(factoriesSetup);
 	
-	$("#pageOutput").hide();
+	$("#exportHtml").hide();
 		
-  $("#exportJavascript").click(function(event){
-		if($("#exportJavascript").text() != "Export Javascript"){
-			$("#exportJavascript").text("Export Javascript");
-			$("#pageOutput").hide("fast");
-			return;
-		}
-		
-		$("#exportJavascript").text("Hide export Javascript");
-  	$("#pageOutput").show("fast");
+	$("#hideHtml").click(function(event){
+		$("#exportHtml").hide("fast");	
+	});
+	
+  $("#exportGame").click(function(event){
+  	$("#exportHtml").show("fast");
   	$("#pageOutput").val(
   		"<html>\n"+
   		"  <head>\n"+
@@ -43,10 +40,14 @@ $(document).ready(function(){
   		"        startGame(document.getElementById(\"gameCanvas\"))\n"+
   		"      };\n");
   	
+  	$('#pageOutput').val($('#pageOutput').val()+"//Game Code BEGIN");
+  	
   	var gameSourceExport = new GameSourceExport();
 		var factoriesSetupJavascriptCode = gameSourceExport.getJavascriptSourceForGame(game);
 		$('#pageOutput').val($('#pageOutput').val()+factoriesSetupJavascriptCode);
   		
+		$('#pageOutput').val($('#pageOutput').val()+"//Game Code END\n");
+		
 		var loadCount = 0;
   	for(var i in include){
   		$('#pageOutput').load(include[i],null,function(responseText){  
@@ -76,28 +77,44 @@ $(document).ready(function(){
 			fillCodeEditor();
   });
 
+	$("#viewEditor").click(function(event){
+		var checkedShowString =  String.fromCharCode(10003)+" Editor";
+		var uncheckedShowString =  "\u00A0\u00A0 Editor";
+		
+		event.preventDefault();
+		if($("#viewEditor").text() == checkedShowString){
+			$("#gameEditor").hide("slow");
+			$("#viewEditor").text(uncheckedShowString);
+		}else{
+			$("#gameEditor").show("slow");
+			$("#viewEditor").text(checkedShowString);
+		}
+  });
+  
   $("#touchKeyboard").hide();
-  $("#touchControlsToogleHide").click(function(event){
+  $("#viewTouchButtons").click(function(event){
+  		var checkedShowString =  String.fromCharCode(10003)+" Touch buttons";
+  		var uncheckedShowString =  "\u00A0\u00A0 Touch buttons";
+  		
   		event.preventDefault();
-  		if($("#touchControlsToogleHide").text() == "Hide touch controls"){
+  		if($("#viewTouchButtons").text() == checkedShowString){
   			$("#touchKeyboard").hide("slow");
-  			$("#touchControlsToogleHide").text("Show touch controls");
+  			$("#viewTouchButtons").text(uncheckedShowString);
   		}else{
   			$("#touchKeyboard").show("slow");
-  			$("#touchControlsToogleHide").text("Hide touch controls");
+  			$("#viewTouchButtons").text(checkedShowString);
   		}
   });
 
-  $("#help").hide();
-  $("#helpToogleHide").click(function(event){
+  
+  $("#helpAboutText").hide();
+  $("#helpAbout").click(function(event){
   		event.preventDefault();
-  		if($("#helpToogleHide").text() == "Hide help"){
-  			$("#help").hide("slow");
-  			$("#helpToogleHide").text("Help");
-  		}else{
-  			$("#help").show("slow");
-  			$("#helpToogleHide").text("Hide help");
-  		}
+  		$("#helpAboutText").show("slow");
+  });
+  $("#hideHelpAbout").click(function(event){
+  		event.preventDefault();
+  		$("#helpAboutText").hide("slow");
   });
   
   
@@ -133,17 +150,6 @@ $(document).ready(function(){
 	keyUp(right);
   });
 
-  $("#gameEditorToogleHide").click(function(event){
-  		event.preventDefault();
-  		if($("#gameEditorToogleHide").text() == "Hide editor"){
-  			$("#gameEditor").hide("slow");
-  			$("#gameEditorToogleHide").text("Show editor");
-  		}else{
-  			$("#gameEditor").show("slow");
-  			$("#gameEditorToogleHide").text("Hide editor");
-  		}
-  });
-
   $("#factories").keydown(function(event){
   		if(event.which == 46){//delete
 			game.removeFactoryByName(this.value);
@@ -154,9 +160,9 @@ $(document).ready(function(){
   $("#searchOrAdd").keypress(function(event){
   		if(event.which == 13){
        			var factory = new ElementFactory(this.value);
-			game.addFactory(factory);
-			fillFactories();
-       		}
+       			game.addFactory(factory);
+       			fillFactories();
+      }
   });
 
   $("#saveCode").click(function(event){

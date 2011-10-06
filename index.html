@@ -7,22 +7,53 @@
 	</head>
 	<body>
 	
-		<a id="touchControlsToogleHide" href="#">Show touch controls</a>||
-		<a id="gameEditorToogleHide" href="#">Hide editor</a>||
-		<a id="exportJavascript" href="#">Export Javascript</a>||
-		<a id="helpToogleHide" href="#">Help</a>
+	<div id="menu">
+		<ul>
+			<li><a id="newGame" href="#">New game</a></li>
+		</ul>
+		<ul>
+			<li><a id="loadGame" href="#">Load game</a></li>
+		</ul>
+		<ul>
+			<li><a id="exportGame" href="#">Export to html</a></li>
+		</ul>
+		<ul>
+			<li><h2>View</h2>
+				<ul>
+					<li><a id="viewEditor" href="#">&#10003; Editor</a></li>
+					<li><a id="viewTouchButtons" href="#">&nbsp;&nbsp; Touch buttons</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li><h2>Help</h2>
+				<ul>
+					<li><a id="helpAbout" href="#">About</a></li>
+					<li><a id="helpTutorial" href="#">Tutorial</a></li>
+					<li><a id="helpWebsite" onClick="window.open('https://github.com/beothorn/Cangatoo','Website')">View website</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
 		<br>
 
-		<p id="help">Cangatoo is a event oriented game editor. Its goal is to be an easy to use tool to create
-		simple 2d games using the power of html5 canvas. There is still a lot of things to be done on Cangatoo,
-		this is just the very beginning of the project.</p>
+		<div id="helpAboutText">
+			<a id="hideHelpAbout" href="#">Hide About</a>
+			<p id="help">Cangatoo is a event oriented game editor. Its goal is to be an easy to use tool to create
+			simple 2d games using the power of html5 canvas. There is still a lot of things to be done on Cangatoo,
+			this is just the very beginning of the project.</p>
+		</div>
 		
 		<div id="gameFlowControl">
 			<input type="button" id="restart" value="Restart"/>
 			<input type="button" id="playPause" value="Pause"/>
 		</div>
 
-		<textarea id="pageOutput" rows="30"></textarea>
+		<div id="exportHtml">
+			<a id="hideHtml" href="#">Hide Html</a>
+			<textarea id="pageOutput" rows="30"></textarea>
+		</div>
 		
 		<canvas id="gameCanvas" width="500" height="300">
 			<p>Your browser does not support the canvas element.</p>
