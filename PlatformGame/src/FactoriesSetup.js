@@ -1,4 +1,4 @@
-function setupFactories(game){
+function setupDefaultGame(game){
   var factory_MainCharacter = new ElementFactory("MainCharacter");
   factory_MainCharacter.onLevelStart = function (){
 		/**
