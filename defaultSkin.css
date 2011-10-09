@@ -22,16 +22,27 @@ canvas, img {
 	height:3em;
 }
 
-#gameEditor{
+#ElementFacoryEditor{
+	width:100%;
+	height:100%;
+	text-align:left;
+}
+
+#ElementFacoryEditor1Col{
+	width:20%;
+	height:2em;
+}
+
+#searchOrAdd{
 	width:100%;
 }
 
-#factories{
+#codeEditor{
 	width:100%;
 	height:100%;
 }
 
-#codeEditor{
+#factories{
 	width:100%;
 	height:100%;
 }
@@ -43,8 +54,6 @@ canvas, img {
 #pageOutput{
 	width:100%;
 }
-
-
 
 /* menu BEGIN */
 
@@ -118,3 +127,63 @@ div#menu ul ul ul li:hover ul{
 }
 
 /* menu END */
+
+/* tabs BEGIN */
+
+#gameEditor { 
+}
+
+#tabLinks { 
+	list-style: none; 
+	overflow-x: hidden; 
+	padding: 0;
+	margin: 0;
+}
+
+#tabLinks li {  
+}
+
+#tabLinks li a { 
+	font: bold 11px/16px arial, helvetica, sans-serif;
+	border-width: 1px;
+	border-bottom-color: #000000;
+	border-style: solid;
+	padding: 2px 3px;
+	background: #ffffff;
+	
+	color: black; 
+	float: left;  
+}
+
+#tabLinks li a:hover { 
+	color: #a00;
+	border-bottom-color: #ffffff;
+}
+
+#tabLinks li a.active { 
+	color: #a00;
+	border-bottom-color: #ffffff;
+}
+
+#tabLinks li a.active:hover { 
+	color: #a00;
+	border-bottom-color: #ffffff;
+}
+
+#tabContents { 
+	height: 20em;
+	padding: 0px 0px 0px 0px;
+	border-width: 0px;
+	overflow: hidden; 
+}
+
+.tabContent { 
+	height: 20em; 
+	overflow: auto;
+	background: #FFF;
+}
+
+#factoriesTab:target, #resourcesTab:target, #box3:target {
+}
+
+/* tabs END */

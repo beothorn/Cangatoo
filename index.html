@@ -23,6 +23,7 @@
 					<ul>
 						<li><a id="gameRestart" href="#">Restart</a></li>
 						<li><a id="gamePause" href="#">Pause</a></li>
+						<li><a id="gameRestartPause" href="#">Restart and pause</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -89,26 +90,42 @@
 				</td>
 			</tr>
 			</table>
+		</div>		
+		
+		<div id="gameEditor">
+			<ul id="tabLinks">
+				<!-- 
+				<li><a href="#gameTab" href="#">Game</a></li>
+				<li><a href="#resourcesTab" href="#">Resources</a></li>
+				-->
+				<li><a href="#factoriesTab" href="#">Element Factories</a></li>
+				<!--
+				<li><a href="#levelsTab" href="#">Levels</a></li>
+				-->
+			</ul>
+			<div id="tabContents">
+				<div id="factoriesTab" class="tabContent">
+					<table id="ElementFacoryEditor" border ="0">
+						<tr>
+							<td id="ElementFacoryEditor1Col">
+								<input type="text" id="searchOrAdd" value="NewElementFactory"/>
+							</td>
+							<td>
+								<select id="events" ></select>
+								<input type="button" id="saveCode" value="save"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<select id="factories" size="2"></select>
+							</td>
+							<td>
+								<textarea id="codeEditor"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
-
-		<table id="gameEditor" border ="0">
-			<tr>
-				<td width="10%">
-					<input type="text" id="searchOrAdd" value="NewElementFactory"/>
-				</td>
-				<td>
-					<select id="events" ></select>
-					<input type="button" id="saveCode" value="save"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<select id="factories" size="20"></select>
-				</td>
-				<td>
-					<textarea id="codeEditor" rows="20"></textarea>
-				</td>
-			</tr>
-		</table>
 	</body>
 </html>
