@@ -24,7 +24,7 @@ function startGame(canvas){
   };
 	
 	game = new Game(canvas);
-	setupFactories(game);
+	setupDefaultGame(game);
 	game.restartLevel();
 	startGameLoop();
 }
