@@ -10,6 +10,7 @@ function Game(drawCanvas){
 		{
 			this.elementFactories[i].restartFactory();
 		}
+		this.drawelementFactories(0);
 	}
 	
 	this.getFactories = function(){

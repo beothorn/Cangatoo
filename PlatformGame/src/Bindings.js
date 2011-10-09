@@ -182,7 +182,13 @@ $(document).ready(function(){
   			startGameLoop();
   		}
   });
-	
+  
+	$("#gameRestartPause").click(function(event){
+			$("#gamePause").text("Play");
+			game.restartLevel();
+			clearInterval(intervalID);
+  });
+  
 	var canvas = $("#gameCanvas")[0];
 	
 	startGame(canvas);
