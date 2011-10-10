@@ -20,7 +20,7 @@ function startGame(canvas){
   canvas.onclick  = function(event){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
-  	click({x:x,y:y});
+  	canvasClick({x:x,y:y});
   };
 	
 	game = new Game(canvas);
@@ -30,7 +30,7 @@ function startGame(canvas){
 }
 
 
-function click(position){
+function canvasClick(position){
 	globalGameState.click = position;
 }
 

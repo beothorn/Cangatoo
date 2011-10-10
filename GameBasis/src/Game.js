@@ -24,6 +24,10 @@ function Game(drawCanvas){
 		}
 		
 		this.currentLevel.loadLevel(this);
+		this.redraw();
+	}
+	
+	this.redraw = function(){
 		this.drawelementFactories(0);
 	}
 	

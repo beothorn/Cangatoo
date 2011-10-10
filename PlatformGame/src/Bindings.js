@@ -16,6 +16,8 @@ function includeJSFile(includeURL){
 	$(document).append( script );
 }
 
+var gamePaused = false;
+
 $(document).ready(function(){
   
 	for(var i in include){
@@ -176,27 +178,58 @@ $(document).ready(function(){
   $("#gamePause").click(function(event){
   		if($("#gamePause").text()=="Pause"){
   			$("#gamePause").text("Play");
-  			clearInterval(intervalID);
+  			pause();
   		}else{
   			$("#gamePause").text("Pause");
-  			startGameLoop();
+  			play();
   		}
   });
   
 	$("#gameRestartPause").click(function(event){
 			$("#gamePause").text("Play");
 			game.restartCurrentLevel();
-			clearInterval(intervalID);
+			pause();
   });
   
 	var canvas = $("#gameCanvas")[0];
 	
 	startGame(canvas);
 	
+	overrideCanvasClick(canvas);
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
 });
+
+function pause(){
+	gamePaused = true;
+	clearInterval(intervalID);
+}
+
+function play(){
+	gamePaused = false;
+	startGameLoop();
+}
+
+function overrideCanvasClick(canvas){
+	canvas.onclick  = function(event){
+  	var x = event.layerX - canvas.offsetLeft;
+  	var y = event.layerY - canvas.offsetTop;
+  	if(gamePaused){
+  		console.log("Add element at x:"+x+" y:"+y);
+  		addElementFromSelectedFactory(x,y);
+  	}else{
+  		canvasClick({x:x,y:y});
+  	};
+  };
+}
+
+function addElementFromSelectedFactory(x,y){
+	var selectedFactory = $("#factories option:selected").text();
+	var factory = game.getFactoryByName(selectedFactory);
+	factory.addElementAt(x,y);
+	game.redraw();
+}
 
 function forceAtLeastOneSelectedFactory(){
 	if ($("#factories option:selected").length == 0)
@@ -211,6 +244,7 @@ function fillFactories(){
 	}
 	forceAtLeastOneSelectedFactory();
 }
+
 
 function fillEvents(){
 	var selectedFactory = $("#factories option:selected").text();
