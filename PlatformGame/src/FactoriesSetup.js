@@ -1,13 +1,5 @@
 function setupDefaultGame(game){
   var factory_MainCharacter = new ElementFactory("MainCharacter");
-  factory_MainCharacter.onLevelStart = function (){
-		/**
-		* The event onLevelStart is called when a level is started or restarted.
-		* This will probably be automatically generated in the future.
-		**/
-		var positions = [{x:50,y:50}];
-		factory_MainCharacter.addElementsAt(positions);
-	}
 
   factory_MainCharacter.onDraw = function (element,delta,context){
 		/**
@@ -75,14 +67,6 @@ function setupDefaultGame(game){
 
   game.addFactory(factory_MainCharacter);
   var factory_Box = new ElementFactory("Box");
-  factory_Box.onLevelStart = function (){
-		/**
-		* The event onLevelStart is called when a level is started or restarted.
-		* This will probably be automatically generated in the future.
-		**/
-		var positions = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
-		factory_Box.addElementsAt(positions);
-	}
 
   factory_Box.onDraw = function (element,delta,context){
 		context.fillStyle = "white";
@@ -121,5 +105,20 @@ function setupDefaultGame(game){
 
 
   game.addFactory(factory_Box);
+  
+  function FirstLevel(){
+  	
+  	this.levelName = "FirstLevel";
+  	
+		this.loadLevel = function(game){
+			var positions = [{x:50,y:50}];
+			game.getFactoryByName("MainCharacter").addElementsAt(positions);
+		
+			var positions = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
+			game.getFactoryByName("Box").addElementsAt(positions);
+		}
+	}
+  
+  game.addLevel(new FirstLevel());
 
 }

@@ -1,16 +1,36 @@
 function Game(drawCanvas){
 	this.lastLoopTime = new Date().getTime();
-	this.elementFactories = new Array();
+	this.elementFactories = new Array();//TODO: should be a map
+	this.levels = new Array();
 
 	this.canvas = drawCanvas;
 	this.context = this.canvas.getContext('2d');
 	
-	this.restartLevel = function(){
-		for (var i in this.elementFactories)
-		{
+	this.getLevelByName = function(levelName){
+		for (var i in this.levels){
+			if(this.levels[i].levelName == levelName)
+				return this.levels[i];
+		}                                                        
+		return null;
+	}                                  
+	
+	this.setLevel = function(level){
+		this.currentLevel = level;
+	}
+	
+	this.restartCurrentLevel = function(){
+		for (var i in this.elementFactories){
 			this.elementFactories[i].restartFactory();
 		}
+		
+		this.currentLevel.loadLevel(this);
 		this.drawelementFactories(0);
+	}
+	
+	this.loadLevel = function(levelName){		
+		var level = this.getLevelByName(levelName);
+		this.setLevel(level);
+		this.restartCurrentLevel();            
 	}
 	
 	this.getFactories = function(){
@@ -19,6 +39,10 @@ function Game(drawCanvas){
 
 	this.addFactory = function(factory){
 		this.elementFactories.push(factory);
+	}
+	
+	this.addLevel = function(level){
+		this.levels.push(level);
 	}
 	
 	this.removeFactoryByName = function(factoryName){

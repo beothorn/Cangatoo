@@ -170,7 +170,7 @@ $(document).ready(function(){
   });
   
   $("#gameRestart").click(function(event){
-  		game.restartLevel();
+  		game.restartCurrentLevel();
   });
   
   $("#gamePause").click(function(event){
@@ -185,7 +185,7 @@ $(document).ready(function(){
   
 	$("#gameRestartPause").click(function(event){
 			$("#gamePause").text("Play");
-			game.restartLevel();
+			game.restartCurrentLevel();
 			clearInterval(intervalID);
   });
   

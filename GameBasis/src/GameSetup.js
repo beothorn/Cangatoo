@@ -25,7 +25,7 @@ function startGame(canvas){
 	
 	game = new Game(canvas);
 	setupDefaultGame(game);
-	game.restartLevel();
+	game.loadLevel("FirstLevel");
 	startGameLoop();
 }
 

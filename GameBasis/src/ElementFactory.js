@@ -7,7 +7,6 @@ function ElementFactory(factoryName,width,height){
 
 	this.restartFactory = function(){
 		this.elementArray.length = 0;
-		this.onLevelStart();
 	}
 	
 	this.addElementAt = function(x,y){
@@ -81,13 +80,6 @@ function ElementFactory(factoryName,width,height){
 			this.onDraw(this.elementArray[i],delta,context);
 		}
 	};
-
-	this.onLevelStart = function(){
-		/**
-		* The event onLevelStart is called when a level is started or restarted.
-		* This will probably be automatically generated in the future.
-		**/
-	}
 	
 	this.onDraw = function(element,delta,context){
 		/**
