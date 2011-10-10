@@ -11,7 +11,7 @@ function Game(drawCanvas){
 			if(this.levels[i].levelName == levelName)
 				return this.levels[i];
 		}                                                        
-		return null;
+		throw "Level '"+levelName+"' doesn't exist.";
 	}                                  
 	
 	this.setLevel = function(level){
