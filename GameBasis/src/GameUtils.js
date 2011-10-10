@@ -62,3 +62,7 @@ function applyFriction(element,delta,xFriction,yFriction){
 			element.ySpeed=0;
 	}
 }
+
+function goToLevel(levelName){
+	game.loadLevel(levelName);
+}

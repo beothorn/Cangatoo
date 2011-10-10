@@ -59,6 +59,10 @@ function setupDefaultGame(game){
 
 		applyFriction(element,delta,500,0);
 	}
+	
+	factory_MainCharacter.onDraw = function(element,delta,context){
+		context.strokeRect(element.x, element.y, element.width, element.height);
+	};
 
   factory_MainCharacter.onAfterStep = function (element,delta,globalGameState,game){
 		wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
@@ -103,22 +107,63 @@ function setupDefaultGame(game){
 		bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 	}
 
-
+	
+	factory_Box.onAfterStep = function (element,delta,globalGameState,game){
+		bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+	}
+	
+	factory_Box.onClick = function(element,absoluteClickPosition){		
+		goToLevel("SecondLevel");
+	}
+	
+	
   game.addFactory(factory_Box);
+  
+  var factory_ClickToStart = new ElementFactory("ClickToStart");
+  
+  factory_ClickToStart.onCreate = function (element) {
+			element.width = 64;
+			element.height = 32;
+	}
+  
+  factory_ClickToStart.onDraw = function (element, delta, context) {
+    context.fillStyle = "black";
+    context.strokeRect(element.x, element.y, element.width, element.height);
+    context.fillText("Click to start", element.x, element.y+17);
+  }
+	
+	factory_ClickToStart.onClick = function (element, absoluteClickPosition) {
+			goToLevel("SecondLevel");
+	}
+
+  game.addFactory(factory_ClickToStart);
+  
   
   function FirstLevel(){
   	
   	this.levelName = "FirstLevel";
   	
 		this.loadLevel = function(game){
-			var positions = [{x:50,y:50}];
-			game.getFactoryByName("MainCharacter").addElementsAt(positions);
-		
-			var positions = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
-			game.getFactoryByName("Box").addElementsAt(positions);
+			var positions_ClickToStart = [{x:50,y:50}];
+			game.getFactoryByName("ClickToStart").addElementsAt(positions_ClickToStart);
 		}
 	}
   
   game.addLevel(new FirstLevel());
+  
+  function SecondLevel(){
+  	
+  	this.levelName = "SecondLevel";
+  	
+		this.loadLevel = function(game){
+			var positions_MainCharacter = [{x:50,y:50}];
+			game.getFactoryByName("MainCharacter").addElementsAt(positions_MainCharacter);
+		
+			var positions_Box = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
+			game.getFactoryByName("Box").addElementsAt(positions_Box);
+		}
+	}
+  
+  game.addLevel(new SecondLevel());
 
 }
