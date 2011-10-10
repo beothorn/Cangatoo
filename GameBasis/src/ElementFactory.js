@@ -73,9 +73,7 @@ function ElementFactory(factoryName,width,height){
 		context.strokeStyle = "gray";
 		for (var i in this.elementArray){
 			var element = this.elementArray[i];
-			if(element.sprite == null)
-				context.strokeRect(element.x, element.y, element.width, element.height);
-			else
+			if(element.sprite != null)
 				context.drawImage(element.sprite,element.x,element.y);
 			this.onDraw(this.elementArray[i],delta,context);
 		}
