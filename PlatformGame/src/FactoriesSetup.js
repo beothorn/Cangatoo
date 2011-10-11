@@ -146,6 +146,10 @@ function setupDefaultGame(game){
 		this.loadLevel = function(game){
 			var positions_ClickToStart = [{x:50,y:50}];
 			game.getFactoryByName("ClickToStart").addElementsAt(positions_ClickToStart);
+			this.onLevelStart(game);
+		}
+		
+		this.onLevelStart = function(game){
 		}
 	}
   
@@ -161,6 +165,10 @@ function setupDefaultGame(game){
 		
 			var positions_Box = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
 			game.getFactoryByName("Box").addElementsAt(positions_Box);
+			this.onLevelStart(game);
+		}
+		
+		this.onLevelStart = function(game){
 		}
 	}
   

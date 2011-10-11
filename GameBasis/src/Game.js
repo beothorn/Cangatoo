@@ -122,6 +122,14 @@ function Game(drawCanvas){
 		this.lastLoopTime = new Date().getTime();
 	}
 	
+	this.getLevelNames = function(){
+		var levels = new Array();
+		for (var i in this.levels){
+			levels.push(this.levels[i].levelName);
+		}
+		return levels;
+	}
+	
 	this.getFactoriesNames = function(){
 		var factoriesNames = new Array();
 		for (var i in this.elementFactories){
@@ -130,6 +138,23 @@ function Game(drawCanvas){
 		return factoriesNames;
 	}
 
+	this.getEventsForLevel = function(levelName){
+		var level;
+		for (var i in this.levels){
+			if(this.levels[i].levelName == levelName)
+				level = this.levels[i];
+		}
+		if(level == null)
+			throw "level "+levelName+" does not exist";
+
+		var events = new Array();
+		for(var property in level){
+			if(typeof(eval("level."+property)) == 'function' && property.indexOf("on")==0)
+				events.push(property);
+		}
+		return events;
+	}
+	
 	this.getEventsFor = function(factoryName){
 		var factory;
 		for (var i in this.elementFactories){

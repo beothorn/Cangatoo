@@ -22,27 +22,27 @@ canvas, img {
 	height:3em;
 }
 
-#ElementFacoryEditor{
+#ElementFacoryEditor,#LevelEditor{
 	width:100%;
 	height:100%;
 	text-align:left;
 }
 
-#ElementFacoryEditor1Col{
+#editorFirstCol{
 	width:20%;
 	height:2em;
 }
 
-#searchOrAdd{
+#searchOrAddFactory,#searchOrAddLevel{
 	width:100%;
 }
 
-#codeEditor{
+#factoryCodeEditor,#levelCodeEditor{
 	width:100%;
 	height:100%;
 }
 
-#factories{
+#factories,#levels{
 	width:100%;
 	height:100%;
 }

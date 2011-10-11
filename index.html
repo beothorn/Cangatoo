@@ -99,20 +99,18 @@
 				<li><a href="#resourcesTab" href="#">Resources</a></li>
 				-->
 				<li><a href="#factoriesTab" href="#">Element Factories</a></li>
-				<!--
 				<li><a href="#levelsTab" href="#">Levels</a></li>
-				-->
 			</ul>
 			<div id="tabContents">
 				<div id="factoriesTab" class="tabContent">
 					<table id="ElementFacoryEditor" border ="0">
 						<tr>
-							<td id="ElementFacoryEditor1Col">
-								<input type="text" id="searchOrAdd" value="NewElementFactory"/>
+							<td id="editorFirstCol">
+								<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
 							</td>
 							<td>
-								<select id="events" ></select>
-								<input type="button" id="saveCode" value="save"/>
+								<select id="factoryEvents" ></select>
+								<input type="button" id="saveFactoryCode" value="save"/>
 							</td>
 						</tr>
 						<tr>
@@ -120,11 +118,35 @@
 								<select id="factories" size="2"></select>
 							</td>
 							<td>
-								<textarea id="codeEditor"></textarea>
+								<textarea id="factoryCodeEditor"></textarea>
 							</td>
 						</tr>
 					</table>
 				</div>
+				
+				<div id="levelsTab" class="tabContent">
+					<table id="LevelEditor" border ="0">
+						<tr>
+							<td id="editorFirstCol">
+								<input type="text" id="searchOrAddLevel" value="NewLevel"/>
+							</td>
+							<td>
+								<select id="levelEvents" ></select>
+								<input type="button" id="saveLevelCode" value="save"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<select id="levels" size="2"></select>
+							</td>
+							<td>
+								<textarea id="levelCodeEditor"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				
 			</div>
 		</div>
 	</body>

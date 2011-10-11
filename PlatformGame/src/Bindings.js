@@ -71,11 +71,11 @@ $(document).ready(function(){
 
   $("#factories").change(function(event){
 		forceAtLeastOneSelectedFactory();
-  		fillEvents();
+  	fillEvents();
 		fillCodeEditor();
   });
   
-  $("#events").change(function(event){
+  $("#factoryEvents").change(function(event){
 			fillCodeEditor();
   });
 
@@ -159,7 +159,7 @@ $(document).ready(function(){
        		}
   });
   
-  $("#searchOrAdd").keypress(function(event){
+  $("#searchOrAddFactory").keypress(function(event){
   		if(event.which == 13){
        			var factory = new ElementFactory(this.value);
        			game.addFactory(factory);
@@ -167,7 +167,7 @@ $(document).ready(function(){
       }
   });
 
-  $("#saveCode").click(function(event){
+  $("#saveFactoryCode").click(function(event){
   		writeCodeToFunction();
   });
   
@@ -199,6 +199,10 @@ $(document).ready(function(){
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
+	
+	fillLevels();
+	fillLevelEvents();
+	fillLevelCodeEditor();
 });
 
 function pause(){
@@ -231,6 +235,36 @@ function addElementFromSelectedFactory(x,y){
 	game.redraw();
 }
 
+function forceAtLeastOneSelectedLevel(){
+	if ($("#levels option:selected").length == 0)
+		$("#levels").prop("selectedIndex", 0)
+}
+
+function fillLevels(){
+	var levelNames = game.getLevelNames();
+	$("#levels").empty();
+	for(var i in levelNames){
+		$("#levels").append('<option>'+levelNames[i]+'</option>');		
+	}
+	forceAtLeastOneSelectedLevel();
+}
+
+function fillLevelEvents(){
+	var selectedLevel = $("#levels option:selected").text();
+	var events = game.getEventsForLevel(selectedLevel);
+	$("#levelEvents").empty();
+	for(var i in events){
+		$("#levelEvents").append('<option>'+events[i]+'</option>');
+	}
+}
+
+function fillLevelCodeEditor(){
+	var selectedLevelName = $("#levels option:selected").text();
+	var eventSelected = $("#levelEvents option:selected").text();
+	var level = game.getLevelByName(selectedLevelName);
+	$("#levelCodeEditor").val(eval('level.'+eventSelected).toString());
+}
+
 function forceAtLeastOneSelectedFactory(){
 	if ($("#factories option:selected").length == 0)
 		$("#factories").prop("selectedIndex", 0)
@@ -245,27 +279,26 @@ function fillFactories(){
 	forceAtLeastOneSelectedFactory();
 }
 
-
 function fillEvents(){
 	var selectedFactory = $("#factories option:selected").text();
 	var events = game.getEventsFor(selectedFactory);
-	$("#events").empty();
+	$("#factoryEvents").empty();
 	for(var i in events){
-		$("#events").append('<option>'+events[i]+'</option>');
+		$("#factoryEvents").append('<option>'+events[i]+'</option>');
 	}
 }
 
 function fillCodeEditor(){
 	var selectedFactoryName = $("#factories option:selected").text();
-	var eventSelected = $("#events option:selected").text();
+	var eventSelected = $("#factoryEvents option:selected").text();
 	var factory = game.getFactoryByName(selectedFactoryName);
-	$("#codeEditor").val(eval('factory.'+eventSelected).toString());
+	$("#factoryCodeEditor").val(eval('factory.'+eventSelected).toString());
 }
 
 function writeCodeToFunction(){
 	var selectedFactoryName = $("#factories option:selected").text();
-	var eventSelected = $("#events option:selected").text();
-	var code = $("#codeEditor").val();
+	var eventSelected = $("#factoryEvents option:selected").text();
+	var code = $("#factoryCodeEditor").val();
 	var factory = game.getFactoryByName(selectedFactoryName);
 	var replaceFunction = "factory."+eventSelected+" = "+code+";";
 	eval(replaceFunction);
