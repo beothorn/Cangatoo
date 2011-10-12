@@ -55,6 +55,10 @@ canvas, img {
 	width:100%;
 }
 
+#exportHtml,#touchKeyboard,#helpAboutText{
+	display:none;
+}
+
 /* menu BEGIN */
 
 #menuCentering{

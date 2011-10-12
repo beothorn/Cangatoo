@@ -78,7 +78,7 @@ function setupDefaultGame(game){
 	}
 
   factory_Box.onCreate = function (element){
-		element.setSprite("./PlatformGame/resources/ball.png");
+		element.setSprite("./Sprites/ball.png");
 		
 		this.leftLimit = 0;
 		this.topLimit = 0;
