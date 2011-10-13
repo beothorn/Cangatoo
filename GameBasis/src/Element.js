@@ -35,6 +35,14 @@ function Element(factory,x,y){
 		return this.height;
 	}
 	
+	this.getXSpeed= function(){
+		return this.xSpeed; 
+	}
+	
+	this.getYSpeed= function(){
+		return this.ySpeed; 
+	}
+	
 	this.setSprite = function(imgUrl){
 		this.sprite = new Image();
 		var element = this;

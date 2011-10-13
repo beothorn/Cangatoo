@@ -1,14 +1,16 @@
 var include = [
-	"Bindings.js",
 	"GameBasis/src/Element.js",
 	"GameBasis/src/Utils.js",
 	"GameBasis/src/Game.js",
 	"GameBasis/src/GameUtils.js",
 	"GameBasis/src/ElementFactory.js",
-	"GameBasis/src/GameSourceExport.js",
 	"GameBasis/src/GameSetup.js"
 ];
-var factoriesSetup = "Demos/BouncingBalls.js";
+var cangatooIncludes = [
+	"Bindings.js",
+	"Demos/BouncingBalls.js",
+	"GameBasis/src/GameSourceExport.js"
+];
 
 function includeJSFile(includeURL){
 	var script = document.createElement( 'script' );
@@ -24,7 +26,9 @@ $(document).ready(function(){
 	for(var i in include){
 		includeJSFile(include[i]);
 	}
-	includeJSFile(factoriesSetup);
+	for(var i in cangatooIncludes){
+		includeJSFile(cangatooIncludes[i]);
+	}
 			
 	new Bindings().doAllBindings();
   
@@ -33,6 +37,12 @@ $(document).ready(function(){
 	startGame(canvas);
 	overrideCanvasClick(canvas);
 	
+	reloadGameEditor();
+	
+});
+
+function reloadGameEditor(){
+	
 	fillFactories();
 	fillEvents();
 	fillCodeEditor();
@@ -40,7 +50,7 @@ $(document).ready(function(){
 	fillLevels();
 	fillLevelEvents();
 	fillLevelCodeEditor();
-});
+}
 
 function pause(){
 	gamePaused = true;
@@ -92,12 +102,20 @@ function fillLevels(){
 
 function fillLevelEvents(){
 	var selectedLevel = $("#levels option:selected").text();
+	if(selectedLevel == ""){
+		$("#levelEvents").empty();
+		return;
+	}
 	var events = game.getEventsForLevel(selectedLevel);
 	addStringArrayToList(events,"#levelEvents");
 }
 
 function fillLevelCodeEditor(){
 	var selectedLevelName = $("#levels option:selected").text();
+	if(selectedLevelName == ""){
+		$("#levelCodeEditor").val("No level selected.");
+		return;
+	}
 	var eventSelected = $("#levelEvents option:selected").text();
 	var level = game.getLevelByName(selectedLevelName);
 	$("#levelCodeEditor").val(eval('level.'+eventSelected).toString());
@@ -110,12 +128,20 @@ function fillFactories(){
 
 function fillEvents(){
 	var selectedFactory = $("#factories option:selected").text();
+	if(selectedFactory == ""){
+		$("#factoryEvents").empty();
+		return;
+	}
 	var events = game.getEventsFor(selectedFactory);
 	addStringArrayToList(events,"#factoryEvents");
 }
 
 function fillCodeEditor(){
 	var selectedFactoryName = $("#factories option:selected").text();
+	if(selectedFactoryName == ""){
+		$("#factoryCodeEditor").val("No factory selected.");
+		return;
+	}
 	var eventSelected = $("#factoryEvents option:selected").text();
 	var factory = game.getFactoryByName(selectedFactoryName);
 	$("#factoryCodeEditor").val(eval('factory.'+eventSelected).toString());

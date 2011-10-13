@@ -1,8 +1,8 @@
-function ElementFactory(factoryName,width,height){
+function ElementFactory(factoryName){
 
 	this.elementArray = new Array();
-	this.width = width;
-	this.height = height;
+	this.width = 0;
+	this.height = 0;
 	this.factoryName = factoryName;
 
 	this.restartFactory = function(){
@@ -90,10 +90,7 @@ function ElementFactory(factoryName,width,height){
 		**/
 	}	
 
-	this.onCreate = function(element){
-		element.width = 32;
-		element.height = 32;
-		
+	this.onCreate = function(element){		
 		/**
 		* The event onCreate is called when an element is created
 		* You want to set initial values, width, height, the element sprite, etc.

@@ -1,4 +1,7 @@
-function setupDefaultGame(game){
+function setupGame(game){
+	
+	game.gameName = "Bouncing balls";
+	
   var factory_MainCharacter = new ElementFactory("MainCharacter");
 
   factory_MainCharacter.onDraw = function (element,delta,context){
@@ -35,7 +38,7 @@ function setupDefaultGame(game){
 		
 		var gravity = 800;		
 		if(!canJump)
-			applyGravity(element,delta,gravity);
+			util.applyGravity(element,delta,gravity);
 		else
 			element.ySpeed = 0;
 		
@@ -57,7 +60,7 @@ function setupDefaultGame(game){
 				element.yAccelerate(-yAcceleration);
 		}
 
-		applyFriction(element,delta,500,0);
+		util.applyFriction(element,delta,500,0);
 	}
 	
 	factory_MainCharacter.onDraw = function(element,delta,context){
@@ -65,7 +68,7 @@ function setupDefaultGame(game){
 	};
 
   factory_MainCharacter.onAfterStep = function (element,delta,globalGameState,game){
-		wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+		util.wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 	}
 
 
@@ -104,16 +107,17 @@ function setupDefaultGame(game){
 	}
 
   factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-		bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+		util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 	}
 
 	
 	factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-		bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+		util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 	}
 	
 	factory_Box.onClick = function(element,absoluteClickPosition){		
-		goToLevel("SecondLevel");
+		element.xAccelerate(element.getXSpeed()*-1);
+		element.yAccelerate(element.getYSpeed()*-1);
 	}
 	
 	
@@ -133,7 +137,7 @@ function setupDefaultGame(game){
   }
 	
 	factory_ClickToStart.onClick = function (element, absoluteClickPosition) {
-			goToLevel("SecondLevel");
+			util.goToLevel("SecondLevel");
 	}
 
   game.addFactory(factory_ClickToStart);
@@ -143,7 +147,7 @@ function setupDefaultGame(game){
   	
   	this.levelName = "FirstLevel";
   	
-		this.loadLevel = function(game){
+		this.loadLevelOnGame = function(game){
 			var positions_ClickToStart = [{x:50,y:50}];
 			game.getFactoryByName("ClickToStart").addElementsAt(positions_ClickToStart);
 			this.onLevelStart(game);
@@ -159,7 +163,7 @@ function setupDefaultGame(game){
   	
   	this.levelName = "SecondLevel";
   	
-		this.loadLevel = function(game){
+		this.loadLevelOnGame = function(game){
 			var positions_MainCharacter = [{x:50,y:50}];
 			game.getFactoryByName("MainCharacter").addElementsAt(positions_MainCharacter);
 		

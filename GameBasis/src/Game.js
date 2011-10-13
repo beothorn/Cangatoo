@@ -2,9 +2,21 @@ function Game(drawCanvas){
 	this.lastLoopTime = new Date().getTime();
 	this.elementFactories = new Array();//TODO: should be a map
 	this.levels = new Array();
+	
+	this.gameName = "New game";
+	this.width = 500;
+	this.height = 300;
 
 	this.canvas = drawCanvas;
 	this.context = this.canvas.getContext('2d');
+	
+	this.newGame = function(){
+		this.gameName = "New game";
+		this.width = 500;
+		this.height = 300;
+		this.elementFactories = new Array();//TODO: should be a map
+		this.levels = new Array();
+	}
 	
 	this.getLevelByName = function(levelName){
 		for (var i in this.levels){
@@ -14,8 +26,8 @@ function Game(drawCanvas){
 		throw "Level '"+levelName+"' doesn't exist.";
 	}                                  
 	
-	this.setLevel = function(level){
-		this.currentLevel = level;
+	this.setLevel = function(_level){
+		level = _level;
 	}
 	
 	this.restartCurrentLevel = function(){
@@ -23,7 +35,7 @@ function Game(drawCanvas){
 			this.elementFactories[i].restartFactory();
 		}
 		
-		this.currentLevel.loadLevel(this);
+		level.loadLevelOnGame(this);
 		this.redraw();
 	}
 	
@@ -35,6 +47,10 @@ function Game(drawCanvas){
 		var level = this.getLevelByName(levelName);
 		this.setLevel(level);
 		this.restartCurrentLevel();            
+	}
+	
+	this.getLevels = function(){
+		return this.levels;
 	}
 	
 	this.getFactories = function(){
@@ -123,11 +139,11 @@ function Game(drawCanvas){
 	}
 	
 	this.getLevelNames = function(){
-		var levels = new Array();
+		var levelsNames = new Array();
 		for (var i in this.levels){
-			levels.push(this.levels[i].levelName);
+			levelsNames.push(this.levels[i].levelName);
 		}
-		return levels;
+		return levelsNames;
 	}
 	
 	this.getFactoriesNames = function(){

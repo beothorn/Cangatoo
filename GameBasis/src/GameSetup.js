@@ -1,4 +1,9 @@
+//Globals
 var game;
+var level;
+var util = new GameUtils();
+//--end globals
+
 var intervalID;
 
 var down  = 	40;
@@ -24,7 +29,7 @@ function startGame(canvas){
   };
 	
 	game = new Game(canvas);
-	setupDefaultGame(game);
+	setupGame(game);
 	game.loadLevel("FirstLevel");
 	startGameLoop();
 }

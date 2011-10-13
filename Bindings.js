@@ -8,42 +8,14 @@ function Bindings(){
 	}
 	
 	this.bindMenuEvents = function(){
+		$("#newGame").click(function(event){
+				game.newGame();
+				reloadGameEditor();
+		});
+		
 		$("#exportGame").click(function(event){
 			$("#exportHtml").show("fast");
-			$("#pageOutput").val(
-				"<html>\n"+
-				"  <head>\n"+
-				"    <title>Game</title>\n"+
-				"    <script type=\"text/javascript\">\n"+
-				"      window.onload = function(){\n"+
-				"        startGame(document.getElementById(\"gameCanvas\"))\n"+
-				"      };\n");
-			
-			$('#pageOutput').val($('#pageOutput').val()+"//Game Code BEGIN");
-			
-			var gameSourceExport = new GameSourceExport();
-			var factoriesSetupJavascriptCode = gameSourceExport.getJavascriptSourceForGame(game);
-			$('#pageOutput').val($('#pageOutput').val()+factoriesSetupJavascriptCode);
-				
-			$('#pageOutput').val($('#pageOutput').val()+"//Game Code END\n");
-			
-			var loadCount = 0;
-			for(var i in include){
-				$('#pageOutput').load(include[i],null,function(responseText){  
-					$('#pageOutput').val($('#pageOutput').val()+responseText);
-					loadCount++;
-					if(loadCount == include.length){
-						$('#pageOutput').val($('#pageOutput').val()+
-							"    </script>\n"+
-							"  </head>\n"+
-							"  <body>\n"+
-							"    <canvas id=\"gameCanvas\" width=\"500\" height=\"300\">\n"+
-							"      Your browser does not support the canvas element.\n"+
-							"    </canvas>\n"+
-							"</html>");
-					}
-				});
-			}
+			exportJSTo(game,$('#pageOutput'),include);
 		});
 		
 		$("#viewEditor").click(function(event){
