@@ -2,6 +2,7 @@
 var game;
 var level;
 var util = new GameUtils();
+var canvas;
 //--end globals
 
 var intervalID;
@@ -19,16 +20,19 @@ var globalGameState = {
 	click:null
 }
 
-function startGame(canvas){
+function startGame(drawCanvas){
+	
+	canvas = drawCanvas;
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
   canvas.onclick  = function(event){
+  	
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	canvasClick({x:x,y:y});
   };
 	
-	game = new Game(canvas);
+	game = new Game();
 	setupGame(game);
 	game.loadLevel("FirstLevel");
 	startGameLoop();

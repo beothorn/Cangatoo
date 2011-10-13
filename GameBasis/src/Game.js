@@ -1,4 +1,4 @@
-function Game(drawCanvas){
+function Game(){
 	this.lastLoopTime = new Date().getTime();
 	this.elementFactories = new Array();//TODO: should be a map
 	this.levels = new Array();
@@ -7,8 +7,7 @@ function Game(drawCanvas){
 	this.width = 500;
 	this.height = 300;
 
-	this.canvas = drawCanvas;
-	this.context = this.canvas.getContext('2d');
+	this.context = canvas.getContext('2d');
 	
 	this.newGame = function(){
 		this.gameName = "New game";
@@ -102,7 +101,7 @@ function Game(drawCanvas){
 	}
 	
 	this.drawelementFactories = function(delta){
-		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.context.clearRect(0, 0, canvas.width, canvas.height);
 		for (var i in this.elementFactories)
 		{
 			this.elementFactories[i].draw(this.context,delta);
