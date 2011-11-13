@@ -142,51 +142,18 @@ function setupGame(game){
 
   game.addFactory(factory_ClickToStart);
   
+  var level_FirstLevel = new Level("FirstLevel");
+  level_FirstLevel.levelElements = [
+  	{"ClickToStart":[{x:50,y:50}]}
+  ];
   
-  function FirstLevel(){
-  	
-  	this.levelName = "FirstLevel";
-  	
-		this.loadLevelOnGame = function(game){
-			var positions_ClickToStart = [{x:50,y:50}];
-			game.getFactoryByName("ClickToStart").addElementsAt(positions_ClickToStart);
-			this.onLevelStart(game);
-		}
-		
-		this.onLevelStart = function(game){
-		}
-	}
+  game.addLevel(level_FirstLevel);
   
-  game.addLevel(new FirstLevel());
+  var level_SecondLevel = new Level("SecondLevel");
+  level_SecondLevel.levelElements = [
+  	{"MainCharacter":[{x:50,y:50}]},
+  	{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
+  ];
   
-  function SecondLevel(){
-  	
-  	this.levelName = "SecondLevel";
-  	
-  	this.levelElements = [
-  		{"MainCharacter":[{x:50,y:50}]},
-  		{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
-  	];
-  	
-  	this.loadElementsForFactory = function(factoryToPositions){
-  		for(var factoryName in factoryToPositions){
-  			console.log(factoryName);
-				game.getFactoryByName(factoryName).addElementsAt(factoryToPositions[factoryName]);
-			}
-  	}
-  	
-		this.loadLevelOnGame = function(game){
-			console.log("loadLevelOnGame");
-			for(var i in this.levelElements){
-				this.loadElementsForFactory(this.levelElements[i]);
-			}
-			this.onLevelStart(game);
-		}
-		
-		this.onLevelStart = function(game){
-		}
-	}
-  
-  game.addLevel(new SecondLevel());
-
+  game.addLevel(level_SecondLevel);
 }

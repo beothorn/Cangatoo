@@ -25,8 +25,16 @@ function Game(){
 		throw "Level '"+levelName+"' doesn't exist.";
 	}                                  
 	
-	this.setLevel = function(_level){
-		level = _level;
+	this.setLevel = function(level){
+		this.level = level;
+	}
+	
+	this.loadLevelOnGame = function(){ 
+		for(var i in this.level.levelElements){
+			for(var factoryName in this.level.levelElements[i]){
+				this.getFactoryByName(factoryName).addElementsAt(this.level.levelElements[i][factoryName]);
+			}
+		}
 	}
 	
 	this.restartCurrentLevel = function(){
@@ -34,7 +42,7 @@ function Game(){
 			this.elementFactories[i].restartFactory();
 		}
 		
-		level.loadLevelOnGame(this);
+		this.loadLevelOnGame();
 		this.redraw();
 	}
 	
