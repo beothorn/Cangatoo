@@ -107,7 +107,7 @@ function Bindings(){
 	};
 	
 	this.bindGameEditor = function(){
-		 $("#factories").change(function(event){
+		$("#factories").change(function(event){
 			forceAtLeastOneSelectedOn("#factories");
 			fillEvents();
 			fillCodeEditor();
@@ -125,14 +125,6 @@ function Bindings(){
 				}
 		});
 		
-		$("#searchOrAddLevel").keypress(function(event){
-				if(event.which == 13){
-					var level = new Level(this.value);
-					game.addLevel(level);
-					fillLevels();
-				}
-		});
-		
 		$("#factories").keydown(function(event){
 				if(event.which == 46){//delete
 					game.removeFactoryByName(this.value);
@@ -142,6 +134,28 @@ function Bindings(){
 	
 		$("#saveFactoryCode").click(function(event){
 				writeCodeToFunction();
+		});
+		
+		$("#levels").change(function(event){
+			forceAtLeastOneSelectedOn("#levels");
+			fillLevelEvents();
+			fillLevelCodeEditor();
+		});
+		
+		$("#levelEvents").change(function(event){
+				fillLevelCodeEditor();
+		});
+		
+		$("#searchOrAddLevel").keypress(function(event){
+				if(event.which == 13){
+					var level = new Level(this.value);
+					game.addLevel(level);
+					fillLevels();
+				}
+		});
+		
+		$("#saveLevelCode").click(function(event){
+				writeLevelCodeToFunction();
 		});
 	};
 	

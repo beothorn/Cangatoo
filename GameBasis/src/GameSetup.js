@@ -33,7 +33,6 @@ function startGame(drawCanvas){
   };
 	
 	game = new Game();
-	var gameCode = new BouncingBalls();
 	gameCode.setup(game);
 	game.reset();
 	startGameLoop();

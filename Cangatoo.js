@@ -21,6 +21,7 @@ function includeJSFile(includeURL){
 }
 
 var gamePaused = false;
+var gameCode;
 
 $(document).ready(function(){
   
@@ -32,7 +33,7 @@ $(document).ready(function(){
 	}
 			
 	new Bindings().doAllBindings();
-  
+  gameCode = new BouncingBalls();
 	var canvas = $("#gameCanvas")[0];
 	
 	startGame(canvas);
@@ -112,13 +113,24 @@ function fillLevelEvents(){
 
 function fillLevelCodeEditor(){
 	var selectedLevelName = $("#levels option:selected").text();
+	console.log(selectedLevelName);
 	if(selectedLevelName == ""){
 		$("#levelCodeEditor").val("No level selected.");
 		return;
 	}
 	var eventSelected = $("#levelEvents option:selected").text();
+	console.log(eventSelected);
 	var level = game.getLevelByName(selectedLevelName);
 	$("#levelCodeEditor").val(eval('level.'+eventSelected).toString());
+}
+
+function writeLevelCodeToFunction(){
+	var selectedLevelName = $("#levels option:selected").text();
+	var eventSelected = $("#levelEvents option:selected").text();
+	var code = $("#levelCodeEditor").val();
+	var level = game.getLevelByName(selectedLevelName);
+	var replaceFunction = "level."+eventSelected+" = "+code+";";
+	eval(replaceFunction);
 }
 
 function fillFactories(){

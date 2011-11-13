@@ -56,7 +56,8 @@ function Game(){
 	
 	this.internalLoadLevel = function(level){
 		this.setLevel(level);
-		this.restartCurrentLevel();  
+		level.onLoadLevel();
+		this.restartCurrentLevel();
 	}
 	
 	this.loadLevel = function(levelName){		
