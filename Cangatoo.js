@@ -67,7 +67,6 @@ function overrideCanvasClick(canvas){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	if(gamePaused){
-  		console.log("Add element at x:"+x+" y:"+y);
   		addElementFromSelectedFactory(x,y);
   	}else{
   		canvasClick({x:x,y:y});
