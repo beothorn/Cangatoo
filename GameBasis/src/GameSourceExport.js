@@ -56,6 +56,37 @@ function getLevelEventsCode(level){
 	return javascriptCode;
 }
 
+function getLevelElementsCode(level){
+	var javascriptCode= "";
+	var levelName = level.levelName;
+	javascriptCode += "level_"+levelName+".levelElements = [\n";
+	var isFirstFactory = true;
+	for(var elI in level.levelElements){
+		for(var factoryName in level.levelElements[elI]){
+			if(isFirstFactory){
+				isFirstFactory = false;
+			}else{
+				javascriptCode += ",\n";
+			}
+			javascriptCode += "{\""+factoryName+"\":[";
+			var isFirstCoordinate = true;
+			for(var j in level.levelElements[elI][factoryName]){
+				if(isFirstCoordinate){
+					isFirstCoordinate = false;
+				}else{
+					javascriptCode += ",";
+				}
+				//oh shit
+				javascriptCode += "{x:"+level.levelElements[elI][factoryName][j]["x"]+",y:"+level.levelElements[elI][factoryName][j]["y"]+"}";
+				//fix this
+			}
+			javascriptCode += "]}";
+		}
+	}
+	javascriptCode += "\n];";
+	return javascriptCode;
+}
+
 function getLevelsCode(game){
 	var javascriptCode = "";
 	var levels = game.getLevels();
@@ -63,22 +94,9 @@ function getLevelsCode(game){
 		var levelName = levels[i].levelName;
 		javascriptCode += "var level_"+levelName+" = new Level(\""+levelName+"\");\n";
 				
-		javascriptCode +=  getLevelEventsCode(levels[i]); 
+		javascriptCode +=  getLevelEventsCode(levels[i]);
+		javascriptCode +=  getLevelElementsCode(levels[i]);
 		
-		
-		javascriptCode += "level_"+levelName+".levelElements = [\n";
-		for(var elI in levels[i].levelElements){
-			for(var factoryName in levels[i].levelElements[elI]){
-				javascriptCode += "{\""+factoryName+"\":[";
-				for(var j in levels[i].levelElements[elI][factoryName]){
-					//oh shit
-					javascriptCode += "{x:"+levels[i].levelElements[elI][factoryName][j]["x"]+",y:"+levels[i].levelElements[elI][factoryName][j]["y"]+"},";
-					//fix this
-				}
-				javascriptCode += "]},\n";
-			}
-		}
-		javascriptCode += "]";
 		
 		javascriptCode += "\ngame.addLevel(level_"+levelName+");\n";
 	}
