@@ -18,6 +18,8 @@ function loadRestAndSetElementText(game,element, includes){
 		"<canvas id=\"gameCanvas\" width=\""+game.width+"\" height=\""+game.height+"\"></canvas>\n"+
 		"*/\n";
 	
+	javascriptCode += "//START CUSTOM CODE###################################\n";
+		
 	javascriptCode += "function "+gameVariableName+"(){\n";
 	javascriptCode += "  this.setup = function(game){\n";
 	javascriptCode += "    game.gameName = \""+game.gameName+"\";\n";	
@@ -27,6 +29,8 @@ function loadRestAndSetElementText(game,element, includes){
 	
 	javascriptCode += "}\n}\n";
 	javascriptCode += "gameCode = new "+gameVariableName+"();\n";
+	
+	javascriptCode += "//END CUSTOM CODE###################################\n";
 	
 	javascriptCode += "//INCLUDES\n";
 	javascriptCode += includes;
