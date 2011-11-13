@@ -125,6 +125,14 @@ function Bindings(){
 				}
 		});
 		
+		$("#searchOrAddLevel").keypress(function(event){
+				if(event.which == 13){
+					var level = new Level(this.value);
+					game.addLevel(level);
+					fillLevels();
+				}
+		});
+		
 		$("#factories").keydown(function(event){
 				if(event.which == 46){//delete
 					game.removeFactoryByName(this.value);
