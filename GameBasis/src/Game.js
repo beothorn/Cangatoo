@@ -29,6 +29,10 @@ function Game(){
 		this.level = level;
 	}
 	
+	this.reset = function(){
+		this.internalLoadLevel(this.levels[0]);
+	}
+	
 	this.loadLevelOnGame = function(){ 
 		for(var i in this.level.levelElements){
 			for(var factoryName in this.level.levelElements[i]){
@@ -50,10 +54,14 @@ function Game(){
 		this.drawelementFactories(0);
 	}
 	
+	this.internalLoadLevel = function(level){
+		this.setLevel(level);
+		this.restartCurrentLevel();  
+	}
+	
 	this.loadLevel = function(levelName){		
 		var level = this.getLevelByName(levelName);
-		this.setLevel(level);
-		this.restartCurrentLevel();            
+		this.internalLoadLevel(level);      
 	}
 	
 	this.getLevels = function(){

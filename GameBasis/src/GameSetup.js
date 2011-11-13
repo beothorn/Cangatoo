@@ -33,8 +33,9 @@ function startGame(drawCanvas){
   };
 	
 	game = new Game();
-	setupGame(game);
-	game.loadLevel("FirstLevel");
+	var gameCode = new BouncingBalls();
+	gameCode.setup(game);
+	game.reset();
 	startGameLoop();
 }
 
