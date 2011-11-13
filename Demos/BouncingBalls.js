@@ -163,12 +163,23 @@ function setupGame(game){
   	
   	this.levelName = "SecondLevel";
   	
+  	this.levelElements = [
+  		{"MainCharacter":[{x:50,y:50}]},
+  		{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
+  	];
+  	
+  	this.loadElementsForFactory = function(factoryToPositions){
+  		for(var factoryName in factoryToPositions){
+  			console.log(factoryName);
+				game.getFactoryByName(factoryName).addElementsAt(factoryToPositions[factoryName]);
+			}
+  	}
+  	
 		this.loadLevelOnGame = function(game){
-			var positions_MainCharacter = [{x:50,y:50}];
-			game.getFactoryByName("MainCharacter").addElementsAt(positions_MainCharacter);
-		
-			var positions_Box = [{x:140,y:220},{x:300,y:200},{x:200,y:100}];
-			game.getFactoryByName("Box").addElementsAt(positions_Box);
+			console.log("loadLevelOnGame");
+			for(var i in this.levelElements){
+				this.loadElementsForFactory(this.levelElements[i]);
+			}
 			this.onLevelStart(game);
 		}
 		
