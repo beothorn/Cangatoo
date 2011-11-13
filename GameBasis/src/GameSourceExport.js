@@ -50,19 +50,28 @@ function getLevelsCode(game){
 	for(var i in levels){
 		var levelName = levels[i].levelName;
 		var events = game.getEventsForLevel(levelName);
-		javascriptCode += "function "+levelName+"(){\n";
-		
-		javascriptCode += "this.levelName = \""+levelName+"\";\n";
-		
-		var loadLevelOnGame = eval("levels[i].loadLevelOnGame").toString();
-		javascriptCode += "this.loadLevelOnGame = "+loadLevelOnGame+"\n";
-		
+		javascriptCode += "var level_"+levelName+" = new Level(\""+levelName+"\");\n";
+				
 		for(var j in events){
 			var value = eval("levels[i]."+events[j]).toString();
-			javascriptCode += "this."+events[j]+" = "+value+"\n";
+			javascriptCode += "level_"+levelName+"."+events[j]+" = "+value+"\n";
 		}
-		javascriptCode += "}\n";
-		javascriptCode += "\ngame.addLevel(new "+levelName+"() );\n";
+		
+		javascriptCode += "level_"+levelName+".levelElements = [\n";
+		for(var elI in levels[i].levelElements){
+			for(var factoryName in levels[i].levelElements[elI]){
+				javascriptCode += "{\""+factoryName+"\":[";
+				for(var j in levels[i].levelElements[elI][factoryName]){
+					//oh shit
+					javascriptCode += "{x:"+levels[i].levelElements[elI][factoryName][j]["x"]+",y:"+levels[i].levelElements[elI][factoryName][j]["y"]+"},";
+					//fix this
+				}
+				javascriptCode += "]},\n";
+			}
+		}
+		javascriptCode += "]";
+		
+		javascriptCode += "\ngame.addLevel(level_"+levelName+");\n";
 	}
 	
 	return javascriptCode;
