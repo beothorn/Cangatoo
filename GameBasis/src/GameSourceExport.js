@@ -44,18 +44,27 @@ function getFactoriesCode(game){
 	return javascriptCode;
 }
 	
+function getLevelEventsCode(level){
+	var javascriptCode= "";
+	var levelName = level.levelName;
+	var events = game.getEventsForLevel(levelName);
+	for(var j in events){
+		var value = eval("level."+events[j]).toString();
+		javascriptCode += "level_"+levelName+"."+events[j]+" = "+value+"\n";
+	}
+	
+	return javascriptCode;
+}
+
 function getLevelsCode(game){
 	var javascriptCode = "";
 	var levels = game.getLevels();
 	for(var i in levels){
 		var levelName = levels[i].levelName;
-		var events = game.getEventsForLevel(levelName);
 		javascriptCode += "var level_"+levelName+" = new Level(\""+levelName+"\");\n";
 				
-		for(var j in events){
-			var value = eval("levels[i]."+events[j]).toString();
-			javascriptCode += "level_"+levelName+"."+events[j]+" = "+value+"\n";
-		}
+		javascriptCode +=  getLevelEventsCode(levels[i]); 
+		
 		
 		javascriptCode += "level_"+levelName+".levelElements = [\n";
 		for(var elI in levels[i].levelElements){
