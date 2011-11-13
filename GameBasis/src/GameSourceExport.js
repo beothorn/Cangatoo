@@ -1,21 +1,32 @@
+function convertGameNameToVariable(gameName){
+	var newGameName = gameName;
+	newGameName = newGameName.replace(" ", "_" );
+	if(newGameName.indexOf( " " ) != -1){
+		newGameName = convertGameNameToVariable(gameName);
+	}
+	return newGameName;
+}
+
 function loadRestAndSetElementText(game,element, includes){
 	
+	var gameVariableName = convertGameNameToVariable(game.gameName);
 	var javascriptCode = 
 		"/**"+
-		"Save this code as "+ game.gameName +".js and add to your html\n"+
+		"Save this code as "+ gameVariableName +".js and add to your html\n"+
 		"<script type=\"text/javascript\" src=\""+game.gameName+"\"></script>\n"+
 		" and the canvas\n"+
 		"<canvas id=\"gameCanvas\" width=\""+game.width+"\" height=\""+game.height+"\"></canvas>\n"+
 		"*/\n";
 	
-	javascriptCode += "function setupGame(game){\n";
-	javascriptCode += "  game.gameName = \""+game.gameName+"\";\n";	
+	javascriptCode += "function "+gameVariableName+"(){\n";
+	javascriptCode += "  this.setup = function(game){\n";
+	javascriptCode += "    game.gameName = \""+game.gameName+"\";\n";	
 	
 	javascriptCode += this.getFactoriesCode(game);
-	
 	javascriptCode += this.getLevelsCode(game);
 	
-	javascriptCode += "\n}\n";
+	javascriptCode += "}\n}\n";
+	javascriptCode += "gameCode = new "+gameVariableName+"();\n";
 	
 	javascriptCode += "//INCLUDES\n";
 	javascriptCode += includes;
