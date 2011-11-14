@@ -13,6 +13,10 @@ function Bindings(){
 				reloadGameEditor();
 		});
 		
+		$("#loadGame").click(function(event){
+			$("#loadGameCodeDiv").show("fast");
+		});
+		
 		$("#exportGame").click(function(event){
 			$("#exportHtml").show("fast");
 			exportJSTo(game,$('#pageOutput'),include);
@@ -162,6 +166,14 @@ function Bindings(){
 	this.bindHideLinks = function(){
 		$("#hideHtml").click(function(event){
 			$("#exportHtml").hide("fast");	
+		});
+		
+		$("#loadCode").click(function(event){
+			var codeToLoad = $("#codeToLoad").val(); 
+			eval(codeToLoad);
+			console.log(codeToLoad);
+			restartGame();
+			$("#loadGameCodeDiv").hide("fast");	
 		});
 		
 		$("#hideHelpAbout").click(function(event){

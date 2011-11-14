@@ -28,7 +28,7 @@ function loadRestAndSetElementText(game,element, includes){
 	javascriptCode += this.getLevelsCode(game);
 	
 	javascriptCode += "}\n}\n";
-	javascriptCode += "gameCode = new "+gameVariableName+"();\n";
+	javascriptCode += "loadCode(new "+gameVariableName+"());\n";
 	
 	javascriptCode += "//END CUSTOM CODE###################################\n";
 	

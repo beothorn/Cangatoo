@@ -13,8 +13,7 @@ function Game(){
 		this.gameName = "New game";
 		this.width = 500;
 		this.height = 300;
-		this.elementFactories = new Array();
-		this.levels = new Array();
+		this.clear();
 	}
 	
 	this.getLevelByName = function(levelName){

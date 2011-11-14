@@ -55,7 +55,7 @@ canvas, img {
 	width:100%;
 }
 
-#exportHtml,#touchKeyboard,#helpAboutText{
+#exportHtml,#touchKeyboard,#helpAboutText,#loadGameCodeDiv{
 	display:none;
 }
 
