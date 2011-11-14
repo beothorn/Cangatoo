@@ -20,6 +20,13 @@ var globalGameState = {
 	click:null
 }
 
+function restartGame(){
+	game.clear();
+	gameCode.setup(game);
+	game.reset();
+	startGameLoop();
+}
+
 function startGame(drawCanvas){
 	
 	canvas = drawCanvas;
@@ -33,9 +40,8 @@ function startGame(drawCanvas){
   };
 	
 	game = new Game();
-	gameCode.setup(game);
-	game.reset();
-	startGameLoop();
+	
+	restartGame();
 }
 
 

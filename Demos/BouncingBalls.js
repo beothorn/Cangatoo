@@ -160,3 +160,5 @@ function BouncingBalls(){
 	}
 	
 }
+
+loadCode(new BouncingBalls());

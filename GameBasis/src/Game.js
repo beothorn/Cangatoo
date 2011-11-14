@@ -1,6 +1,6 @@
 function Game(){
 	this.lastLoopTime = new Date().getTime();
-	this.elementFactories = new Array();//TODO: should be a map
+	this.elementFactories = new Array();
 	this.levels = new Array();
 	
 	this.gameName = "New game";
@@ -13,7 +13,7 @@ function Game(){
 		this.gameName = "New game";
 		this.width = 500;
 		this.height = 300;
-		this.elementFactories = new Array();//TODO: should be a map
+		this.elementFactories = new Array();
 		this.levels = new Array();
 	}
 	
@@ -27,6 +27,11 @@ function Game(){
 	
 	this.setLevel = function(level){
 		this.level = level;
+	}
+	
+	this.clear = function(){
+		this.elementFactories = new Array();
+		this.levels = new Array();	
 	}
 	
 	this.reset = function(){

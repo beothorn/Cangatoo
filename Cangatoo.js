@@ -9,7 +9,6 @@ var include = [
 ];
 var cangatooIncludes = [
 	"Bindings.js",
-	"Demos/BouncingBalls.js",
 	"GameBasis/src/GameSourceExport.js"
 ];
 
@@ -22,6 +21,11 @@ function includeJSFile(includeURL){
 
 var gamePaused = false;
 var gameCode;
+var defaultGameUrl = "Demos/BouncingBalls.js";
+
+function loadCode(newGameCode){
+	gameCode = newGameCode;
+}
 
 $(document).ready(function(){
   
@@ -33,14 +37,14 @@ $(document).ready(function(){
 	}
 			
 	new Bindings().doAllBindings();
-  gameCode = new BouncingBalls();
 	var canvas = $("#gameCanvas")[0];
 	
-	startGame(canvas);
-	overrideCanvasClick(canvas);
-	
-	reloadGameEditor();
-	
+	$(document).load(defaultGameUrl,function(responseText){
+			eval(responseText);
+			startGame(canvas);
+			overrideCanvasClick(canvas);
+			reloadGameEditor();
+	});	
 });
 
 function reloadGameEditor(){
@@ -113,13 +117,11 @@ function fillLevelEvents(){
 
 function fillLevelCodeEditor(){
 	var selectedLevelName = $("#levels option:selected").text();
-	console.log(selectedLevelName);
 	if(selectedLevelName == ""){
 		$("#levelCodeEditor").val("No level selected.");
 		return;
 	}
 	var eventSelected = $("#levelEvents option:selected").text();
-	console.log(eventSelected);
 	var level = game.getLevelByName(selectedLevelName);
 	$("#levelCodeEditor").val(eval('level.'+eventSelected).toString());
 }
