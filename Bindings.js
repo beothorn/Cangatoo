@@ -14,10 +14,12 @@ function Bindings(){
 		});
 		
 		$("#loadGame").click(function(event){
+			$("#exportHtml").hide("fast");	
 			$("#loadGameCodeDiv").show("fast");
 		});
 		
 		$("#exportGame").click(function(event){
+			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").show("fast");
 			exportJSTo(game,$('#pageOutput'),include);
 		});
@@ -170,10 +172,11 @@ function Bindings(){
 		
 		$("#loadCode").click(function(event){
 			var codeToLoad = $("#codeToLoad").val(); 
-			eval(codeToLoad);
+			eval(getOnlyGameCode(codeToLoad));
 			console.log(codeToLoad);
 			restartGame();
-			$("#loadGameCodeDiv").hide("fast");	
+			$("#loadGameCodeDiv").hide("fast");
+			$("#exportHtml").hide("fast");	
 		});
 		
 		$("#hideHelpAbout").click(function(event){
@@ -181,4 +184,17 @@ function Bindings(){
 				$("#helpAboutText").hide("slow");
 		});
 	}
+}
+
+function getOnlyGameCode(code) {
+	var s = code;
+	var i = s.indexOf(customCodeStart);
+	if (i >= 0) {
+		s = s.substring(i + customCodeStart.length);
+	}
+	i = s.indexOf(customCodeEnd);
+	if (i >= 0) {
+		s = s.substring(0, i);
+	}
+	return s;
 }

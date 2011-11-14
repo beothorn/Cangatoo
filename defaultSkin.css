@@ -51,7 +51,7 @@ canvas, img {
 	width:100%;
 }
 
-#pageOutput{
+#pageOutput,#codeToLoad{
 	width:100%;
 }
 

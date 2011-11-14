@@ -7,6 +7,9 @@ function convertGameNameToVariable(gameName){
 	return newGameName;
 }
 
+var customCodeStart = "//START CUSTOM CODE###################################\n";
+var customCodeEnd = "//END CUSTOM CODE###################################\n";
+
 function loadRestAndSetElementText(game,element, includes){
 	
 	var gameVariableName = convertGameNameToVariable(game.gameName);
@@ -18,7 +21,7 @@ function loadRestAndSetElementText(game,element, includes){
 		"<canvas id=\"gameCanvas\" width=\""+game.width+"\" height=\""+game.height+"\"></canvas>\n"+
 		"*/\n";
 	
-	javascriptCode += "//START CUSTOM CODE###################################\n";
+	javascriptCode += customCodeStart;
 		
 	javascriptCode += "function "+gameVariableName+"(){\n";
 	javascriptCode += "  this.setup = function(game){\n";
@@ -30,7 +33,7 @@ function loadRestAndSetElementText(game,element, includes){
 	javascriptCode += "}\n}\n";
 	javascriptCode += "loadCode(new "+gameVariableName+"());\n";
 	
-	javascriptCode += "//END CUSTOM CODE###################################\n";
+	javascriptCode += customCodeEnd;
 	
 	javascriptCode += "//INCLUDES\n";
 	javascriptCode += includes;
