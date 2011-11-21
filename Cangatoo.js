@@ -88,7 +88,7 @@ function forceAtLeastOneSelectedOn(listId){
 function addElementFromSelectedFactory(x,y){
 	var selectedFactory = $("#factories option:selected").text();
 	var factory = game.getFactoryByName(selectedFactory);
-	factory.addElementAt(x,y);
+	factory.addElementToCreateAt(x,y);
 	game.redraw();
 }
 

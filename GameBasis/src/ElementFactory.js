@@ -15,6 +15,23 @@ function ElementFactory(factoryName){
 		this.elementArray.push(element);
 	}
 
+	this.addElementToCreateAt = function(x,y){
+		this.addElementAt(x,y);
+		var factoryExisted = false;
+		for(var i in game.level.levelElements){
+			for(var factoryName in game.level.levelElements[i]){
+				if(factoryName==this.factoryName){
+					game.level.levelElements[i][factoryName].push({x:x,y:y});
+					factoryExisted = true;
+				}
+			}
+		}
+		if(!factoryExisted){
+			eval("var newLevelElements = {"+this.factoryName+":[{x:x,y:y}]}");
+			game.level.levelElements.push(newLevelElements);
+		}
+	}
+	
 	this.addElementsAt = function(pointArray){
 		for(var i in pointArray){
 			this.addElementAt(pointArray[i].x,pointArray[i].y);
