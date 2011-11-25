@@ -16,6 +16,23 @@ function Game(){
 		this.clear();
 	}
 	
+	this.goToNextLevel = function(){
+		var nextLevelIndex = this.levels.indexOf(this.level)+1;
+		var nextLevel = this.levels[1];
+		if(nextLevel == null)
+			throw "Next level doesn't exist.";
+		this.internalLoadLevel(nextLevel);
+	}
+	
+	this.goToPreviousLevel = function(){
+		var currentLevelIndex = this.levels.indexOf(this.level);
+		if(currentLevelIndex == 0)
+			throw "Previous level doesn't exist.";
+		var previousLevelIndex = currentLevelIndex-1;
+		var previousLevel = this.levels[previousLevelIndex];
+		this.internalLoadLevel(previousLevel);
+	}
+	
 	this.getLevelByName = function(levelName){
 		for (var i in this.levels){
 			if(this.levels[i].levelName == levelName)

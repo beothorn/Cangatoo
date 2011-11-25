@@ -68,4 +68,12 @@ function GameUtils(){
 	this.goToLevel = function(levelName){
 		game.loadLevel(levelName);
 	}
+	
+	this.goToNextLevel = function(){
+		game.goToNextLevel();
+	}
+	
+	this.goToPreviousLevel = function(){
+		game.goToPreviousLevel();
+	}
 }

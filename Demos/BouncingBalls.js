@@ -138,7 +138,7 @@ function BouncingBalls(){
 		}
 		
 		factory_ClickToStart.onClick = function (element, absoluteClickPosition) {
-				util.goToLevel("SecondLevel");
+				util.goToNextLevel();
 		}
 	
 		game.addFactory(factory_ClickToStart);
