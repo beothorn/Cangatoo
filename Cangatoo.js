@@ -1,4 +1,5 @@
 var include = [
+	"GameBasis/src/GameLoader.js",
 	"GameBasis/src/Element.js",
 	"GameBasis/src/Level.js",
 	"GameBasis/src/Utils.js",

@@ -28,7 +28,6 @@ function restartGame(){
 }
 
 function startGame(drawCanvas){
-	
 	canvas = drawCanvas;
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
@@ -38,12 +37,15 @@ function startGame(drawCanvas){
   	var y = event.layerY - canvas.offsetTop;
   	canvasClick({x:x,y:y});
   };
-	
 	game = new Game();
-	
-	restartGame();
+  
+	var loader = new GameLoader();
+	loader.load();
 }
 
+function startGameAfterLoading(){
+	restartGame();
+}
 
 function canvasClick(position){
 	globalGameState.click = position;
