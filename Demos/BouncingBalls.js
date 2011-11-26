@@ -39,7 +39,7 @@ function BouncingBalls(){
 			
 			var gravity = 800;		
 			if(!canJump)
-				util.applyGravity(element,delta,gravity);
+				applyGravity(element,delta,gravity);
 			else
 				element.ySpeed = 0;
 			
@@ -61,7 +61,7 @@ function BouncingBalls(){
 					element.yAccelerate(-yAcceleration);
 			}
 	
-			util.applyFriction(element,delta,500,0);
+			applyFriction(element,delta,500,0);
 		}
 		
 		factory_MainCharacter.onDraw = function(element,delta,context){
@@ -69,7 +69,7 @@ function BouncingBalls(){
 		};
 	
 		factory_MainCharacter.onAfterStep = function (element,delta,globalGameState,game){
-			util.wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+			wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 		}
 	
 	
@@ -108,12 +108,12 @@ function BouncingBalls(){
 		}
 	
 		factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-			util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+			bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 		}
 	
 		
 		factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-			util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+			bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
 		}
 		
 		factory_Box.onClick = function(element,absoluteClickPosition){		
@@ -138,7 +138,7 @@ function BouncingBalls(){
 		}
 		
 		factory_ClickToStart.onClick = function (element, absoluteClickPosition) {
-				util.goToNextLevel();
+				goToNextLevel();
 		}
 	
 		game.addFactory(factory_ClickToStart);

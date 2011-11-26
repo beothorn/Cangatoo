@@ -1,7 +1,6 @@
 //Globals
 var game;
 var level;
-var util = new GameUtils();
 var canvas;
 //--end globals
 
