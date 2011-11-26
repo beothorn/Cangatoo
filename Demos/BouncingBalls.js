@@ -1,9 +1,7 @@
 function BouncingBalls(){
 	
-//	resources.addImageUrlToLoad("http://thisiscolossal.com/wp-content/themes/colossal/images/header-sep.jpg","foo");
-//	resources.addImageUrlToLoad("http://2.bp.blogspot.com/-S7nw0dcc4-A/ThsZnVLgBiI/AAAAAAAAH6c/Ftjbioxun0g/s1600/20+Wallpapers+hd.jpg","bar");
-//	resources.addImageUrlToLoad("http://4.bp.blogspot.com/-Is4egSSDKpg/ThsZ2CroQTI/AAAAAAAAH7A/j1naQsiCGyQ/s1600/full_auto+Wallpapers+hd.jpg","baz");
 	resources.addImageUrlToLoad("./Sprites/ball.png","blueBall");
+	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
 	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
@@ -24,6 +22,7 @@ function BouncingBalls(){
 		factory_MainCharacter.onCreate = function (){
 			self.width = 50;
 			self.height = 80;
+			self.lifes = 3;
 			
 			self.leftLimit = 0;
 			self.topLimit = 0;
@@ -70,6 +69,16 @@ function BouncingBalls(){
 			applyFriction(self,delta,500,0);
 		}
 		
+		factory_MainCharacter.onCollision = function(other,delta){
+			if(other.is("Box")){
+				self.x=0;
+        self.y=0;
+				self.lifes--;
+				if(self.lifes == 0)
+					goToPreviousLevel();
+			}
+		}
+		
 		factory_MainCharacter.onDraw = function(delta,context){
 			context.strokeRect(self.x, self.y, self.width, self.height);
 		};
@@ -81,11 +90,6 @@ function BouncingBalls(){
 	
 		game.addFactory(factory_MainCharacter);
 		var factory_Box = new ElementFactory("Box");
-	
-		factory_Box.onDraw = function (delta,context){
-			context.fillStyle = "white";
-			context.fillText("?",self.x+17,self.y+17);
-		}
 	
 		factory_Box.onCreate = function (){
 			self.setSprite(resources.get("blueBall"));
@@ -162,6 +166,7 @@ function BouncingBalls(){
 			{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
 		];
 		
+		level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
 		game.addLevel(level_SecondLevel);
 	}
 	
