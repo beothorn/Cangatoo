@@ -38,7 +38,8 @@ function startGame(drawCanvas){
   	canvasClick({x:x,y:y});
   };
 	game = new Game();
-  
+	gameCode.setup(game);
+	
 	var loader = new GameLoader();
 	loader.load();
 }
