@@ -43,14 +43,10 @@ function Element(factory,x,y){
 		return this.ySpeed; 
 	}
 	
-	this.setSprite = function(imgUrl){
-		this.sprite = new Image();
-		var element = this;
-		this.sprite.onload = function(){
-			element.width = element.sprite.height;
-			element.height = element.sprite.width;
-		};
-		this.sprite.src = imgUrl;
+	this.setSprite = function(image){
+		this.sprite = image;
+		this.width = image.height;
+		this.height = image.width;
 	}
 	
 	this.getXForCollisionCheck = function(){

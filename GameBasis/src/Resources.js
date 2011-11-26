@@ -1,7 +1,7 @@
 function Resources(){
 	
 	this.resourcesURLs = new Array();
-	this.loadedResourcesMap;
+	this.loadedResources = new Object();
 	
 	this.addImageUrlToLoad = function(url,imageName){
 		this.resourcesURLs.push({url:url,name:imageName});
@@ -20,8 +20,14 @@ function Resources(){
 				if(resourcesLoaded == resourceCount)
 					percentageListener.loadingComplete();
 			};
-			console.log(this.resourcesURLs[i].url);
 			image.src = this.resourcesURLs[i].url;
+			this.loadedResources[this.resourcesURLs[i].name] = image;
 		}
+	}
+	
+	this.get = function(resourceName){
+		if(this.loadedResources[resourceName] == null)
+			throw "No such resource "+resourceName;
+		return this.loadedResources[resourceName];
 	}
 }
