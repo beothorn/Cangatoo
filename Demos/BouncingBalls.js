@@ -92,7 +92,7 @@ function BouncingBalls(){
 		var factory_Box = new ElementFactory("Box");
 	
 		factory_Box.onCreate = function (){
-			self.setSprite(resources.get("blueBall"));
+			self.setSprite("blueBall");
 			
 			self.leftLimit = 0;
 			self.topLimit = 0;
