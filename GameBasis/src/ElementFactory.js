@@ -66,7 +66,19 @@ function ElementFactory(factoryName){
 	this.testCollisionWith = function(otherFactory,delta){
 		for (var i in this.elementArray){
 			for(var j in otherFactory.elementArray){
-				this.elementArray[i].resolveCollisionWith(otherFactory.elementArray[j],delta);
+				
+				self = this.elementArray[i];
+				var other = otherFactory.elementArray[j];
+
+				if(self != other){
+				
+					var selfRectangle =  {x1: self.getXForCollisionCheck() ,y1: self.getYForCollisionCheck() ,x2: self.getXForCollisionCheck()+self.width ,y2: self.y+self.height};
+					var otherRectangle = {x1: other.getXForCollisionCheck() ,y1: other.getYForCollisionCheck() ,x2: other.getXForCollisionCheck()+other.getWidth() ,y2: other.getYForCollisionCheck()+other.getHeight()};
+				
+					if(rectanglesIntersect(selfRectangle,otherRectangle)){
+						this.onCollision(other,delta);
+					}
+				}
 			}
 		}
 	}
@@ -110,6 +122,9 @@ function ElementFactory(factoryName){
 		**/
 	}	
 
+	this.onCollision = function(other,delta){
+	}
+	
 	this.onCreate = function(){		
 		/**
 		* The event onCreate is called when an element is created

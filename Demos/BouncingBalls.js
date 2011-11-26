@@ -68,6 +68,12 @@ function BouncingBalls(){
 			applyFriction(self,delta,500,0);
 		}
 		
+		factory_MainCharacter.onCollision = function(other,delta){
+			if(other.is("Box")){
+				console.log("Dead");
+			}
+		}
+		
 		factory_MainCharacter.onDraw = function(delta,context){
 			context.strokeRect(self.x, self.y, self.width, self.height);
 		};
@@ -79,11 +85,6 @@ function BouncingBalls(){
 	
 		game.addFactory(factory_MainCharacter);
 		var factory_Box = new ElementFactory("Box");
-	
-		factory_Box.onDraw = function (delta,context){
-			context.fillStyle = "white";
-			context.fillText("?",self.x+17,self.y+17);
-		}
 	
 		factory_Box.onCreate = function (){
 			self.setSprite(resources.get("blueBall"));
