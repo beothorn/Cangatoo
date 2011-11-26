@@ -43,14 +43,10 @@ function Element(factory,x,y){
 		return this.ySpeed; 
 	}
 	
-	this.setSprite = function(imgUrl){
-		this.sprite = new Image();
-		var element = this;
-		this.sprite.onload = function(){
-			element.width = element.sprite.height;
-			element.height = element.sprite.width;
-		};
-		this.sprite.src = imgUrl;
+	this.setSprite = function(image){
+		this.sprite = image;
+		this.width = image.height;
+		this.height = image.width;
 	}
 	
 	this.getXForCollisionCheck = function(){
@@ -335,15 +331,16 @@ function Element(factory,x,y){
 	}
 	
 	this.step = function(delta,globalGameState,game){
+		self = this;
 		var oldX = this.x;
 		var oldY = this.y;
 		
-		this.factory.onStep(this,delta,globalGameState,game);
+		this.factory.onStep(delta,globalGameState);
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		this.factory.onAfterStep(this,delta,globalGameState,game);
+		this.factory.onAfterStep(delta,globalGameState);
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;
