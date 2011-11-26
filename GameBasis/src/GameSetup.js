@@ -3,6 +3,8 @@ var game;
 var level;
 var canvas;
 var self;
+var resources = new Resources();
+var loader = new GameLoader();
 //--end globals
 
 var intervalID;
@@ -27,7 +29,7 @@ function restartGame(){
 	startGameLoop();
 }
 
-function startGame(drawCanvas){
+function doBeforeStart(drawCanvas){
 	canvas = drawCanvas;
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
@@ -39,8 +41,10 @@ function startGame(drawCanvas){
   };
 	game = new Game();
 	gameCode.setup(game);
-	
-	var loader = new GameLoader();
+}
+
+function startGame(drawCanvas){
+	doBeforeStart(drawCanvas);
 	loader.load();
 }
 
