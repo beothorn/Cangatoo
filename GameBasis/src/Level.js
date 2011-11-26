@@ -1,5 +1,9 @@
 function Level(levelName){
 	this.levelName = levelName;
+
+	this.backgroundImage = function(){
+		return null;
+	}
 	
 	this.onLoadLevel = function(){
 		/**

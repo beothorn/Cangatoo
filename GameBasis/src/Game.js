@@ -41,8 +41,9 @@ function Game(){
 		throw "Level '"+levelName+"' doesn't exist.";
 	}                                  
 	
-	this.setLevel = function(level){
-		this.level = level;
+	this.setLevel = function(_level){
+		this.level = _level;
+		level = _level
 	}
 	
 	this.clear = function(){
@@ -139,7 +140,12 @@ function Game(){
 	}
 	
 	this.drawelementFactories = function(delta){
-		this.context.clearRect(0, 0, canvas.width, canvas.height);
+		if(level.backgroundImage() == null){
+			this.context.clearRect(0, 0, canvas.width, canvas.height);
+		}else{
+			this.context.clearRect(0, 0, canvas.width, canvas.height);
+			this.context.drawImage(level.backgroundImage(),0,0);
+		}
 		for (var i in this.elementFactories)
 		{
 			this.elementFactories[i].draw(this.context,delta);
