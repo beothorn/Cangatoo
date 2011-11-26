@@ -22,6 +22,7 @@ function BouncingBalls(){
 		factory_MainCharacter.onCreate = function (){
 			self.width = 50;
 			self.height = 80;
+			self.lifes = 3;
 			
 			self.leftLimit = 0;
 			self.topLimit = 0;
@@ -70,7 +71,11 @@ function BouncingBalls(){
 		
 		factory_MainCharacter.onCollision = function(other,delta){
 			if(other.is("Box")){
-				console.log("Dead");
+				self.x=0;
+        self.y=0;
+				self.lifes--;
+				if(self.lifes == 0)
+					goToPreviousLevel();
 			}
 		}
 		
