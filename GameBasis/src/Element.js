@@ -335,15 +335,16 @@ function Element(factory,x,y){
 	}
 	
 	this.step = function(delta,globalGameState,game){
+		self = this;
 		var oldX = this.x;
 		var oldY = this.y;
 		
-		this.factory.onStep(this,delta,globalGameState,game);
+		this.factory.onStep(delta,globalGameState);
 		
 		this.x += this.getXSpeedForDelta(delta);
 		this.y += this.getYSpeedForDelta(delta);
 		
-		this.factory.onAfterStep(this,delta,globalGameState,game);
+		this.factory.onAfterStep(delta,globalGameState);
 		
 		this.xLastDelta = this.x - oldX;
 		this.yLastDelta = this.y - oldY;

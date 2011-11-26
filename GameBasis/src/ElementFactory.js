@@ -11,6 +11,7 @@ function ElementFactory(factoryName){
 	
 	this.addElementAt = function(x,y){
 		var element = new Element(this,x,y);
+		self = element;
 		this.onCreate(element);
 		this.elementArray.push(element);
 	}
@@ -70,9 +71,9 @@ function ElementFactory(factoryName){
 		}
 	}
 
-	this.step = function(delta, globalGameState, game){
+	this.step = function(delta, globalGameState){
 		for (var i in this.elementArray){
-			this.elementArray[i].step(delta,globalGameState,game);
+			this.elementArray[i].step(delta,globalGameState);
 		}
 	};
 	
@@ -81,7 +82,8 @@ function ElementFactory(factoryName){
 			var element = this.elementArray[i];
 			var rect = {x1:element.x,x2:element.x+element.width,y1:element.y,y2:element.y+element.height};
 			if(isPointInsideRectangle(absoluteClickPosition,rect)){
-				this.onClick(element,absoluteClickPosition);
+				self = element; 
+				this.onClick(absoluteClickPosition);
 			}
 		}
 	}
@@ -92,11 +94,12 @@ function ElementFactory(factoryName){
 			var element = this.elementArray[i];
 			if(element.sprite != null)
 				context.drawImage(element.sprite,element.x,element.y);
-			this.onDraw(this.elementArray[i],delta,context);
+			self = element; 
+			this.onDraw(delta,context);
 		}
 	};
 	
-	this.onDraw = function(element,delta,context){
+	this.onDraw = function(delta,context){
 		/**
 		* The event onDraw is called when an element is being drawn.
 		* If you want to draw effects, text or anything else this is the place.
@@ -107,7 +110,7 @@ function ElementFactory(factoryName){
 		**/
 	}	
 
-	this.onCreate = function(element){		
+	this.onCreate = function(){		
 		/**
 		* The event onCreate is called when an element is created
 		* You want to set initial values, width, height, the element sprite, etc.
@@ -116,7 +119,7 @@ function ElementFactory(factoryName){
 		**/
 	}	
 
-	this.onClick = function(element,absoluteClickPosition){		
+	this.onClick = function(absoluteClickPosition){		
 		/**
 		* The event onClick is called when a mouse click is done inside the element passed
 		* as parameter.
@@ -127,7 +130,7 @@ function ElementFactory(factoryName){
 		**/
 	}
 	
-	this.onStep = function(element,delta,globalGameState,game){
+	this.onStep = function(delta,globalGameState){
 		/**
 		* The event onStep is called in every frame before 
 		* the element position is changed by its speed.
@@ -140,7 +143,7 @@ function ElementFactory(factoryName){
 		**/
 	}
 
-	this.onAfterStep = function(element,delta,globalGameState,game){
+	this.onAfterStep = function(delta,globalGameState){
 		/**
 		* The event onAfterStep is called after the event onStep and also after
 		* the element position was already changed by its speed.

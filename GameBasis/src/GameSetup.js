@@ -2,6 +2,7 @@
 var game;
 var level;
 var canvas;
+var self;
 //--end globals
 
 var intervalID;

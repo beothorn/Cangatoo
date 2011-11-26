@@ -149,7 +149,7 @@ function Game(){
 	this.stepElements = function(delta,globalGameState){
 		for (var i in this.elementFactories)
 		{
-			this.elementFactories[i].step(delta,globalGameState, this);
+			this.elementFactories[i].step(delta,globalGameState);
 		}
 	}
 
