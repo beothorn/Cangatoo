@@ -173,7 +173,6 @@ function Bindings(){
 		$("#loadCode").click(function(event){
 			var codeToLoad = $("#codeToLoad").val(); 
 			eval(getOnlyGameCode(codeToLoad));
-			console.log(codeToLoad);
 			restartGame();
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").hide("fast");	

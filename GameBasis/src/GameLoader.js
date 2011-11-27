@@ -1,7 +1,14 @@
 function DefaultLoaderScreen(){
 	this.onUpdateLoadedPercentage = function(canvasContext, newPercetage){
-		canvasContext.fillStyle = "Black";
-		canvasContext.fillText(""+newPercetage,newPercetage,newPercetage);
+		if(newPercetage == 0){
+			canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+			canvasContext.fillStyle = "Black";
+			canvasContext.font = "8pt Verdana";
+			canvasContext.fillStyle = "Black";
+			canvasContext.fillText("Loading",0,12);
+		}		
+		canvasContext.clearRect(0, 12, canvas.width, canvas.height-(12*2));
+		canvasContext.fillText(newPercetage+"%",0,12*2);
 	}
 }
 
@@ -15,8 +22,7 @@ function GameLoader(){
 	
 	this.load = function(){
 		var context = canvas.getContext('2d');
-		context.fillStyle = "Black";
-		context.fillText("Loading",17,17);
+		this.loadListener.onUpdateLoadedPercentage(context,0);
 		resources.load(this);
 	}
 	
