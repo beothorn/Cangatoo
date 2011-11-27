@@ -2,7 +2,6 @@ function BouncingBalls(){
 	
 	resources.addImageUrlToLoad("./Sprites/ball.png","blueBall");
 	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
-	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
 	
@@ -143,6 +142,7 @@ function BouncingBalls(){
 		
 		factory_ClickToStart.onDraw = function (delta, context) {
 			context.fillStyle = "black";
+			context.font = "8pt Verdana";
 			context.strokeRect(self.x, self.y, self.width, self.height);
 			context.fillText("Click to start", self.x, self.y+17);
 		}
