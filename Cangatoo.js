@@ -1,4 +1,6 @@
 var include = [
+	"GameBasis/src/GameLoader.js",
+	"GameBasis/src/Resources.js",
 	"GameBasis/src/Element.js",
 	"GameBasis/src/Level.js",
 	"GameBasis/src/Utils.js",
@@ -12,7 +14,14 @@ var cangatooIncludes = [
 	"GameBasis/src/GameSourceExport.js"
 ];
 
-function includeJSFile(includeURL){
+
+function includeJSFile(includeURL,i){
+	var canvas = $("#gameCanvas")[0];
+	var context = canvas.getContext('2d');
+	context.fillStyle = "Black";
+	context.font = "8pt Verdana";
+	var y = (12*i)+12;
+	context.fillText("Loading "+includeURL,0,y);
 	var script = document.createElement( 'script' );
 	script.type = 'text/javascript';
 	script.src = includeURL;
@@ -28,16 +37,18 @@ function loadCode(newGameCode){
 }
 
 $(document).ready(function(){
+		
+  var canvas = $("#gameCanvas")[0];
   
 	for(var i in include){
-		includeJSFile(include[i]);
+		includeJSFile(include[i],i);
 	}
 	for(var i in cangatooIncludes){
-		includeJSFile(cangatooIncludes[i]);
+		includeJSFile(cangatooIncludes[i],parseInt(i)+include.length);
 	}
 			
 	new Bindings().doAllBindings();
-	var canvas = $("#gameCanvas")[0];
+	
 	
 	$(document).load(defaultGameUrl,function(responseText){
 			eval(responseText);

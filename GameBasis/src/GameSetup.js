@@ -1,8 +1,10 @@
 //Globals
 var game;
 var level;
-var util = new GameUtils();
 var canvas;
+var self;
+var resources = new Resources();
+var loader = new GameLoader();
 //--end globals
 
 var intervalID;
@@ -27,8 +29,7 @@ function restartGame(){
 	startGameLoop();
 }
 
-function startGame(drawCanvas){
-	
+function doBeforeStart(drawCanvas){
 	canvas = drawCanvas;
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
@@ -38,12 +39,18 @@ function startGame(drawCanvas){
   	var y = event.layerY - canvas.offsetTop;
   	canvasClick({x:x,y:y});
   };
-	
 	game = new Game();
-	
-	restartGame();
+	gameCode.setup(game);
 }
 
+function startGame(drawCanvas){
+	doBeforeStart(drawCanvas);
+	loader.load();
+}
+
+function startGameAfterLoading(){
+	restartGame();
+}
 
 function canvasClick(position){
 	globalGameState.click = position;

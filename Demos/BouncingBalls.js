@@ -1,104 +1,103 @@
 function BouncingBalls(){
 	
+	resources.addImageUrlToLoad("./Sprites/ball.png","blueBall");
+	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
 	
 		var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
-		factory_MainCharacter.onDraw = function (element,delta,context){
-			/**
-			* The event onDraw is called when an element is being drawn.
-			* If you want to draw effects, text or anything else this is the place.
-			* Parameters:
-			* 	-element: the Element being drawn.
-			*	-delta: the time passed in milisseconds since the last step
-			*	-context: canvas 2d context where the element is being draw
-			**/
-		}
-	
-		factory_MainCharacter.onCreate = function (element){
-			element.width = 50;
-			element.height = 80;
+		factory_MainCharacter.onCreate = function (){
+			self.width = 50;
+			self.height = 80;
+			self.lifes = 3;
 			
-			this.leftLimit = 0;
-			this.topLimit = 0;
-			this.rightLimit = 500;
-			this.bottomLimit = 300;
-			element.setMaxXSpeed(500);
-			element.setMaxYSpeed(1000);
+			self.leftLimit = 0;
+			self.topLimit = 0;
+			self.rightLimit = 500;
+			self.bottomLimit = 300;
+			self.setMaxXSpeed(500);
+			self.setMaxYSpeed(1000);
 		}
 	
-		factory_MainCharacter.onStep = function (element,delta,globalGameState,game){
+		factory_MainCharacter.onStep = function (delta,globalGameState){
 			var xAcceleration = 100;//PixelPerSecond
 			var yAcceleration = 450;
 			
-			var firstPoint = game.isThereAnObjectOnPoint(element.x+1,element.y+element.height+1);
-			var secondPoint = game.isThereAnObjectOnPoint(element.x-1+element.width,element.y+element.height+1);
-			var onGround = element.y+element.height == this.bottomLimit;
+			var firstPoint = game.isThereAnObjectOnPoint(self.x+1,self.y+self.height+1);
+			var secondPoint = game.isThereAnObjectOnPoint(self.x-1+self.width,self.y+self.height+1);
+			var onGround = self.y+self.height == self.bottomLimit;
 			var canJump = firstPoint || secondPoint || onGround;
 			
 			var gravity = 800;		
-			if(!canJump)
-				util.applyGravity(element,delta,gravity);
-			else
-				element.ySpeed = 0;
+			if(!canJump){
+				applyGravity(self,delta,gravity);
+			}else{
+				self.ySpeed = 0;
+			}
 			
 			if(globalGameState.left){
-				if(element.xSpeed>0)
-					element.xSpeed = 0;
-				element.xAccelerate(-xAcceleration);
+				if(self.xSpeed>0)
+					self.xSpeed = 0;
+				self.xAccelerate(-xAcceleration);
 			}
 			if(globalGameState.right){
-				if(element.xSpeed<0)
-					element.xSpeed = 0;
-				element.xAccelerate(xAcceleration);
+				if(self.xSpeed<0)
+					self.xSpeed = 0;
+				self.xAccelerate(xAcceleration);
 			}
 			if(!globalGameState.left && !globalGameState.right && canJump){
-				element.xSpeed = 0;
+				self.xSpeed = 0;
 			}
 			if(globalGameState.up){
 				if(canJump)
-					element.yAccelerate(-yAcceleration);
+					self.yAccelerate(-yAcceleration);
 			}
 	
-			util.applyFriction(element,delta,500,0);
+			applyFriction(self,delta,500,0);
 		}
 		
-		factory_MainCharacter.onDraw = function(element,delta,context){
-			context.strokeRect(element.x, element.y, element.width, element.height);
-		};
-	
-		factory_MainCharacter.onAfterStep = function (element,delta,globalGameState,game){
-			util.wrapOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
+		factory_MainCharacter.onAfterStep = function (delta,globalGameState){
+			wrapOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
 		}
-	
+		
+		factory_MainCharacter.onCollision = function(other,delta){
+			if(other.is("Box")){
+				kill(other);
+				create("Box",0,0);
+				level.health--;
+				if(level.health == 0)
+					goToPreviousLevel();
+			}
+		}
+		
+		factory_MainCharacter.onDraw = function(delta,context){
+			context.strokeRect(self.x, self.y, self.width, self.height);
+			context.fillText("life: "+level.health, self.x, self.y+17);
+		};
 	
 		game.addFactory(factory_MainCharacter);
 		var factory_Box = new ElementFactory("Box");
 	
-		factory_Box.onDraw = function (element,delta,context){
-			context.fillStyle = "white";
-			context.fillText("?",element.x+17,element.y+17);
-		}
-	
-		factory_Box.onCreate = function (element){
-			element.setSprite("./Sprites/ball.png");
+		factory_Box.onCreate = function (){
+			self.setSprite("blueBall");
 			
-			this.leftLimit = 0;
-			this.topLimit = 0;
-			this.rightLimit = 500;
-			this.bottomLimit = 300;
-			element.setMaxXSpeed(500);
-			element.setMaxYSpeed(1000);
-			element.xAccelerate(-100);
-			element.yAccelerate(-100);
+			self.leftLimit = 0;
+			self.topLimit = 0;
+			self.rightLimit = 500;
+			self.bottomLimit = 300;
+			self.setMaxXSpeed(500);
+			self.setMaxYSpeed(1000);
+			self.xAccelerate(-100);
+			self.yAccelerate(-100);
 		}
 	
-		factory_Box.onStep = function (element,delta,globalGameState,game){
+		factory_Box.onStep = function (delta,globalGameState){
 			/**
 			* The event onStep is called in every frame before 
 			* the element position is changed by its speed.
-			* Usually, you want to call applyGravity(element,delta,gravity) here.
+			* Usually, you want to call applyGravity(self,delta,gravity) here.
 			* Parameters:
 			* 	-element: the Element being stepped.
 			*	-delta: the time passed in milisseconds since the last step
@@ -107,38 +106,28 @@ function BouncingBalls(){
 			**/
 		}
 	
-		factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-			util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
-		}
-	
-		
-		factory_Box.onAfterStep = function (element,delta,globalGameState,game){
-			util.bounceOnBoundaries(element,this.topLimit,this.bottomLimit,this.rightLimit,this.leftLimit)
-		}
-		
-		factory_Box.onClick = function(element,absoluteClickPosition){		
-			element.xAccelerate(element.getXSpeed()*-1);
-			element.yAccelerate(element.getYSpeed()*-1);
-		}
-		
+		factory_Box.onAfterStep = function (delta,globalGameState){
+			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
+		}		
 		
 		game.addFactory(factory_Box);
 		
 		var factory_ClickToStart = new ElementFactory("ClickToStart");
 		
-		factory_ClickToStart.onCreate = function (element) {
-				element.width = 64;
-				element.height = 32;
+		factory_ClickToStart.onCreate = function () {
+				self.width = 64;
+				self.height = 32;
 		}
 		
-		factory_ClickToStart.onDraw = function (element, delta, context) {
+		factory_ClickToStart.onDraw = function (delta, context) {
 			context.fillStyle = "black";
-			context.strokeRect(element.x, element.y, element.width, element.height);
-			context.fillText("Click to start", element.x, element.y+17);
+			context.font = "8pt Verdana";
+			context.strokeRect(self.x, self.y, self.width, self.height);
+			context.fillText("Click to start", self.x, self.y+17);
 		}
 		
-		factory_ClickToStart.onClick = function (element, absoluteClickPosition) {
-				util.goToLevel("SecondLevel");
+		factory_ClickToStart.onClick = function (absoluteClickPosition) {
+				goToNextLevel();
 		}
 	
 		game.addFactory(factory_ClickToStart);
@@ -156,6 +145,11 @@ function BouncingBalls(){
 			{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
 		];
 		
+		level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
+		
+		level_SecondLevel.onLoadLevel = function(){
+			level.health = 3;
+		}
 		game.addLevel(level_SecondLevel);
 	}
 	
