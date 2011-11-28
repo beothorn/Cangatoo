@@ -2,21 +2,11 @@ function BouncingBalls(){
 	
 	resources.addImageUrlToLoad("./Sprites/ball.png","blueBall");
 	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
 	
 		var factory_MainCharacter = new ElementFactory("MainCharacter");
-	
-		factory_MainCharacter.onDraw = function (delta,context){
-			/**
-			* The event onDraw is called when an element is being drawn.
-			* If you want to draw effects, text or anything else this is the place.
-			* Parameters:
-			* 	-element: the Element being drawn.
-			*	-delta: the time passed in milisseconds since the last step
-			*	-context: canvas 2d context where the element is being draw
-			**/
-		}
 	
 		factory_MainCharacter.onCreate = function (){
 			self.width = 50;
@@ -68,24 +58,24 @@ function BouncingBalls(){
 			applyFriction(self,delta,500,0);
 		}
 		
+		factory_MainCharacter.onAfterStep = function (delta,globalGameState){
+			wrapOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
+		}
+		
 		factory_MainCharacter.onCollision = function(other,delta){
 			if(other.is("Box")){
-				self.x=0;
-        self.y=0;
-				self.lifes--;
-				if(self.lifes == 0)
+				kill(other);
+				create("Box",0,0);
+				level.health--;
+				if(level.health == 0)
 					goToPreviousLevel();
 			}
 		}
 		
 		factory_MainCharacter.onDraw = function(delta,context){
 			context.strokeRect(self.x, self.y, self.width, self.height);
+			context.fillText("life: "+level.health, self.x, self.y+17);
 		};
-	
-		factory_MainCharacter.onAfterStep = function (delta,globalGameState){
-			wrapOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
-		}
-	
 	
 		game.addFactory(factory_MainCharacter);
 		var factory_Box = new ElementFactory("Box");
@@ -118,18 +108,7 @@ function BouncingBalls(){
 	
 		factory_Box.onAfterStep = function (delta,globalGameState){
 			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
-		}
-	
-		
-		factory_Box.onAfterStep = function (delta,globalGameState){
-			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
-		}
-		
-		factory_Box.onClick = function(absoluteClickPosition){		
-			self.xAccelerate(self.getXSpeed()*-1);
-			self.yAccelerate(self.getYSpeed()*-1);
-		}
-		
+		}		
 		
 		game.addFactory(factory_Box);
 		
@@ -167,6 +146,10 @@ function BouncingBalls(){
 		];
 		
 		level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
+		
+		level_SecondLevel.onLoadLevel = function(){
+			level.health = 3;
+		}
 		game.addLevel(level_SecondLevel);
 	}
 	
