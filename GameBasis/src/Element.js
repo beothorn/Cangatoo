@@ -113,6 +113,10 @@ function Element(factory,x,y){
 		return this.getValueForDelta(this.ySpeed,delta);
 	}
 	
+	this.killYourself = function(){
+		this.factory.removeElement(this);
+	}
+	
 	this.step = function(delta,globalGameState,game){
 		self = this;
 		var oldX = this.x;
