@@ -74,3 +74,12 @@ function goToNextLevel(){
 function goToPreviousLevel(){
 	game.goToPreviousLevel();
 }
+
+function kill(element){
+	element.killYourself();
+}
+
+function create(elementFactory,x,y){
+	var factory = game.getFactoryByName(elementFactory);
+	factory.addElementAt(x,y);
+}

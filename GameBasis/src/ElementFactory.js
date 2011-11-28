@@ -11,8 +11,10 @@ function ElementFactory(factoryName){
 	
 	this.addElementAt = function(x,y){
 		var element = new Element(this,x,y);
+		var oldSelf = self; 
 		self = element;
 		this.onCreate(element);
+		self = oldSelf;
 		this.elementArray.push(element);
 	}
 
@@ -37,6 +39,11 @@ function ElementFactory(factoryName){
 		for(var i in pointArray){
 			this.addElementAt(pointArray[i].x,pointArray[i].y);
 		}
+	}
+	
+	this.removeElement = function(element){
+		var i = this.elementArray.indexOf(element);
+		this.elementArray.splice(i,1);
 	}
 
 	this.isElementOnPoint = function(element,x,y){
