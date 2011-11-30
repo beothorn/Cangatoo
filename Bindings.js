@@ -40,7 +40,7 @@ function Bindings(){
 		});
 	
 		$("#gameRestartLevel").click(function(event){
-				editMode = false;
+				setEditModeOff();
 				game.restartCurrentLevel();
 				$("#gamePause").text("Pause");
 				play();
@@ -48,17 +48,19 @@ function Bindings(){
 		
 		$("#gamePause").click(function(event){
 				if($("#gamePause").text()=="Pause"){
+					$("#gameState").text("Paused");					
 					$("#gamePause").text("Play");
 					pause();
 				}else{
-					editMode = false;
+					setEditModeOff();
+					$("#gameState").text("");
 					$("#gamePause").text("Pause");
 					play();
 				}
 		});
 		
 		$("#gameEdit").click(function(event){
-				editMode = true;
+				setEditModeOn();
 				$("#gamePause").text("Play");
 				game.restartCurrentLevel();
 				pause();
@@ -141,6 +143,15 @@ function Bindings(){
 				$("#helpAboutText").hide("slow");
 		});
 	}
+}
+
+function setEditModeOn(){
+	editMode = true;
+	$("#gameState").text("Editing");
+}
+
+function setEditModeOff(){
+	editMode = false;
 }
 
 function getOnlyGameCode(code) {

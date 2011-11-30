@@ -104,10 +104,8 @@ function addElementFromSelectedFactory(x,y){
 	var selectedFactory = $("#factories option:selected").text();
 	var factory = game.getFactoryByName(selectedFactory);
 	if(editMode){
-		console.log("Edit");
 		factory.addElementToCreateAt(x,y);
 	}else{
-		console.log("Not Edit");
 		factory.addElementAt(x,y);
 	}
 	game.redraw();
