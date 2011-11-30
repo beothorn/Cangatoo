@@ -8,6 +8,8 @@ function Bindings(){
 	}
 	
 	this.bindMenuEvents = function(){
+		$("#gameCanvas").oncontextmenu=function(){return false;};
+
 		$("#newGame").click(function(event){
 				game.newGame();
 				reloadGameEditor();
@@ -52,8 +54,11 @@ function Bindings(){
 				}
 		});
 	
-		$("#gameRestart").click(function(event){
+		$("#gameRestartLevel").click(function(event){
+				editMode = false;
 				game.restartCurrentLevel();
+				$("#gamePause").text("Pause");
+				play();
 		});
 		
 		$("#gamePause").click(function(event){
@@ -61,12 +66,14 @@ function Bindings(){
 					$("#gamePause").text("Play");
 					pause();
 				}else{
+					editMode = false;
 					$("#gamePause").text("Pause");
 					play();
 				}
 		});
 		
-		$("#gameRestartPause").click(function(event){
+		$("#gameEdit").click(function(event){
+				editMode = true;
 				$("#gamePause").text("Play");
 				game.restartCurrentLevel();
 				pause();

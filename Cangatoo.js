@@ -14,6 +14,12 @@ var cangatooIncludes = [
 	"GameBasis/src/GameSourceExport.js"
 ];
 
+//Globals
+var editMode = false;
+var gamePaused = false;
+var gameCode;
+var defaultGameUrl = "Demos/BouncingBalls.js";
+//--end globals
 
 function includeJSFile(includeURL,i){
 	var canvas = $("#gameCanvas")[0];
@@ -27,10 +33,6 @@ function includeJSFile(includeURL,i){
 	script.src = includeURL;
 	$(document).append( script );
 }
-
-var gamePaused = false;
-var gameCode;
-var defaultGameUrl = "Demos/BouncingBalls.js";
 
 function loadCode(newGameCode){
 	gameCode = newGameCode;
@@ -76,6 +78,8 @@ function pause(){
 
 function play(){
 	gamePaused = false;
+	if(intervalID!=null)
+		clearInterval(intervalID);
 	startGameLoop();
 }
 
@@ -99,7 +103,13 @@ function forceAtLeastOneSelectedOn(listId){
 function addElementFromSelectedFactory(x,y){
 	var selectedFactory = $("#factories option:selected").text();
 	var factory = game.getFactoryByName(selectedFactory);
-	factory.addElementToCreateAt(x,y);
+	if(editMode){
+		console.log("Edit");
+		factory.addElementToCreateAt(x,y);
+	}else{
+		console.log("Not Edit");
+		factory.addElementAt(x,y);
+	}
 	game.redraw();
 }
 
