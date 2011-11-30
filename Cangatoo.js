@@ -88,7 +88,6 @@ function overrideCanvasClick(canvas){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	if(gamePaused){
-  		console.log(event.button);
   		if(event.button == 0){
   			addElementFromSelectedFactory(x,y);
   		}
@@ -120,8 +119,8 @@ function addElementFromSelectedFactory(x,y){
 
 function removeElement(x,y){
 	var elementToRemove = game.getObjectOnPoint(x,y);
-	console.log("remove "+elementToRemove)
-	kill(elementToRemove);
+	level.removeElementFromLevelCreation(elementToRemove);
+	//kill(elementToRemove);
 	game.redraw();
 }
 
