@@ -34,11 +34,12 @@ function doBeforeStart(drawCanvas){
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
   canvas.onmousedown  = function(event){
-  	
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	canvasClick({x:x,y:y});
   };
+  canvas.oncontextmenu = function(e){return false;};
+  	
 	game = new Game();
 	gameCode.setup(game);
 }
