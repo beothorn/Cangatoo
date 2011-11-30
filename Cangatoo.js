@@ -84,15 +84,22 @@ function play(){
 }
 
 function overrideCanvasClick(canvas){
-	canvas.onclick  = function(event){
+	canvas.onmousedown  = function(event){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	if(gamePaused){
-  		addElementFromSelectedFactory(x,y);
+  		console.log(event.button);
+  		if(event.button == 0){
+  			addElementFromSelectedFactory(x,y);
+  		}
+  		if(event.button == 2){
+  			removeElement(x,y);
+  		}
   	}else{
   		canvasClick({x:x,y:y});
   	};
   };
+  
 }
 
 function forceAtLeastOneSelectedOn(listId){
@@ -108,6 +115,13 @@ function addElementFromSelectedFactory(x,y){
 	}else{
 		factory.addElementAt(x,y);
 	}
+	game.redraw();
+}
+
+function removeElement(x,y){
+	var elementToRemove = game.getObjectOnPoint(x,y);
+	console.log("remove "+elementToRemove)
+	kill(elementToRemove);
 	game.redraw();
 }
 

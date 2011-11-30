@@ -69,6 +69,14 @@ function ElementFactory(factoryName){
 		}
 		return false;
 	}
+	
+	this.getObjectOnPoint = function(x,y){
+		for (var i in this.elementArray){
+			if(this.isElementOnPoint(this.elementArray[i],x,y))
+				return this.elementArray[i];	
+		}
+		return null;
+	}
 
 	this.testCollisionWith = function(otherFactory,delta){
 		for (var i in this.elementArray){

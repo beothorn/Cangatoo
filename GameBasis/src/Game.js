@@ -134,6 +134,17 @@ function Game(){
 		}
 		return false;
 	}
+	
+	this.getObjectOnPoint = function(x,y){
+		for (var i in this.elementFactories)
+		{
+			var elementOnPoint = this.elementFactories[i].getObjectOnPoint(x,y); 
+			if( elementOnPoint != null ){
+				return elementOnPoint;
+			}
+		}
+		return null;
+	}
 
 	this.testCollisions = function(delta){
 		var i;

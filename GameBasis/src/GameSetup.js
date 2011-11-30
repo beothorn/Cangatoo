@@ -33,7 +33,7 @@ function doBeforeStart(drawCanvas){
 	canvas = drawCanvas;
 	document.onkeydown = function(event){keyDown(event.keyCode);}
 	document.onkeyup = function(event){keyUp(event.keyCode);} 	
-  canvas.onclick  = function(event){
+  canvas.onmousedown  = function(event){
   	
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
