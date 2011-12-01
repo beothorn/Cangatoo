@@ -120,7 +120,7 @@ function addElementFromSelectedFactory(x,y){
 function removeElement(x,y){
 	var elementToRemove = game.getObjectOnPoint(x,y);
 	level.removeElementFromLevelCreation(elementToRemove);
-	//kill(elementToRemove);
+	kill(elementToRemove);
 	game.redraw();
 }
 
