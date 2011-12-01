@@ -1,6 +1,23 @@
 function Level(levelName){
 	this.levelName = levelName;
 
+	this.removeElementFromLevelCreation = function(element){
+		if( this.levelElements == null)
+			return;
+		for(var i in this.levelElements){
+			for(var factoryName in this.levelElements[i]){
+				if(factoryName==element.factory.factoryName){
+					var creationPositions = this.levelElements[i][factoryName];
+					for(var positionIndex in creationPositions){
+						if(creationPositions[positionIndex].x == element.x && creationPositions[positionIndex].y == element.y){
+							this.levelElements[i][factoryName].splice(positionIndex,1);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	this.backgroundImage = function(){
 		return null;
 	}

@@ -36,9 +36,10 @@
 			<ul>
 				<li><h2>Game flow</h2>
 					<ul>
-						<li><a id="gameRestart" href="#">Restart</a></li>
+						<li><a id="gameRestartLevel" href="#">Restart level</a></li>
+						<!--<li><a id="gameRestart" href="#">Restart game</a></li>-->
 						<li><a id="gamePause" href="#">Pause</a></li>
-						<li><a id="gameRestartPause" href="#">Restart and pause</a></li>
+						<li><a id="gameEdit" href="#">Edit level</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -46,7 +47,6 @@
 				<li><h2>View</h2>
 					<ul>
 						<li><a id="viewEditor" href="#">&#10003; Editor</a></li>
-						<li><a id="viewTouchButtons" href="#">&nbsp;&nbsp; Touch buttons</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -81,35 +81,9 @@
 		</div>
 		
 		<canvas id="gameCanvas" width="500" height="300">
-			<p>Your browser does not support the canvas element.</p>
+			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
 		</canvas>
-		
-		<div id="touchKeyboard">
-			<table cellpadding="0" cellspacing="0" border="0" align="center">
-			<tr>
-				<td>
-					<input type="button" class="ctrlButton" id="up" value="X"/>
-				</td>
-				<td>
-					<input type="button" class="ctrlButton" id="upBtn" value="^"/>
-				</td>
-				<td>
-					<input type="button" class="ctrlButton" id="up" value="O"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" class="ctrlButton" id="leftBtn" value="<"/>
-				</td>
-				<td>
-					<input type="button" class="ctrlButton" id="downBtn" value="V"/>
-				</td>
-				<td>
-					<input type="button" class="ctrlButton" id="rightBtn" value=">"/>
-				</td>
-			</tr>
-			</table>
-		</div>		
+		<div id="gameState"></div>		
 		
 		<div id="gameEditor">
 			<ul id="tabLinks">

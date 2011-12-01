@@ -14,6 +14,12 @@ var cangatooIncludes = [
 	"GameBasis/src/GameSourceExport.js"
 ];
 
+//Globals
+var editMode = false;
+var gamePaused = false;
+var gameCode;
+var defaultGameUrl = "Demos/BouncingBalls.js";
+//--end globals
 
 function includeJSFile(includeURL,i){
 	var canvas = $("#gameCanvas")[0];
@@ -27,10 +33,6 @@ function includeJSFile(includeURL,i){
 	script.src = includeURL;
 	$(document).append( script );
 }
-
-var gamePaused = false;
-var gameCode;
-var defaultGameUrl = "Demos/BouncingBalls.js";
 
 function loadCode(newGameCode){
 	gameCode = newGameCode;
@@ -76,19 +78,27 @@ function pause(){
 
 function play(){
 	gamePaused = false;
+	if(intervalID!=null)
+		clearInterval(intervalID);
 	startGameLoop();
 }
 
 function overrideCanvasClick(canvas){
-	canvas.onclick  = function(event){
+	canvas.onmousedown  = function(event){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	if(gamePaused){
-  		addElementFromSelectedFactory(x,y);
+  		if(event.button == 0){
+  			addElementFromSelectedFactory(x,y);
+  		}
+  		if(event.button == 2){
+  			removeElement(x,y);
+  		}
   	}else{
   		canvasClick({x:x,y:y});
   	};
   };
+  
 }
 
 function forceAtLeastOneSelectedOn(listId){
@@ -99,7 +109,18 @@ function forceAtLeastOneSelectedOn(listId){
 function addElementFromSelectedFactory(x,y){
 	var selectedFactory = $("#factories option:selected").text();
 	var factory = game.getFactoryByName(selectedFactory);
-	factory.addElementToCreateAt(x,y);
+	if(editMode){
+		factory.addElementToCreateAt(x,y);
+	}else{
+		factory.addElementAt(x,y);
+	}
+	game.redraw();
+}
+
+function removeElement(x,y){
+	var elementToRemove = game.getObjectOnPoint(x,y);
+	level.removeElementFromLevelCreation(elementToRemove);
+	kill(elementToRemove);
 	game.redraw();
 }
 

@@ -28,7 +28,7 @@ function Game(){
 	}
 	
 	this.goToNextLevel = function(){
-		var nextLevelIndex = this.levels.indexOf(this.level)+1;
+		var nextLevelIndex = this.levels.indexOf(level)+1;
 		var nextLevel = this.levels[1];
 		if(nextLevel == null)
 			throw "Next level doesn't exist.";
@@ -36,7 +36,7 @@ function Game(){
 	}
 	
 	this.goToPreviousLevel = function(){
-		var currentLevelIndex = this.levels.indexOf(this.level);
+		var currentLevelIndex = this.levels.indexOf(level);
 		if(currentLevelIndex == 0)
 			throw "Previous level doesn't exist.";
 		var previousLevelIndex = currentLevelIndex-1;
@@ -53,7 +53,6 @@ function Game(){
 	}                                  
 	
 	this.setLevel = function(_level){
-		this.level = _level;
 		level = _level
 	}
 	
@@ -67,9 +66,9 @@ function Game(){
 	}
 	
 	this.loadLevelOnGame = function(){ 
-		for(var i in this.level.levelElements){
-			for(var factoryName in this.level.levelElements[i]){
-				this.getFactoryByName(factoryName).addElementsAt(this.level.levelElements[i][factoryName]);
+		for(var i in level.levelElements){
+			for(var factoryName in level.levelElements[i]){
+				this.getFactoryByName(factoryName).addElementsAt(level.levelElements[i][factoryName]);
 			}
 		}
 	}
@@ -78,8 +77,8 @@ function Game(){
 		for (var i in this.elementFactories){
 			this.elementFactories[i].restartFactory();
 		}
-		
 		this.loadLevelOnGame();
+		level.onLoadLevel();
 		this.redraw();
 	}
 	
@@ -89,7 +88,6 @@ function Game(){
 	
 	this.internalLoadLevel = function(level){
 		this.setLevel(level);
-		level.onLoadLevel();
 		this.restartCurrentLevel();
 	}
 	
@@ -135,6 +133,17 @@ function Game(){
 			}
 		}
 		return false;
+	}
+	
+	this.getObjectOnPoint = function(x,y){
+		for (var i in this.elementFactories)
+		{
+			var elementOnPoint = this.elementFactories[i].getObjectOnPoint(x,y); 
+			if( elementOnPoint != null ){
+				return elementOnPoint;
+			}
+		}
+		return null;
 	}
 
 	this.testCollisions = function(delta){
