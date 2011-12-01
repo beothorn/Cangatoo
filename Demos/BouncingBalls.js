@@ -3,6 +3,10 @@ function BouncingBalls(){
 	resources.addImageUrlToLoad("./Sprites/3dBlueBall.png","blueBall");
 	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
 	
+	canvas.width  = 500;
+	canvas.height = 300;
+
+	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
 	
