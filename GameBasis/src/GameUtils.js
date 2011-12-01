@@ -75,6 +75,10 @@ function goToPreviousLevel(){
 	game.goToPreviousLevel();
 }
 
+function goToFirstLevel(){
+	game.goToFirstLevel();
+}
+
 function kill(element){
 	element.killYourself();
 }

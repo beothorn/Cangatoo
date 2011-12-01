@@ -116,7 +116,6 @@ function ElementFactory(factoryName){
 	}
 	
 	this.draw = function(context,delta){
-		context.strokeStyle = "gray";
 		for (var i in this.elementArray){
 			var element = this.elementArray[i];
 			if(element.sprite != null)
