@@ -1,6 +1,6 @@
 function BouncingBalls(){
 	
-	resources.addImageUrlToLoad("./Sprites/ball.png","blueBall");
+	resources.addImageUrlToLoad("./Sprites/3dBlueBall.png","blueBall");
 	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
 	
 	this.setup = function(game){
