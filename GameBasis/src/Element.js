@@ -49,8 +49,8 @@ function Element(factory,x,y){
 	
 	this.setSprite = function(imageResourceName){
 		this.sprite = resources.get(imageResourceName);
-		this.width = this.sprite.height;
-		this.height = this.sprite.width;
+		this.width = this.sprite.width;
+		this.height = this.sprite.height;
 	}
 	
 	this.getXForCollisionCheck = function(){
