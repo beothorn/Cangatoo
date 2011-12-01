@@ -5,6 +5,7 @@ var canvas;
 var self;
 var resources = new Resources();
 var loader = new GameLoader();
+var mouse = {x:0,y:0};
 //--end globals
 
 var intervalID;
@@ -39,7 +40,13 @@ function doBeforeStart(drawCanvas){
   	canvasClick({x:x,y:y});
   };
   canvas.oncontextmenu = function(e){return false;};
-  	
+  canvas.onmousemove = function(event){
+  	var x = event.layerX - canvas.offsetLeft;
+  	var y = event.layerY - canvas.offsetTop;
+  	mouse.x = x;
+  	mouse.y = y;
+  }	
+  
 	game = new Game();
 	gameCode.setup(game);
 }

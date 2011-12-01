@@ -2,6 +2,11 @@ function BouncingBalls(){
 	
 	resources.addImageUrlToLoad("./Sprites/3dBlueBall.png","blueBall");
 	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+	resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
+	
+	canvas.width  = 500;
+	canvas.height = 300;
+
 	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
@@ -9,8 +14,7 @@ function BouncingBalls(){
 		var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
 		factory_MainCharacter.onCreate = function (){
-			self.width = 50;
-			self.height = 80;
+			self.setSprite("mainChar");
 			self.lifes = 3;
 			
 			self.leftLimit = 0;
@@ -73,7 +77,6 @@ function BouncingBalls(){
 		}
 		
 		factory_MainCharacter.onDraw = function(delta,context){
-			context.strokeRect(self.x, self.y, self.width, self.height);
 			context.fillText("life: "+level.health, self.x, self.y+17);
 		};
 	
@@ -151,6 +154,7 @@ function BouncingBalls(){
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);
+		game.firstLevel = level_SecondLevel;
 	}
 	
 }
