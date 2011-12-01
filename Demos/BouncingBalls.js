@@ -151,6 +151,7 @@ function BouncingBalls(){
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);
+		game.firstLevel = level_SecondLevel;
 	}
 	
 }

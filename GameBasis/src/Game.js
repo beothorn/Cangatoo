@@ -27,6 +27,13 @@ function Game(){
 		this.lastLoopTime = new Date().getTime();
 	}
 	
+	this.goToFirstLevel = function(){
+		console.log(this.firstLevel);
+		if(this.firstLevel == null)
+			this.internalLoadLevel(this.levels[0]);
+		this.internalLoadLevel(this.firstLevel);
+	}
+	
 	this.goToNextLevel = function(){
 		var nextLevelIndex = this.levels.indexOf(level)+1;
 		var nextLevel = this.levels[1];
@@ -62,7 +69,7 @@ function Game(){
 	}
 	
 	this.reset = function(){
-		this.internalLoadLevel(this.levels[0]);
+		this.goToFirstLevel();
 	}
 	
 	this.loadLevelOnGame = function(){ 
