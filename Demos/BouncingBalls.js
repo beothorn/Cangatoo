@@ -1,16 +1,18 @@
 function BouncingBalls(){
 	
-	resources.addImageUrlToLoad("./Sprites/3dBlueBall.png","blueBall");
-	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
-	resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
-	
 	canvas.width  = 500;
 	canvas.height = 300;
-
+	
+	//Resources
+	resources.addImageUrlToLoad("./Sprites/3dRedBall.png","redBall");
+	resources.addImageUrlToLoad("./Sprites/clickToStart.png","clickScreen");
+	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+	resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
 	
 	this.setup = function(game){
 		game.gameName = "Bouncing balls";
 	
+		//Factories
 		var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
 		factory_MainCharacter.onCreate = function (){
@@ -84,7 +86,7 @@ function BouncingBalls(){
 		var factory_Box = new ElementFactory("Box");
 	
 		factory_Box.onCreate = function (){
-			self.setSprite("blueBall");
+			self.setSprite("redBall");
 			
 			self.leftLimit = 0;
 			self.topLimit = 0;
@@ -96,19 +98,6 @@ function BouncingBalls(){
 			self.yAccelerate(-100);
 		}
 	
-		factory_Box.onStep = function (delta,globalGameState){
-			/**
-			* The event onStep is called in every frame before 
-			* the element position is changed by its speed.
-			* Usually, you want to call applyGravity(self,delta,gravity) here.
-			* Parameters:
-			* 	-element: the Element being stepped.
-			*	-delta: the time passed in milisseconds since the last step
-			*	-globalGameState: the global game values
-			*	-game: the game class
-			**/
-		}
-	
 		factory_Box.onAfterStep = function (delta,globalGameState){
 			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
 		}		
@@ -118,15 +107,7 @@ function BouncingBalls(){
 		var factory_ClickToStart = new ElementFactory("ClickToStart");
 		
 		factory_ClickToStart.onCreate = function () {
-				self.width = 64;
-				self.height = 32;
-		}
-		
-		factory_ClickToStart.onDraw = function (delta, context) {
-			context.fillStyle = "black";
-			context.font = "8pt Verdana";
-			context.strokeRect(self.x, self.y, self.width, self.height);
-			context.fillText("Click to start", self.x, self.y+17);
+				self.setSprite("clickScreen");
 		}
 		
 		factory_ClickToStart.onClick = function (absoluteClickPosition) {
@@ -135,9 +116,11 @@ function BouncingBalls(){
 	
 		game.addFactory(factory_ClickToStart);
 		
+		//Levels
+		
 		var level_FirstLevel = new Level("FirstLevel");
 		level_FirstLevel.levelElements = [
-			{"ClickToStart":[{x:50,y:50}]}
+			{"ClickToStart":[{x:0,y:0}]}
 		];
 		
 		game.addLevel(level_FirstLevel);
@@ -154,7 +137,9 @@ function BouncingBalls(){
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);
-		game.firstLevel = level_SecondLevel;
+		
+		
+		game.firstLevel = level_FirstLevel;
 	}
 	
 }
