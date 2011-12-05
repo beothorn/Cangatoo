@@ -11,7 +11,13 @@ var include = [
 ];
 var cangatooIncludes = [
 	"Bindings.js",
-	"Export/src/GameSourceExport.js"
+	"Export/src/GameSourceExport.js",
+	"Export/src/HeaderRenderer.js",
+	"Export/src/SetupRenderer.js",
+	"Export/src/CanvasPropertiesRenderer.js",
+	"Export/src/ResourcesRenderer.js",
+	
+	"Export/src/FooterRenderer.js"
 ];
 
 //Globals

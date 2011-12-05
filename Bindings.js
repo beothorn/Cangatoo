@@ -22,7 +22,7 @@ function Bindings(){
 		$("#exportGame").click(function(event){
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").show("fast");
-			exportJSTo(game,$('#pageOutput'),include);
+			exportJSTo(game,include,function(code){$('#pageOutput').val(code);});
 		});
 		
 		$("#viewEditor").click(function(event){

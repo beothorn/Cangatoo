@@ -1,15 +1,3 @@
-function convertGameNameToVariable(gameName){
-	var newGameName = gameName;
-	newGameName = newGameName.replace(" ", "_" );
-	if(newGameName.indexOf( " " ) != -1){
-		newGameName = convertGameNameToVariable(gameName);
-	}
-	return newGameName;
-}
-
-var customCodeStart = "//START CUSTOM CODE###################################\n";
-var customCodeEnd = "//END CUSTOM CODE###################################\n";
-
 function renderGameCode(game,includes,callback){
 	
 	var gameVariableName = convertGameNameToVariable(game.gameName);
@@ -123,18 +111,41 @@ function getLevelsCode(game){
 }
 	
 
-function exportJSTo(game,element,includes){
-	var renderedGameHeader = renderCommentHeader(game);
-	var renderedSetupFunction = renderSetup(game);
+function convertGameNameToVariable(gameName){
+	var newGameName = gameName;
+	newGameName = newGameName.replace(" ", "_" );
+	if(newGameName.indexOf( " " ) != -1){
+		newGameName = convertGameNameToVariable(gameName);
+	}
+	return newGameName;
+}
+
+function exportJSTo(game,includeList,callBack){
+	var renderedGameHeader = renderHeader();
+	var renderedSetupFunction = renderSetup();
 	var renderedCanvasFunction = renderCanvasProperties(game);
 	var renderedResourcesFunction = renderResources(game);
+	/*
 	var renderedGameNameFunction = renderGameName(game);
 	var renderedLoadForEachFactory = renderLoadForEachFactory(game);
 	var renderedLoadFactories = renderLoadFactories(game);
 	var renderedLoadForEachLevel = renderLoadForEachLevel(game);
 	var renderedLoadLevels = renderLoadLevels(game);
+	*/
+	var renderedFooter = renderFooter(game);
 	
-	renderIncludes(includes,function(includesJavaScriptCode){
-			loadRestAndSetElementText(game,includesJavaScriptCode,function(renderedCode){element.val(renderedCode);});
+	var renderedGameCode = 
+				renderedGameHeader+
+				renderedSetupFunction+
+				renderedCanvasFunction+
+				renderedResourcesFunction+
+				renderedFooter;
+	
+	callBack(renderedGameCode);
+	
+	/*
+	renderIncludes(includeList,function(includesJavaScriptCode){
+			callBack(renderedGameHeader);
 	});
+	*/
 }
