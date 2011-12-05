@@ -10,7 +10,7 @@ function convertGameNameToVariable(gameName){
 var customCodeStart = "//START CUSTOM CODE###################################\n";
 var customCodeEnd = "//END CUSTOM CODE###################################\n";
 
-function loadRestAndSetElementText(game,element, includes){
+function renderGameCode(game,includes,callback){
 	
 	var gameVariableName = convertGameNameToVariable(game.gameName);
 	var javascriptCode = 
@@ -43,7 +43,7 @@ function loadRestAndSetElementText(game,element, includes){
 		"  startGame(document.getElementById(\"gameCanvas\"));\n"+
 		"};\n"; 
 	
-	element.val(javascriptCode);
+	callback(javascriptCode);
 }
 	
 function getFactoriesCode(game){
@@ -122,19 +122,19 @@ function getLevelsCode(game){
 	return javascriptCode;
 }
 	
-var includeCount = 0;
+
 function exportJSTo(game,element,includes){
-	var javascriptCode = "";
+	var renderedGameHeader = renderCommentHeader(game);
+	var renderedSetupFunction = renderSetup(game);
+	var renderedCanvasFunction = renderCanvasProperties(game);
+	var renderedResourcesFunction = renderResources(game);
+	var renderedGameNameFunction = renderGameName(game);
+	var renderedLoadForEachFactory = renderLoadForEachFactory(game);
+	var renderedLoadFactories = renderLoadFactories(game);
+	var renderedLoadForEachLevel = renderLoadForEachLevel(game);
+	var renderedLoadLevels = renderLoadLevels(game);
 	
-	includeCount = 0;
-	for(var i in include){
-		element.load(include[i],null,function(responseText){
-			
-			javascriptCode += responseText;
-			includeCount++;
-			if(includeCount == include.length){
-				loadRestAndSetElementText(game,element,javascriptCode);
-			}
-		});
-	};
+	renderIncludes(includes,function(includesJavaScriptCode){
+			loadRestAndSetElementText(game,includesJavaScriptCode,function(renderedCode){element.val(renderedCode);});
+	});
 }
