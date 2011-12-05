@@ -11,7 +11,7 @@ var include = [
 ];
 var cangatooIncludes = [
 	"Bindings.js",
-	"GameBasis/src/GameSourceExport.js"
+	"Export/src/GameSourceExport.js"
 ];
 
 //Globals
@@ -34,7 +34,7 @@ function includeJSFile(includeURL,i){
 	$(document).append( script );
 }
 
-function loadCode(newGameCode){
+function setGameToLoad(newGameCode){
 	gameCode = newGameCode;
 }
 

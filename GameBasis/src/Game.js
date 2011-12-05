@@ -28,7 +28,6 @@ function Game(){
 	}
 	
 	this.goToFirstLevel = function(){
-		console.log(this.firstLevel);
 		if(this.firstLevel == null)
 			this.internalLoadLevel(this.levels[0]);
 		this.internalLoadLevel(this.firstLevel);

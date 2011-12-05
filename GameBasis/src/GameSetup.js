@@ -25,7 +25,7 @@ var globalGameState = {
 
 function restartGame(){
 	game.clear();
-	gameCode.setup(game);
+	gameCode.setup();
 	game.reset();
 	startGameLoop();
 }
@@ -48,7 +48,7 @@ function doBeforeStart(drawCanvas){
   }	
   
 	game = new Game();
-	gameCode.setup(game);
+	gameCode.setup();
 }
 
 function startGame(drawCanvas){

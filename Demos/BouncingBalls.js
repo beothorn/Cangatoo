@@ -1,18 +1,30 @@
 function BouncingBalls(){
 	
-	canvas.width  = 500;
-	canvas.height = 300;
+	this.setup = function(){
+		this.setCanvasProperties();
+		this.setResources();
+		this.setGameName();
+		this.loadFactories();
+		this.loadLevels();
+	}
 	
-	//Resources
-	resources.addImageUrlToLoad("./Sprites/3dRedBall.png","redBall");
-	resources.addImageUrlToLoad("./Sprites/clickToStart.png","clickScreen");
-	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
-	resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
+	this.setCanvasProperties = function(){
+		canvas.width  = 500;
+		canvas.height = 300;
+	}
 	
-	this.setup = function(game){
+	this.setResources = function(){
+		resources.addImageUrlToLoad("./Sprites/3dRedBall.png","redBall");
+		resources.addImageUrlToLoad("./Sprites/clickToStart.png","clickScreen");
+		resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+		resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
+	}
+	
+	this.setGameName = function(){
 		game.gameName = "Bouncing balls";
+	}
 	
-		//Factories
+	this.loadFactory_MainCharacter = function(){
 		var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
 		factory_MainCharacter.onCreate = function (){
@@ -83,6 +95,9 @@ function BouncingBalls(){
 		};
 	
 		game.addFactory(factory_MainCharacter);
+	}
+	
+	this.loadFactory_Box = function (){
 		var factory_Box = new ElementFactory("Box");
 	
 		factory_Box.onCreate = function (){
@@ -103,7 +118,9 @@ function BouncingBalls(){
 		}		
 		
 		game.addFactory(factory_Box);
-		
+	}
+	
+	this.loadFactory_ClickToStart = function(){
 		var factory_ClickToStart = new ElementFactory("ClickToStart");
 		
 		factory_ClickToStart.onCreate = function () {
@@ -115,16 +132,25 @@ function BouncingBalls(){
 		}
 	
 		game.addFactory(factory_ClickToStart);
-		
-		//Levels
-		
+	}
+	
+	this.loadFactories = function(){
+		this.loadFactory_MainCharacter();
+		this.loadFactory_Box();
+		this.loadFactory_ClickToStart();
+	}
+	
+	this.loadLevel_FirstLevel = function(){
 		var level_FirstLevel = new Level("FirstLevel");
 		level_FirstLevel.levelElements = [
 			{"ClickToStart":[{x:0,y:0}]}
 		];
 		
 		game.addLevel(level_FirstLevel);
-		
+		game.firstLevel = level_FirstLevel;
+	}
+	
+	this.loadLevel_SecondLevel = function(){
 		var level_SecondLevel = new Level("SecondLevel");
 		level_SecondLevel.levelElements = [
 			{"MainCharacter":[{x:50,y:50}]},
@@ -137,11 +163,12 @@ function BouncingBalls(){
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);
-		
-		
-		game.firstLevel = level_FirstLevel;
 	}
 	
+	this.loadLevels = function(){
+		this.loadLevel_FirstLevel();
+		this.loadLevel_SecondLevel();
+	}
 }
 
-loadCode(new BouncingBalls());
+setGameToLoad(new BouncingBalls());
