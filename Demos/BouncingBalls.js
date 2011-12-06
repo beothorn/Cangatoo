@@ -1,17 +1,31 @@
 function BouncingBalls(){
 	
-	resources.addImageUrlToLoad("./Sprites/3dBlueBall.png","blueBall");
-	resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
-	resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
+	this.setup = function(){
+		this.setCanvasProperties();
+		this.setResources();
+		this.setGameName();
+		this.loadFactories();
+		this.loadLevels();
+	}
 	
-	canvas.width  = 500;
-	canvas.height = 300;
-
+	this.setCanvasProperties = function(){
+		canvas.width  = 500;
+		canvas.height = 300;
+	}
 	
-	this.setup = function(game){
+	this.setResources = function(){
+		resources.addImageUrlToLoad("./Sprites/3dRedBall.png","redBall");
+		resources.addImageUrlToLoad("./Sprites/clickToStart.png","clickScreen");
+		resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
+		resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
+	}
+	
+	this.setGameName = function(){
 		game.gameName = "Bouncing balls";
+	}
 	
-		var factory_MainCharacter = new ElementFactory("MainCharacter");
+	this.loadFactory_MainCharacter = function(){
+    var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
 		factory_MainCharacter.onCreate = function (){
 			self.setSprite("mainChar");
@@ -81,10 +95,13 @@ function BouncingBalls(){
 		};
 	
 		game.addFactory(factory_MainCharacter);
+	}
+	
+	this.loadFactory_Box = function (){
 		var factory_Box = new ElementFactory("Box");
 	
 		factory_Box.onCreate = function (){
-			self.setSprite("blueBall");
+			self.setSprite("redBall");
 			
 			self.leftLimit = 0;
 			self.topLimit = 0;
@@ -96,37 +113,18 @@ function BouncingBalls(){
 			self.yAccelerate(-100);
 		}
 	
-		factory_Box.onStep = function (delta,globalGameState){
-			/**
-			* The event onStep is called in every frame before 
-			* the element position is changed by its speed.
-			* Usually, you want to call applyGravity(self,delta,gravity) here.
-			* Parameters:
-			* 	-element: the Element being stepped.
-			*	-delta: the time passed in milisseconds since the last step
-			*	-globalGameState: the global game values
-			*	-game: the game class
-			**/
-		}
-	
 		factory_Box.onAfterStep = function (delta,globalGameState){
 			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
 		}		
 		
 		game.addFactory(factory_Box);
-		
+	}
+	
+	this.loadFactory_ClickToStart = function(){
 		var factory_ClickToStart = new ElementFactory("ClickToStart");
 		
 		factory_ClickToStart.onCreate = function () {
-				self.width = 64;
-				self.height = 32;
-		}
-		
-		factory_ClickToStart.onDraw = function (delta, context) {
-			context.fillStyle = "black";
-			context.font = "8pt Verdana";
-			context.strokeRect(self.x, self.y, self.width, self.height);
-			context.fillText("Click to start", self.x, self.y+17);
+				self.setSprite("clickScreen");
 		}
 		
 		factory_ClickToStart.onClick = function (absoluteClickPosition) {
@@ -134,29 +132,42 @@ function BouncingBalls(){
 		}
 	
 		game.addFactory(factory_ClickToStart);
-		
+	}
+	
+	this.loadFactories = function(){
+		this.loadFactory_MainCharacter();
+		this.loadFactory_Box();
+		this.loadFactory_ClickToStart();
+	}
+	
+	this.loadLevel_FirstLevel = function(){
 		var level_FirstLevel = new Level("FirstLevel");
 		level_FirstLevel.levelElements = [
-			{"ClickToStart":[{x:50,y:50}]}
+			{"ClickToStart":[{x:0,y:0}]}
 		];
 		
 		game.addLevel(level_FirstLevel);
-		
+		game.firstLevel = level_FirstLevel;
+	}
+	
+	this.loadLevel_SecondLevel = function(){
 		var level_SecondLevel = new Level("SecondLevel");
 		level_SecondLevel.levelElements = [
 			{"MainCharacter":[{x:50,y:50}]},
 			{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
 		];
 		
-		level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
-		
 		level_SecondLevel.onLoadLevel = function(){
+			level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);
-		game.firstLevel = level_SecondLevel;
 	}
 	
+	this.loadLevels = function(){
+		this.loadLevel_FirstLevel();
+		this.loadLevel_SecondLevel();
+	}
 }
 
-loadCode(new BouncingBalls());
+setGameToLoad(new BouncingBalls());

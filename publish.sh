@@ -1,6 +1,7 @@
 #!/bin/bash
 git checkout gh-pages
-git pull
+git fetch
+git merge origin
 git merge master
 git push
 git checkout master

@@ -6,6 +6,7 @@ var self;
 var resources = new Resources();
 var loader = new GameLoader();
 var mouse = {x:0,y:0};
+var gameCode;
 //--end globals
 
 var intervalID;
@@ -23,9 +24,13 @@ var globalGameState = {
 	click:null
 }
 
+function setGameToLoad(newGameCode){
+	gameCode = newGameCode;
+}
+
 function restartGame(){
 	game.clear();
-	gameCode.setup(game);
+	gameCode.setup();
 	game.reset();
 	startGameLoop();
 }
@@ -48,7 +53,7 @@ function doBeforeStart(drawCanvas){
   }	
   
 	game = new Game();
-	gameCode.setup(game);
+	gameCode.setup();
 }
 
 function startGame(drawCanvas){
@@ -85,8 +90,6 @@ function keyUp(key){
 	if(key == down)
 		globalGameState.down = false;
 }
-
-
 
 function startGameLoop(){
 	var FPS = 30;

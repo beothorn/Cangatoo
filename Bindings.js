@@ -22,7 +22,7 @@ function Bindings(){
 		$("#exportGame").click(function(event){
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").show("fast");
-			exportJSTo(game,$('#pageOutput'),include);
+			exportJSTo(game,include,function(code){$('#pageOutput').val(code);});
 		});
 		
 		$("#viewEditor").click(function(event){
@@ -154,7 +154,10 @@ function setEditModeOff(){
 	editMode = false;
 }
 
+
 function getOnlyGameCode(code) {
+	var customCodeStart = "//GAMECODE START";
+	var customCodeEnd   = "//GAMECODE END";
 	var s = code;
 	var i = s.indexOf(customCodeStart);
 	if (i >= 0) {
