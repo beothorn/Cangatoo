@@ -25,7 +25,6 @@ var cangatooIncludes = [
 
 //Globals
 var editMode = false;
-var gamePaused = false;
 var defaultGameUrl = "Demos/BouncingBalls.js";
 //--end globals
 
@@ -73,18 +72,6 @@ function reloadGameEditor(){
 	fillLevels();
 	fillLevelEvents();
 	fillLevelCodeEditor();
-}
-
-function pause(){
-	gamePaused = true;
-	clearInterval(intervalID);
-}
-
-function play(){
-	gamePaused = false;
-	if(intervalID!=null)
-		clearInterval(intervalID);
-	startGameLoop();
 }
 
 function overrideCanvasClick(canvas){
