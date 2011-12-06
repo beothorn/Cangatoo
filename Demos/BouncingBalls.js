@@ -157,9 +157,8 @@ function BouncingBalls(){
 			{"Box":[{x:140,y:220},{x:300,y:200},{x:200,y:100}]}  	
 		];
 		
-		level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
-		
 		level_SecondLevel.onLoadLevel = function(){
+			level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
 			level.health = 3;
 		}
 		game.addLevel(level_SecondLevel);

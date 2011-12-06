@@ -154,7 +154,10 @@ function setEditModeOff(){
 	editMode = false;
 }
 
+
 function getOnlyGameCode(code) {
+	var customCodeStart = "//GAMECODE START";
+	var customCodeEnd   = "//GAMECODE END";
 	var s = code;
 	var i = s.indexOf(customCodeStart);
 	if (i >= 0) {

@@ -18,6 +18,7 @@ function renderHeader(){
 		"  startGame(document.getElementById(\"gameCanvas\"));\n"+
 		"};\n"+
 		"\n"+
+		"//GAMECODE START\n"+
 		"function "+gameVariableName+"(){\n";
 		return javascriptCode;	
 }

@@ -6,7 +6,7 @@ function renderFooter(){
 	"\n"+
 	"setGameToLoad(new "+gameVariableName+"());\n"+
 	"\n"+
-	"//#############################################################################\n"+
+	"//GAMECODE END\n"+
 	"\n";
 	return footerCode;
 }
