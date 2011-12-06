@@ -6,6 +6,7 @@ var self;
 var resources = new Resources();
 var loader = new GameLoader();
 var mouse = {x:0,y:0};
+var gamePaused = false;
 var gameCode;
 //--end globals
 
@@ -94,7 +95,11 @@ function keyUp(key){
 function startGameLoop(){
 	var FPS = 30;
 	var oneSecond = 1000;
+	gamePaused = false;
+	if(intervalID!=null)
+		clearInterval(intervalID);
 	intervalID = setInterval(loop, oneSecond / FPS);
+	console.log("start: "+intervalID);
 }
 
 function loop(){

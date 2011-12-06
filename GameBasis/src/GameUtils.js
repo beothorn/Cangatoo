@@ -1,3 +1,13 @@
+function pause(){
+	gamePaused = true;
+	console.log("pause: "+intervalID);
+	clearInterval(intervalID);
+}
+
+function play(){
+	startGameLoop();
+}
+
 function applyGravity(element,delta,gravity){
 	element.yAccelerate((delta*gravity)/1000);
 }
