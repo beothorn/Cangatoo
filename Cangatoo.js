@@ -16,14 +16,16 @@ var cangatooIncludes = [
 	"Export/src/SetupRenderer.js",
 	"Export/src/CanvasPropertiesRenderer.js",
 	"Export/src/ResourcesRenderer.js",
-	
-	"Export/src/FooterRenderer.js"
+	"Export/src/GameNameRenderer.js",
+	"Export/src/FactoriesRenderer.js",
+	"Export/src/LevelsRenderer.js",	
+	"Export/src/FooterRenderer.js",
+	"Export/src/IncludesRenderer.js"
 ];
 
 //Globals
 var editMode = false;
 var gamePaused = false;
-var gameCode;
 var defaultGameUrl = "Demos/BouncingBalls.js";
 //--end globals
 
@@ -38,10 +40,6 @@ function includeJSFile(includeURL,i){
 	script.type = 'text/javascript';
 	script.src = includeURL;
 	$(document).append( script );
-}
-
-function setGameToLoad(newGameCode){
-	gameCode = newGameCode;
 }
 
 $(document).ready(function(){

@@ -6,6 +6,7 @@ var self;
 var resources = new Resources();
 var loader = new GameLoader();
 var mouse = {x:0,y:0};
+var gameCode;
 //--end globals
 
 var intervalID;
@@ -21,6 +22,10 @@ var globalGameState = {
 	up:false,
 	down:false,
 	click:null
+}
+
+function setGameToLoad(newGameCode){
+	gameCode = newGameCode;
 }
 
 function restartGame(){
@@ -85,8 +90,6 @@ function keyUp(key){
 	if(key == down)
 		globalGameState.down = false;
 }
-
-
 
 function startGameLoop(){
 	var FPS = 30;

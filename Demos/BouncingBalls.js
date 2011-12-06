@@ -25,7 +25,7 @@ function BouncingBalls(){
 	}
 	
 	this.loadFactory_MainCharacter = function(){
-		var factory_MainCharacter = new ElementFactory("MainCharacter");
+    var factory_MainCharacter = new ElementFactory("MainCharacter");
 	
 		factory_MainCharacter.onCreate = function (){
 			self.setSprite("mainChar");

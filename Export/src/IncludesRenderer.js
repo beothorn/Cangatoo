@@ -3,7 +3,7 @@ function renderIncludes(includeList,includeCallBack){
 	var includeCount = 0;
 	for(var i in includeList){
 		$(document).load(include[i],null,function(responseText){
-			includesJavaScriptCode += responseText;
+			includesJavaScriptCode += responseText+"\n\n";
 			includeCount++;
 			if(includeCount == includeList.length){
 				includeCallBack(includesJavaScriptCode);
