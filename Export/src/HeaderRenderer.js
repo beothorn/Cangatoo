@@ -14,6 +14,10 @@ function renderHeader(){
 		"</html>\n"+
 		"*/\n"+
 		"\n"+
+		"window.onload = function(){\n"+
+		"  startGame(document.getElementById(\"gameCanvas\"));\n"+
+		"};\n"+
+		"\n"+
 		"function "+gameVariableName+"(){\n";
 		return javascriptCode;	
 }

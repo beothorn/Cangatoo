@@ -6,8 +6,7 @@ function renderFooter(){
 	"\n"+
 	"setGameToLoad(new "+gameVariableName+"());\n"+
 	"\n"+
-	"window.onload = function(){\n"+
-	"  startGame(document.getElementById(\"gameCanvas\"));\n"+
-	"};\n";
+	"#############################################################################\n"+
+	"\n";
 	return footerCode;
 }

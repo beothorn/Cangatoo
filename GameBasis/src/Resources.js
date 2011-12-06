@@ -1,17 +1,23 @@
 function Resources(){
 	
-	this.resourcesURLs = new Array();
+	this.imageResourcesURLs = new Array();
 	this.loadedResources = new Object();
 	
 	this.addImageUrlToLoad = function(url,imageName){
-		this.resourcesURLs.push({url:url,name:imageName});
+		for(var i in this.imageResourcesURLs){
+			if(this.imageResourcesURLs[i].name == imageName){
+				this.imageResourcesURLs[i].url = url;
+				return;
+			}
+		}
+		this.imageResourcesURLs.push({url:url,name:imageName});
 	}
 	
 	this.load = function(percentageListener){
 		var resourcesLoaded = 0;
-		var resourceCount = this.resourcesURLs.length;
+		var resourceCount = this.imageResourcesURLs.length;
 		
-		for(var i in this.resourcesURLs){
+		for(var i in this.imageResourcesURLs){
 			var image = new Image();
 			image.onload = function(){
 				resourcesLoaded++;
@@ -20,8 +26,8 @@ function Resources(){
 				if(resourcesLoaded == resourceCount)
 					percentageListener.loadingComplete();
 			};
-			image.src = this.resourcesURLs[i].url;
-			this.loadedResources[this.resourcesURLs[i].name] = image;
+			image.src = this.imageResourcesURLs[i].url;
+			this.loadedResources[this.imageResourcesURLs[i].name] = image;
 		}
 	}
 	
