@@ -40,7 +40,7 @@ function Bindings(){
 		});
 	
 		$("#gameRestartLevel").click(function(event){
-				setEditModeOff();
+				this.setEditModeOff();
 				game.restartCurrentLevel();
 				$("#gamePause").text("Pause");
 				play();
@@ -52,7 +52,7 @@ function Bindings(){
 					$("#gamePause").text("Play");
 					pause();
 				}else{
-					setEditModeOff();
+					this.setEditModeOff();
 					$("#gameState").text("");
 					$("#gamePause").text("Pause");
 					play();
@@ -60,7 +60,7 @@ function Bindings(){
 		});
 		
 		$("#gameEdit").click(function(event){
-				setEditModeOn();
+				this.setEditModeOn();
 				$("#gamePause").text("Play");
 				game.restartCurrentLevel();
 				pause();
@@ -132,7 +132,7 @@ function Bindings(){
 		
 		$("#loadCode").click(function(event){
 			var codeToLoad = $("#codeToLoad").val(); 
-			eval(getOnlyGameCode(codeToLoad));
+			eval(this.getOnlyGameCode(codeToLoad));
 			restartGame();
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").hide("fast");	
@@ -143,29 +143,31 @@ function Bindings(){
 				$("#helpAboutText").hide("slow");
 		});
 	};
-}
+	
+	this.getOnlyGameCode = function(code) {
+		var customCodeStart = "//GAMECODE START";
+		var customCodeEnd   = "//GAMECODE END";
+		var s = code;
+		var i = s.indexOf(customCodeStart);
+		if (i >= 0) {
+			s = s.substring(i + customCodeStart.length);
+		}
+		i = s.indexOf(customCodeEnd);
+		if (i >= 0) {
+			s = s.substring(0, i);
+		}
+		return s;
+	};
+	
+	this.setEditModeOff = function(){
+		editMode = false;
+	};
+	
+	this.setEditModeOn = function(){
+		editMode = true;
+		$("#gameState").text("Editing");
+	};
+};
 
-function setEditModeOn(){
-	editMode = true;
-	$("#gameState").text("Editing");
-}
-
-function setEditModeOff(){
-	editMode = false;
-}
 
 
-function getOnlyGameCode(code) {
-	var customCodeStart = "//GAMECODE START";
-	var customCodeEnd   = "//GAMECODE END";
-	var s = code;
-	var i = s.indexOf(customCodeStart);
-	if (i >= 0) {
-		s = s.substring(i + customCodeStart.length);
-	}
-	i = s.indexOf(customCodeEnd);
-	if (i >= 0) {
-		s = s.substring(0, i);
-	}
-	return s;
-}
