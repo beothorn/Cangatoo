@@ -154,8 +154,8 @@ function writeLevelCodeToFunction(){
 	var eventSelected = $("#levelEvents option:selected").text();
 	var code = $("#levelCodeEditor").val();
 	var level = game.getLevelByName(selectedLevelName);
-	var replaceFunction = "level."+eventSelected+" = "+code+";";
-	eval(replaceFunction);
+	var replaceFunction = stringToFunction(code);
+	level[eventSelected] = replaceFunction;
 }
 
 function fillFactories(){
@@ -189,6 +189,13 @@ function writeCodeToFunction(){
 	var eventSelected = $("#factoryEvents option:selected").text();
 	var code = $("#factoryCodeEditor").val();
 	var factory = game.getFactoryByName(selectedFactoryName);
-	var replaceFunction = "factory."+eventSelected+" = "+code+";";
-	eval(replaceFunction);
+	var replaceFunction = stringToFunction(code);
+	factory[eventSelected] = replaceFunction;
 }
+
+function stringToFunction(code){
+	var replaceFunction = null;
+	console.log(code);
+	eval("replaceFunction = "+code);
+	return replaceFunction;
+};

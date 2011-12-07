@@ -21,7 +21,7 @@ function renderLoadForEachLevel(){
 }
 
 function renderLoadLevels(){
-	var javascriptCode = "  this.loadLevels = function(){";
+	var javascriptCode = "  this.loadLevels = function(){\n";
 	var levels = game.getLevels();
 	for(var i in levels){
 		var levelName = levels[i].levelName;
