@@ -18,10 +18,6 @@ function Level(levelName){
 		}
 	};
 	
-	this.backgroundImage = function(){
-		return null;
-	};
-	
 	this.onLoadLevel = function(){
 		/**
 		* The event onLoadLevel is called when the level is created

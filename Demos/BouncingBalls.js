@@ -179,10 +179,7 @@ function Bouncing_balls() {
 		var level_SecondLevel = new Level("SecondLevel");
 		
 		level_SecondLevel.onLoadLevel = function() {
-			self.backgroundImage = function() {
-				console.log(resources.get("background"));
-				return resources.get("background");
-			};
+			self.backgroundImage = resources.get("background");
 			level.health = 3;
 		};
 		

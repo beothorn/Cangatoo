@@ -84,6 +84,7 @@ function Game(){
 			this.elementFactories[i].restartFactory();
 		}
 		this.loadLevelOnGame();
+		self = level; 
 		level.onLoadLevel();
 		this.redraw();
 	};
@@ -170,11 +171,11 @@ function Game(){
 	};
 	
 	this.drawelementFactories = function(delta){
-		if(level.backgroundImage() == null){
+		if(level.backgroundImage == null){
 			this.context.clearRect(0, 0, canvas.width, canvas.height);
 		}else{
 			this.context.clearRect(0, 0, canvas.width, canvas.height);
-			this.context.drawImage(level.backgroundImage(),0,0);
+			this.context.drawImage(level.backgroundImage,0,0);
 		}
 		for (var i in this.elementFactories)
 		{
