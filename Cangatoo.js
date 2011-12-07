@@ -146,7 +146,7 @@ function fillLevelCodeEditor(){
 	}
 	var eventSelected = $("#levelEvents option:selected").text();
 	var level = game.getLevelByName(selectedLevelName);
-	$("#levelCodeEditor").val(eval('level.'+eventSelected).toString());
+	$("#levelCodeEditor").val(level[eventSelected].toString());
 }
 
 function writeLevelCodeToFunction(){
@@ -181,7 +181,7 @@ function fillCodeEditor(){
 	}
 	var eventSelected = $("#factoryEvents option:selected").text();
 	var factory = game.getFactoryByName(selectedFactoryName);
-	$("#factoryCodeEditor").val(eval('factory.'+eventSelected).toString());
+	$("#factoryCodeEditor").val(factory[eventSelected].toString());
 }
 
 function writeCodeToFunction(){
