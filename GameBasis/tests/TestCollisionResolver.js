@@ -7,7 +7,7 @@ function TestCollisionResolver(){
 		var boxBTranslation = {x:0,y:0};
 		
 		var collisionResolver = new CollisionResolver();
-		var beforeCollisionPosition = collisionResolver.getBeforeCollisionPositionFor(boxARectangle,boxATranslation,boxBRectangle,boxBTranslation);
-	}
+		collisionResolver.getBeforeCollisionPositionFor(boxARectangle,boxATranslation,boxBRectangle,boxBTranslation);
+	};
 	
 }

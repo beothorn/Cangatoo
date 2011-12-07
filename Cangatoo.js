@@ -94,7 +94,7 @@ function overrideCanvasClick(canvas){
 
 function forceAtLeastOneSelectedOn(listId){
 	if ($(listId+" option:selected").length == 0)
-		$(listId).prop("selectedIndex", 0)
+		$(listId).prop("selectedIndex", 0);
 }
 
 function addElementFromSelectedFactory(x,y){

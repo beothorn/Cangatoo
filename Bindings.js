@@ -4,7 +4,7 @@ function Bindings(){
 		this.bindMenuEvents();
 		this.bindGameEditor();
 		this.bindHideLinks();
-	}
+	};
 	
 	this.bindMenuEvents = function(){
 		$("#gameCanvas").oncontextmenu=function(){return false;};
@@ -142,7 +142,7 @@ function Bindings(){
 				event.preventDefault();
 				$("#helpAboutText").hide("slow");
 		});
-	}
+	};
 }
 
 function setEditModeOn(){

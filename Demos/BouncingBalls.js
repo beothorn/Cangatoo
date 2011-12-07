@@ -6,23 +6,23 @@ function BouncingBalls(){
 		this.setGameName();
 		this.loadFactories();
 		this.loadLevels();
-	}
+	};
 	
 	this.setCanvasProperties = function(){
 		canvas.width  = 500;
 		canvas.height = 300;
-	}
+	};
 	
 	this.setResources = function(){
 		resources.addImageUrlToLoad("./Sprites/3dRedBall.png","redBall");
 		resources.addImageUrlToLoad("./Sprites/clickToStart.png","clickScreen");
 		resources.addImageUrlToLoad("./Sprites/testBackground.png","background");
 		resources.addImageUrlToLoad("./Sprites/mainChar.png","mainChar");
-	}
+	};
 	
 	this.setGameName = function(){
 		game.gameName = "Bouncing balls";
-	}
+	};
 	
 	this.loadFactory_MainCharacter = function(){
     var factory_MainCharacter = new ElementFactory("MainCharacter");
@@ -37,7 +37,7 @@ function BouncingBalls(){
 			self.bottomLimit = 300;
 			self.setMaxXSpeed(500);
 			self.setMaxYSpeed(1000);
-		}
+		};
 	
 		factory_MainCharacter.onStep = function (delta,globalGameState){
 			var xAcceleration = 100;//PixelPerSecond
@@ -74,11 +74,11 @@ function BouncingBalls(){
 			}
 	
 			applyFriction(self,delta,500,0);
-		}
+		};
 		
 		factory_MainCharacter.onAfterStep = function (delta,globalGameState){
-			wrapOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
-		}
+			wrapOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit);
+		};
 		
 		factory_MainCharacter.onCollision = function(other,delta){
 			if(other.is("Box")){
@@ -88,14 +88,14 @@ function BouncingBalls(){
 				if(level.health == 0)
 					goToPreviousLevel();
 			}
-		}
+		};
 		
 		factory_MainCharacter.onDraw = function(delta,context){
 			context.fillText("life: "+level.health, self.x, self.y+17);
 		};
 	
 		game.addFactory(factory_MainCharacter);
-	}
+	};
 	
 	this.loadFactory_Box = function (){
 		var factory_Box = new ElementFactory("Box");
@@ -111,34 +111,34 @@ function BouncingBalls(){
 			self.setMaxYSpeed(1000);
 			self.xAccelerate(-100);
 			self.yAccelerate(-100);
-		}
+		};
 	
 		factory_Box.onAfterStep = function (delta,globalGameState){
-			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit)
-		}		
+			bounceOnBoundaries(self,self.topLimit,self.bottomLimit,self.rightLimit,self.leftLimit);
+		};	
 		
 		game.addFactory(factory_Box);
-	}
+	};
 	
 	this.loadFactory_ClickToStart = function(){
 		var factory_ClickToStart = new ElementFactory("ClickToStart");
 		
 		factory_ClickToStart.onCreate = function () {
 				self.setSprite("clickScreen");
-		}
+		};
 		
 		factory_ClickToStart.onClick = function (absoluteClickPosition) {
 				goToNextLevel();
-		}
+		};
 	
 		game.addFactory(factory_ClickToStart);
-	}
+	};
 	
 	this.loadFactories = function(){
 		this.loadFactory_MainCharacter();
 		this.loadFactory_Box();
 		this.loadFactory_ClickToStart();
-	}
+	};
 	
 	this.loadLevel_FirstLevel = function(){
 		var level_FirstLevel = new Level("FirstLevel");
@@ -148,7 +148,7 @@ function BouncingBalls(){
 		
 		game.addLevel(level_FirstLevel);
 		game.firstLevel = level_FirstLevel;
-	}
+	};
 	
 	this.loadLevel_SecondLevel = function(){
 		var level_SecondLevel = new Level("SecondLevel");
@@ -160,14 +160,14 @@ function BouncingBalls(){
 		level_SecondLevel.onLoadLevel = function(){
 			level_SecondLevel.backgroundImage = function(){ return resources.get("background");};
 			level.health = 3;
-		}
+		};
 		game.addLevel(level_SecondLevel);
-	}
+	};
 	
 	this.loadLevels = function(){
 		this.loadLevel_FirstLevel();
 		this.loadLevel_SecondLevel();
-	}
+	};
 }
 
 setGameToLoad(new BouncingBalls());

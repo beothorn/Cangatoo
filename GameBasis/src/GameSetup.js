@@ -23,7 +23,7 @@ var globalGameState = {
 	up:false,
 	down:false,
 	click:null
-}
+};
 
 function setGameToLoad(newGameCode){
 	gameCode = newGameCode;
@@ -38,9 +38,9 @@ function restartGame(){
 
 function doBeforeStart(drawCanvas){
 	canvas = drawCanvas;
-	document.onkeydown = function(event){keyDown(event.keyCode);}
-	document.onkeyup = function(event){keyUp(event.keyCode);} 	
-  canvas.onmousedown  = function(event){
+	document.onkeydown = function(event){keyDown(event.keyCode);};
+	document.onkeyup = function(event){keyUp(event.keyCode);};
+	canvas.onmousedown  = function(event){
   	var x = event.layerX - canvas.offsetLeft;
   	var y = event.layerY - canvas.offsetTop;
   	canvasClick({x:x,y:y});
@@ -51,7 +51,7 @@ function doBeforeStart(drawCanvas){
   	var y = event.layerY - canvas.offsetTop;
   	mouse.x = x;
   	mouse.y = y;
-  }	
+  };
   
 	game = new Game();
 	gameCode.setup();
