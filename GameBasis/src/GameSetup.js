@@ -41,17 +41,17 @@ function doBeforeStart(drawCanvas){
 	document.onkeydown = function(event){keyDown(event.keyCode);};
 	document.onkeyup = function(event){keyUp(event.keyCode);};
 	canvas.onmousedown  = function(event){
-  	var x = event.layerX - canvas.offsetLeft;
-  	var y = event.layerY - canvas.offsetTop;
-  	canvasClick({x:x,y:y});
-  };
-  canvas.oncontextmenu = function(e){return false;};
-  canvas.onmousemove = function(event){
-  	var x = event.layerX - canvas.offsetLeft;
-  	var y = event.layerY - canvas.offsetTop;
-  	mouse.x = x;
-  	mouse.y = y;
-  };
+	  	var x = event.layerX - canvas.offsetLeft;
+	  	var y = event.layerY - canvas.offsetTop;
+	  	canvasClick({x:x,y:y});
+	};
+	canvas.oncontextmenu = function(e){return false;};
+	canvas.onmousemove = function(event){
+		var x = event.layerX - canvas.offsetLeft;
+		var y = event.layerY - canvas.offsetTop;
+		mouse.x = x;
+		mouse.y = y;
+	};
   
 	game = new Game();
 	gameCode.setup();
@@ -99,7 +99,6 @@ function startGameLoop(){
 	if(intervalID!=null)
 		clearInterval(intervalID);
 	intervalID = setInterval(loop, oneSecond / FPS);
-	console.log("start: "+intervalID);
 }
 
 function loop(){

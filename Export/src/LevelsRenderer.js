@@ -14,7 +14,7 @@ function renderLoadForEachLevel(){
 		if(game.firstLevel.levelName == levelName){
 			javascriptCode += "game.firstLevel = level_"+levelName+";\n";
 		}
-		javascriptCode += "  }\n";
+		javascriptCode += "  };\n";
 	}
 	
 	return javascriptCode;
@@ -27,7 +27,7 @@ function renderLoadLevels(){
 		var levelName = levels[i].levelName;
 		javascriptCode += "  this.loadLevel_"+levelName+"();\n";		
 	}
-	javascriptCode += "  }\n";
+	javascriptCode += "  };\n";
 	
 	return javascriptCode;
 }
@@ -38,7 +38,7 @@ function getLevelEventsCode(level){
 	var events = game.getEventsForLevel(levelName);
 	for(var j in events){
 		var value = eval("level."+events[j]).toString();
-		javascriptCode += "level_"+levelName+"."+events[j]+" = "+value+"\n";
+		javascriptCode += "level_"+levelName+"."+events[j]+" = "+value+";\n";
 	}
 	
 	return javascriptCode;

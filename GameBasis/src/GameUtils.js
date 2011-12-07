@@ -1,6 +1,5 @@
 function pause(){
 	gamePaused = true;
-	console.log("pause: "+intervalID);
 	clearInterval(intervalID);
 }
 
