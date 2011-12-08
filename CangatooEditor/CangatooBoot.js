@@ -3,6 +3,7 @@ $(document).ready(function(){
 });
 
 var gameCanvasElementId = "#gameCanvas";
+var defaultGameUrl = "Demos/BouncingBalls.js";
 
 var bindings;
 
@@ -39,7 +40,6 @@ function CangatooBoot(){
     ];
 	
 	this.afterIncludes = function(){
-		var defaultGameUrl = "Demos/BouncingBalls.js";
 		bindings = new Bindings();
 		this.loadGameFromUrl(defaultGameUrl,bindings);
 	};
