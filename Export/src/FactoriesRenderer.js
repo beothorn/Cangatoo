@@ -7,11 +7,11 @@ function renderLoadForEachFactory(){
 		var events = game.getEventsFor(factoryName);
 		javascriptCode += "    var factory_"+factoryName+" = new ElementFactory(\""+factoryName+"\");\n";
 		for(var j in events){
-			var value = eval("factories[i]."+events[j]).toString();
+			var value = eval("factories[i]."+events[j]).toString()+";";
 			javascriptCode += "    factory_"+factoryName+"."+events[j]+" = "+value+"\n\n";
 		}
 		javascriptCode += "    game.addFactory(factory_"+factoryName+");\n";
-		javascriptCode += "  }\n";
+		javascriptCode += "  };\n";
 	}
 	return javascriptCode;
 }
@@ -24,6 +24,6 @@ function renderLoadFactories(){
 		var factoryName = factories[i].factoryName;
 		javascriptCode += "    this.loadFactory_"+factoryName+"();\n";
 	}
-	javascriptCode += "  }\n";
+	javascriptCode += "  };\n";
 	return javascriptCode;
 }

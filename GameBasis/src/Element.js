@@ -134,5 +134,5 @@ function Element(factory,x,y){
 		
 		this.xForCollisionCheck = this.x;
 		this.yForCollisionCheck = this.y;
-	}
-}
+	};
+};

@@ -2,7 +2,7 @@ function renderFooter(){
 	var gameVariableName = convertGameNameToVariable(game.gameName);
 	var footerCode =
 	"\n"+
-	"}\n"+
+	"};\n"+
 	"\n"+
 	"setGameToLoad(new "+gameVariableName+"());\n"+
 	"\n"+

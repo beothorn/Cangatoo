@@ -7,6 +7,6 @@ function renderResources(){
 		var imageResource = imageResources[i];
 		resourcesToLoad += "    resources.addImageUrlToLoad(\""+imageResource.url+"\",\""+imageResource.name+"\");\n";
 	}	
-	resourcesToLoad += "  }\n";
+	resourcesToLoad += "  };\n";
 	return resourcesToLoad;
 }

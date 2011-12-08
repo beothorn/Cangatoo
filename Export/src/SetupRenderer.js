@@ -7,6 +7,6 @@ function renderSetup(){
 	"    this.setGameName();\n"+
 	"    this.loadFactories();\n"+
 	"    this.loadLevels();\n"+
-	"  }\n";
+	"  };\n";
 	return setupCode;
 }

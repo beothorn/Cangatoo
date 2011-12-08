@@ -7,7 +7,7 @@ function ElementFactory(factoryName){
 
 	this.restartFactory = function(){
 		this.elementArray.length = 0;
-	}
+	};
 	
 	this.addElementAt = function(x,y){
 		var element = new Element(this,x,y);
@@ -16,7 +16,7 @@ function ElementFactory(factoryName){
 		this.onCreate(element);
 		self = oldSelf;
 		this.elementArray.push(element);
-	}
+	};
 
 	this.addElementToCreateAt = function(x,y){
 		this.addElementAt(x,y);
@@ -33,18 +33,18 @@ function ElementFactory(factoryName){
 			eval("var newLevelElements = {"+this.factoryName+":[{x:x,y:y}]}");
 			level.levelElements.push(newLevelElements);
 		}
-	}
+	};
 	
 	this.addElementsAt = function(pointArray){
 		for(var i in pointArray){
 			this.addElementAt(pointArray[i].x,pointArray[i].y);
 		}
-	}
+	};
 	
 	this.removeElement = function(element){
 		var i = this.elementArray.indexOf(element);
 		this.elementArray.splice(i,1);
-	}
+	};
 
 	this.isElementOnPoint = function(element,x,y){
 		var elX = element.getX();
@@ -60,7 +60,7 @@ function ElementFactory(factoryName){
 		if(y>elY2)
 			return false;
 		return true;
-	}
+	};
 
 	this.isObjectOnPoint = function(x,y){
 		for (var i in this.elementArray){
@@ -68,7 +68,7 @@ function ElementFactory(factoryName){
 				return true;	
 		}
 		return false;
-	}
+	};
 	
 	this.getObjectOnPoint = function(x,y){
 		for (var i in this.elementArray){
@@ -76,7 +76,7 @@ function ElementFactory(factoryName){
 				return this.elementArray[i];	
 		}
 		return null;
-	}
+	};
 
 	this.testCollisionWith = function(otherFactory,delta){
 		for (var i in this.elementArray){
@@ -96,7 +96,7 @@ function ElementFactory(factoryName){
 				}
 			}
 		}
-	}
+	};
 
 	this.step = function(delta, globalGameState){
 		for (var i in this.elementArray){
@@ -113,7 +113,7 @@ function ElementFactory(factoryName){
 				this.onClick(absoluteClickPosition);
 			}
 		}
-	}
+	};
 	
 	this.draw = function(context,delta){
 		for (var i in this.elementArray){
@@ -134,10 +134,10 @@ function ElementFactory(factoryName){
 		*	-delta: the time passed in milisseconds since the last step
 		*	-context: canvas 2d context where the element is being draw
 		**/
-	}	
+	};
 
 	this.onCollision = function(other,delta){
-	}
+	};
 	
 	this.onCreate = function(){		
 		/**
@@ -146,7 +146,7 @@ function ElementFactory(factoryName){
 		* Parameters:
 		* 	-element: the Element being created.
 		**/
-	}	
+	};
 
 	this.onClick = function(absoluteClickPosition){		
 		/**
@@ -157,7 +157,7 @@ function ElementFactory(factoryName){
 		* 	-element: the Element being clicked.
 		*   -absoluteClickPosition: The click position relative to the canvas element.
 		**/
-	}
+	};
 	
 	this.onStep = function(delta,globalGameState){
 		/**
@@ -170,7 +170,7 @@ function ElementFactory(factoryName){
 		*	-globalGameState: the global game values
 		*	-game: the game class
 		**/
-	}
+	};
 
 	this.onAfterStep = function(delta,globalGameState){
 		/**
@@ -184,5 +184,5 @@ function ElementFactory(factoryName){
 		*	-globalGameState: the global game values
 		*	-game: the game class
 		**/
-	}
+	};
 }

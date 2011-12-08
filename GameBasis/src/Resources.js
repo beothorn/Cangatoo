@@ -11,7 +11,7 @@ function Resources(){
 			}
 		}
 		this.imageResourcesURLs.push({url:url,name:imageName});
-	}
+	};
 	
 	this.load = function(percentageListener){
 		var resourcesLoaded = 0;
@@ -29,11 +29,11 @@ function Resources(){
 			image.src = this.imageResourcesURLs[i].url;
 			this.loadedResources[this.imageResourcesURLs[i].name] = image;
 		}
-	}
+	};
 	
 	this.get = function(resourceName){
 		if(this.loadedResources[resourceName] == null)
 			throw "No such resource "+resourceName;
 		return this.loadedResources[resourceName];
-	}
+	};
 }

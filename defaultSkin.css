@@ -12,8 +12,7 @@ canvas {
 }
 
 canvas, img { 
-	display: block; 
-	margin: 1em auto; 
+	display: block;  
 	border: 1px solid black; 
 }
 
@@ -55,134 +54,15 @@ canvas, img {
 	width:100%;
 }
 
-#exportHtml,#touchKeyboard,#helpAboutText,#loadGameCodeDiv{
+#exportHtml,#helpAboutText,#loadGameCodeDiv{
 	display:none;
 }
 
-/* menu BEGIN */
-
-#menuCentering{
-	width: 50%;
-	margin: auto;
-}
-
-#menu {
-	background: #eee;
-	float: left;
-}
-#menu ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	width: 10em;
-	float: left;
-}
-
-#menu a {
-	color: #000;
-	background: #efefef;
-	text-decoration: none;
-}
-
-#menu a:hover {
-	color: #a00;
-	background: #fff;
-}
-
-
-#menu a, #menu h2 {
-	font: bold 11px/16px arial, helvetica, sans-serif;
-	display: block;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #ccc #888 #555 #bbb;
-	margin: 0;
-	padding: 2px 3px;
-}
-
-/* Positioning the Popout Menus and Dropdown Menus */
-
-#menu li {
-	position: relative;
-}
-
-#menu ul ul {
-	position: absolute;
-	z-index: 500;
-}
-
-#menu ul ul ul {
-	top: 0;
-	left: 100%;
-}
-
-/* Hiding and Revealing using */
-
-div#menu ul ul,
-div#menu ul li:hover ul ul,
-div#menu ul ul li:hover ul ul{
-	display: none;
-}
-
-div#menu ul li:hover ul,
-div#menu ul ul li:hover ul,
-div#menu ul ul ul li:hover ul{
-	display: block;
-}
-
-/* menu END */
-
 /* tabs BEGIN */
 
-#gameEditor { 
-}
-
-#tabLinks { 
-	list-style: none; 
-	overflow-x: hidden; 
-	padding: 0;
-	margin: 0;
-}
-
-#tabLinks li {  
-}
-
-#tabLinks li a { 
-	font: bold 11px/16px arial, helvetica, sans-serif;
-	border-width: 1px;
-	border-bottom-color: #000000;
-	border-style: solid;
-	padding: 2px 3px;
-	background: #ffffff;
-	
-	color: black; 
-	float: left;  
-}
-
-#tabLinks li a:hover { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabLinks li a.active { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabLinks li a.active:hover { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabContents { 
-	height: 20em;
-	padding: 0px 0px 0px 0px;
-	border-width: 0px;
-	overflow: hidden; 
-}
-
 .tabContent { 
-	height: 20em; 
+	height: 20em;
+	width: 60em;  
 	overflow: auto;
 	background: #FFF;
 }

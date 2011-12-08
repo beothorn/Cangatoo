@@ -2,7 +2,22 @@
 	<head>
 		<title>Cangatoo - Canvas game Tool</title>
 		<script src="./lib/jquery-1.6.4.js"></script>
-		<script type="text/javascript" src="Cangatoo.js"></script>		
+		<script src="./lib/dom-drag.js"></script><!-- http://www.dynamicdrive.com/dynamicindex11/domdrag/ -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	addWindowFrameAndSetPosition("gameCanvas",496 , 89);
+	addWindowFrameAndSetPosition("menu",6,6);
+	addWindowFrameAndSetPosition("factoriesTab",6 , 482);
+	addWindowFrameAndSetPosition("levelsTab",969 , 482);
+});
+
+
+</script>
+		
+		<script type="text/javascript" src="./Boot/CangatooBoot.js"></script>
+				
 		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
 		
 		<script type="text/javascript">
@@ -21,7 +36,8 @@
 		
 	</head>
 	<body>
-<a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: -18; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+<a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+
 	<div id="menuCentering">
 		<div id="menu">
 			<ul>
@@ -83,64 +99,54 @@
 		<canvas id="gameCanvas" width="500" height="300">
 			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
 		</canvas>
+
 		<div id="gameState"></div>		
 		
-		<div id="gameEditor">
-			<ul id="tabLinks">
-				<!-- 
-				<li><a href="#gameTab" href="#">Game</a></li>
-				<li><a href="#resourcesTab" href="#">Resources</a></li>
-				-->
-				<li><a href="#factoriesTab" href="#">Element Factories</a></li>
-				<li><a href="#levelsTab" href="#">Levels</a></li>
-			</ul>
-			<div id="tabContents">
-				<div id="factoriesTab" class="tabContent">
-					<table id="ElementFacoryEditor" border ="0">
-						<tr>
-							<td id="editorFirstCol">
-								<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
-							</td>
-							<td>
-								<select id="factoryEvents" ></select>
-								<input type="button" id="saveFactoryCode" value="save"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<select id="factories" size="2"></select>
-							</td>
-							<td>
-								<textarea id="factoryCodeEditor"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-				
-				<div id="levelsTab" class="tabContent">
-					<table id="LevelEditor" border ="0">
-						<tr>
-							<td id="editorFirstCol">
-								<input type="text" id="searchOrAddLevel" value="NewLevel"/>
-							</td>
-							<td>
-								<select id="levelEvents" ></select>
-								<input type="button" id="saveLevelCode" value="save"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<select id="levels" size="2"></select>
-							</td>
-							<td>
-								<textarea id="levelCodeEditor"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-				
-				
-			</div>
+		
+		<div id="factoriesTab" class="tabContent">
+			<table id="ElementFacoryEditor" border ="0">
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
+					</td>
+					<td>
+						<select id="factoryEvents" ></select>
+						<input type="button" id="saveFactoryCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="factories" size="2"></select>
+					</td>
+					<td>
+						<textarea id="factoryCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
 		</div>
+		
+		<div id="levelsTab" class="tabContent">
+			<table id="LevelEditor" border ="0">
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddLevel" value="NewLevel"/>
+					</td>
+					<td>
+						<select id="levelEvents" ></select>
+						<input type="button" id="saveLevelCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="levels" size="2"></select>
+					</td>
+					<td>
+						<textarea id="levelCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+				
+				
 	</body>
 </html>

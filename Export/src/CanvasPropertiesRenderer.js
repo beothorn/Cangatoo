@@ -3,6 +3,6 @@ function renderCanvasProperties(){
 	"  this.setCanvasProperties = function(){\n"+
 	"    canvas.width  = "+canvas.width+";\n"+
 	"    canvas.height = "+canvas.height+";\n"+
-	"  }\n";
+	"  };\n";
 	return canvasPropertiesCode;
 }
