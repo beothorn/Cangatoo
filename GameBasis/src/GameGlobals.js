@@ -22,8 +22,9 @@ var globalGameState = {
 //--end globals
 
 //Game control
-function startGame(drawCanvas){
-	gameSetup.doBeforeStart(drawCanvas);
+function startGame(gameCanvas){
+	canvas = gameCanvas;
+	gameSetup.doBeforeStart(gameCanvas);
 	loader.load();
 }
 
