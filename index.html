@@ -7,12 +7,9 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-var theHandle = document.getElementById("handle");
-var theRoot = document.getElementById("root");
-console.log(theHandle);
-if(theHandle == null || theRoot == null)
-throw new "fvsgvbhfs";
-Drag.init(theHandle, theRoot);
+	addWindowFrameAndSetPosition("gameCanvas",0,0);
+	addWindowFrameAndSetPosition("gameEditor",50,50);
+	addWindowFrameAndSetPosition("menu",100,50);
 });
 
 
@@ -98,14 +95,9 @@ Drag.init(theHandle, theRoot);
 			<a id="loadCode" href="#">Load</a>
 		</div>
 		
-		<div id="root" style="left:50px; top:50px;float: left;position:absolute;">
-			<div id="handle" style="background:green;">
-				<input type="button" value="X" onclick="this.parentNode.parentNode.style.visibility = 'hidden';"/>
-			</div>
-			<canvas id="gameCanvas" width="500" height="300">
-				<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
-			</canvas>
-		</div>
+		<canvas id="gameCanvas" width="500" height="300">
+			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
+		</canvas>
 
 		<div id="gameState"></div>		
 		
