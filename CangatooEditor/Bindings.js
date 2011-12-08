@@ -1,77 +1,81 @@
 $(document).ready(function(){
-	loadIncludes();	
+	new CangatooBoot();
 });
 
 var gameCanvasElementId = "#gameCanvas";
 
-var totalIncludes = 0;
-var includeCount = 0;
+var bindings;
 
-function afterIncludes(){
-	var defaultGameUrl = "Demos/BouncingBalls.js";
-	var bindings = new Bindings(); 
-	loadGameFromUrl(defaultGameUrl,bindings);
+function CangatooBoot(){
+	
+	this.totalIncludes = 0;
+	this.includeCount = 0;
+	
+	this.include = [
+	   "GameBasis/src/GameLoader.js",
+	   "GameBasis/src/Resources.js",
+	   "GameBasis/src/Element.js",
+	   "GameBasis/src/Level.js",
+	   "GameBasis/src/Utils.js",
+	   "GameBasis/src/Game.js",
+	   "GameBasis/src/ElementFactory.js",
+	   "GameBasis/src/GameSetup.js",
+	   "GameBasis/src/GameGlobals.js"
+   ];
+	
+	this.cangatooIncludes = [
+	    "CangatooEditor/Cangatoo.js",
+	    "Export/src/GameSourceExport.js",
+	    "Export/src/HeaderRenderer.js",
+	    "Export/src/SetupRenderer.js",
+	    "Export/src/CanvasPropertiesRenderer.js",
+	    "Export/src/ResourcesRenderer.js",
+	    "Export/src/GameNameRenderer.js",
+	    "Export/src/FactoriesRenderer.js",
+	    "Export/src/LevelsRenderer.js",	
+	    "Export/src/FooterRenderer.js",
+	    "Export/src/IncludesRenderer.js"
+    ];
+	
+	this.afterIncludes = function(){
+		var defaultGameUrl = "Demos/BouncingBalls.js";
+		bindings = new Bindings();
+		this.loadGameFromUrl(defaultGameUrl,bindings);
+	};
+	
+	this.includeJSFile = function(includeURL,i){
+		var context = $(gameCanvasElementId)[0].getContext('2d');
+		context.fillStyle = "Black";
+		context.font = "8pt Verdana";
+		var y = (12*i)+12;
+		context.fillText("Loading "+includeURL,0,y);
+		var script = document.createElement( 'script' );
+		script.type = 'text/javascript';
+		script.src = includeURL;
+		$(document).append(script);
+		this.includeCount++;
+		if(this.includeCount == this.totalIncludes){
+			this.afterIncludes();
+		}
+	};
+	
+	
+	this.loadGameFromUrl = function(url,bindings){
+		$(document).load(url,function(responseText){
+			eval(getOnlyGameCode(responseText));
+			bindings.doAllBindings();
+		});
+	};
+	
+	this.totalIncludes = this.include.length+ this.cangatooIncludes.length;
+	for(var i in this.include){
+		this.includeJSFile(this.include[i],i);
+	}
+	for(var i in this.cangatooIncludes){
+		this.includeJSFile(this.cangatooIncludes[i],parseInt(i)+this.include.length);
+	}
 }
 
-var include = [
-  	"GameBasis/src/GameLoader.js",
-  	"GameBasis/src/Resources.js",
-  	"GameBasis/src/Element.js",
-  	"GameBasis/src/Level.js",
-  	"GameBasis/src/Utils.js",
-  	"GameBasis/src/Game.js",
-  	"GameBasis/src/ElementFactory.js",
-  	"GameBasis/src/GameSetup.js",
-  	"GameBasis/src/GameGlobals.js"
-];
-
-var cangatooIncludes = [
-   	"CangatooEditor/Cangatoo.js",
-  	"Export/src/GameSourceExport.js",
-  	"Export/src/HeaderRenderer.js",
-  	"Export/src/SetupRenderer.js",
-  	"Export/src/CanvasPropertiesRenderer.js",
-  	"Export/src/ResourcesRenderer.js",
-  	"Export/src/GameNameRenderer.js",
-  	"Export/src/FactoriesRenderer.js",
-  	"Export/src/LevelsRenderer.js",	
-  	"Export/src/FooterRenderer.js",
-  	"Export/src/IncludesRenderer.js"
-];
-
-
-function includeJSFile(includeURL,i){
-   	var context = $(gameCanvasElementId)[0].getContext('2d');
-  	context.fillStyle = "Black";
-  	context.font = "8pt Verdana";
-  	var y = (12*i)+12;
-  	context.fillText("Loading "+includeURL,0,y);
-  	var script = document.createElement( 'script' );
-  	script.type = 'text/javascript';
-  	script.src = includeURL;
-  	$(document).append(script);
-  	includeCount++;
-  	if(includeCount == totalIncludes){
-  		afterIncludes();
-  	}
-};
-
-function loadIncludes(doAfterLoading){
-	totalIncludes = include.length+ cangatooIncludes.length;
-   	for(var i in include){
-      		includeJSFile(include[i],i);
-    }
-    for(var i in cangatooIncludes){
-    	includeJSFile(cangatooIncludes[i],parseInt(i)+include.length);
-    }
-};
-
-function loadGameFromUrl(url,bindings){
-	$(document).load(url,function(responseText){
-		eval(getOnlyGameCode(responseText));
-		bindings.doAllBindings();
-	});
-}
 
 function Bindings() {
 
@@ -149,14 +153,13 @@ function Bindings() {
 		$("#levelCodeEditor").val(eventCode);
 	};
 
-	this.overrideCanvasClick = function() {
+	this.overrideCanvasClick = function() {// should pass to cangatoo
 		$(gameCanvasElementId)[0].onmousedown = function(event) {
 			var x = event.layerX - $(gameCanvasElementId)[0].offsetLeft;
 			var y = event.layerY - $(gameCanvasElementId)[0].offsetTop;
 			if (gamePaused) {
 				if (event.button == 0) {
-					var selectedFactory = $("#factories option:selected")
-							.text();
+					var selectedFactory = $("#factories option:selected").text();
 					cangatoo.addElementFromFactory(x, y,selectedFactory);
 				}
 				if (event.button == 2) {
@@ -166,7 +169,7 @@ function Bindings() {
 				globalGameState.click = {
 					x : x,
 					y : y
-				};// should pass to cangatoo
+				};
 			}
 			;
 		};
