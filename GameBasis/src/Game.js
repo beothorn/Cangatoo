@@ -68,7 +68,8 @@ function Game(){
 	
 	this.clear = function(){
 		this.elementFactories = new Array();
-		this.levels = new Array();	
+		this.levels = new Array();
+		
 	};
 	
 	this.reset = function(){

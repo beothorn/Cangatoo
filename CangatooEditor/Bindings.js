@@ -1,5 +1,5 @@
-function Bindings(){
-	
+function Bindings(cangatoo){
+		
 	this.doAllBindings = function(){
 		this.bindMenuEvents();
 		this.bindGameEditor();
@@ -7,11 +7,13 @@ function Bindings(){
 	};
 	
 	this.bindMenuEvents = function(){
-		$("#gameCanvas").oncontextmenu=function(){return false;};
+		$("#gameCanvas").oncontextmenu=function(){
+			return false;
+		};
 
 		$("#newGame").click(function(event){
 				game.newGame();
-				reloadGameEditor();
+				cangatoo.reloadGameEditor();
 		});
 		
 		$("#loadGame").click(function(event){
@@ -40,7 +42,7 @@ function Bindings(){
 		});
 	
 		$("#gameRestartLevel").click(function(event){
-				this.setEditModeOff();
+				editMode = false;
 				game.restartCurrentLevel();
 				$("#gamePause").text("Pause");
 				play();
@@ -52,7 +54,7 @@ function Bindings(){
 					$("#gamePause").text("Play");
 					pause();
 				}else{
-					this.setEditModeOff();
+					editMode = false;
 					$("#gameState").text("");
 					$("#gamePause").text("Pause");
 					play();
@@ -60,7 +62,8 @@ function Bindings(){
 		});
 		
 		$("#gameEdit").click(function(event){
-				this.setEditModeOn();
+				editMode = true;
+				$("#gameState").text("Editing");
 				$("#gamePause").text("Play");
 				game.restartCurrentLevel();
 				pause();
@@ -74,54 +77,54 @@ function Bindings(){
 	
 	this.bindGameEditor = function(){
 		$("#factories").change(function(event){
-			forceAtLeastOneSelectedOn("#factories");
-			fillEvents();
-			fillCodeEditor();
+			cangatoo.forceAtLeastOneSelectedOn("#factories");
+			cangatoo.fillEvents();
+			cangatoo.fillCodeEditor();
 		});
 		
 		$("#factoryEvents").change(function(event){
-				fillCodeEditor();
+			cangatoo.fillCodeEditor();
 		});
 		
 		$("#searchOrAddFactory").keypress(function(event){
 				if(event.which == 13){
 					var factory = new ElementFactory(this.value);
 					game.addFactory(factory);
-					fillFactories();
+					cangatoo.fillFactories();
 				}
 		});
 		
 		$("#factories").keydown(function(event){
 				if(event.which == 46){//delete
 					game.removeFactoryByName(this.value);
-					fillFactories();
+					cangatoo.fillFactories();
 				}
 		});
 	
 		$("#saveFactoryCode").click(function(event){
-				writeCodeToFunction();
+			cangatoo.writeCodeToFunction();
 		});
 		
 		$("#levels").change(function(event){
-			forceAtLeastOneSelectedOn("#levels");
-			fillLevelEvents();
-			fillLevelCodeEditor();
+			cangatoo.forceAtLeastOneSelectedOn("#levels");
+			cangatoo.fillLevelEvents();
+			cangatoo.fillLevelCodeEditor();
 		});
 		
 		$("#levelEvents").change(function(event){
-				fillLevelCodeEditor();
+			cangatoo.fillLevelCodeEditor();
 		});
 		
 		$("#searchOrAddLevel").keypress(function(event){
 				if(event.which == 13){
 					var level = new Level(this.value);
 					game.addLevel(level);
-					fillLevels();
+					cangatoo.fillLevels();
 				}
 		});
 		
 		$("#saveLevelCode").click(function(event){
-				writeLevelCodeToFunction();
+			cangatoo.writeLevelCodeToFunction();
 		});
 	};
 	
@@ -132,7 +135,7 @@ function Bindings(){
 		
 		$("#loadCode").click(function(event){
 			var codeToLoad = $("#codeToLoad").val(); 
-			eval(this.getOnlyGameCode(codeToLoad));
+			eval(getOnlyGameCode(codeToLoad));
 			restartGame();
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").hide("fast");	
@@ -142,29 +145,5 @@ function Bindings(){
 				event.preventDefault();
 				$("#helpAboutText").hide("slow");
 		});
-	};
-	
-	this.getOnlyGameCode = function(code) {
-		var customCodeStart = "//GAMECODE START";
-		var customCodeEnd   = "//GAMECODE END";
-		var s = code;
-		var i = s.indexOf(customCodeStart);
-		if (i >= 0) {
-			s = s.substring(i + customCodeStart.length);
-		}
-		i = s.indexOf(customCodeEnd);
-		if (i >= 0) {
-			s = s.substring(0, i);
-		}
-		return s;
-	};
-	
-	this.setEditModeOff = function(){
-		editMode = false;
-	};
-	
-	this.setEditModeOn = function(){
-		editMode = true;
-		$("#gameState").text("Editing");
 	};
 };

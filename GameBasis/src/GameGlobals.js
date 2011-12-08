@@ -5,10 +5,10 @@ var canvas;
 var self;
 var resources = new Resources();
 var loader = new GameLoader();
+var gameSetup = new GameSetup();
 var mouse = {x:0,y:0};
 var gamePaused = false;
 var gameCode;
-var gameSetup = new GameSetup();
 var intervalID;
 
 var globalGameState = {
