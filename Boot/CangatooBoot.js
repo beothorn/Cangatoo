@@ -4,10 +4,11 @@ $(document).ready(function(){
 
 var gameCanvasElementId = "#gameCanvas";
 var defaultGameUrl = "Demos/BouncingBalls.js";
+var cangatoo;
 
-var bindings;
 
 function CangatooBoot(){
+	
 	
 	this.totalIncludes = 0;
 	this.includeCount = 0;
@@ -26,7 +27,7 @@ function CangatooBoot(){
 	
 	this.cangatooIncludes = [
 	    "CangatooEditor/Cangatoo.js",
-	    "CangatooEditor/Bindings.js",
+	    "WebEditor/Bindings.js",
 	    "Export/src/GameSourceExport.js",
 	    "Export/src/HeaderRenderer.js",
 	    "Export/src/SetupRenderer.js",
@@ -40,7 +41,8 @@ function CangatooBoot(){
     ];
 	
 	this.afterIncludes = function(){
-		bindings = new Bindings();
+		cangatoo = new Cangatoo();
+		var bindings = new Bindings();
 		this.loadGameFromUrl(defaultGameUrl,bindings);
 	};
 	

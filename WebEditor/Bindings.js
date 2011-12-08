@@ -1,6 +1,5 @@
 function Bindings() {
-
-	var cangatoo = new Cangatoo();
+	
 	var editor = this;
 
 	this.doAllBindings = function() {
