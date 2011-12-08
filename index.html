@@ -7,9 +7,10 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	addWindowFrameAndSetPosition("gameCanvas",0,0);
-	addWindowFrameAndSetPosition("gameEditor",50,50);
-	addWindowFrameAndSetPosition("menu",100,50);
+	addWindowFrameAndSetPosition("gameCanvas",496 , 89);
+	addWindowFrameAndSetPosition("menu",6,6);
+	addWindowFrameAndSetPosition("factoriesTab",6 , 482);
+	addWindowFrameAndSetPosition("levelsTab",969 , 482);
 });
 
 
@@ -101,62 +102,51 @@ $(document).ready(function() {
 
 		<div id="gameState"></div>		
 		
-		<div id="gameEditor">
-			<ul id="tabLinks">
-				<!-- 
-				<li><a href="#gameTab" href="#">Game</a></li>
-				<li><a href="#resourcesTab" href="#">Resources</a></li>
-				-->
-				<li><a href="#factoriesTab" href="#">Element Factories</a></li>
-				<li><a href="#levelsTab" href="#">Levels</a></li>
-			</ul>
-			<div id="tabContents">
-				<div id="factoriesTab" class="tabContent">
-					<table id="ElementFacoryEditor" border ="0">
-						<tr>
-							<td id="editorFirstCol">
-								<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
-							</td>
-							<td>
-								<select id="factoryEvents" ></select>
-								<input type="button" id="saveFactoryCode" value="save"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<select id="factories" size="2"></select>
-							</td>
-							<td>
-								<textarea id="factoryCodeEditor"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-				
-				<div id="levelsTab" class="tabContent">
-					<table id="LevelEditor" border ="0">
-						<tr>
-							<td id="editorFirstCol">
-								<input type="text" id="searchOrAddLevel" value="NewLevel"/>
-							</td>
-							<td>
-								<select id="levelEvents" ></select>
-								<input type="button" id="saveLevelCode" value="save"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<select id="levels" size="2"></select>
-							</td>
-							<td>
-								<textarea id="levelCodeEditor"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-				
-				
-			</div>
+		
+		<div id="factoriesTab" class="tabContent">
+			<table id="ElementFacoryEditor" border ="0">
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
+					</td>
+					<td>
+						<select id="factoryEvents" ></select>
+						<input type="button" id="saveFactoryCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="factories" size="2"></select>
+					</td>
+					<td>
+						<textarea id="factoryCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
 		</div>
+		
+		<div id="levelsTab" class="tabContent">
+			<table id="LevelEditor" border ="0">
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddLevel" value="NewLevel"/>
+					</td>
+					<td>
+						<select id="levelEvents" ></select>
+						<input type="button" id="saveLevelCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="levels" size="2"></select>
+					</td>
+					<td>
+						<textarea id="levelCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+				
+				
 	</body>
 </html>

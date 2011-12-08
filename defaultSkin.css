@@ -54,61 +54,15 @@ canvas, img {
 	width:100%;
 }
 
-#exportHtml,#touchKeyboard,#helpAboutText,#loadGameCodeDiv{
+#exportHtml,#helpAboutText,#loadGameCodeDiv{
 	display:none;
 }
 
 /* tabs BEGIN */
 
-#gameEditor { 
-}
-
-#tabLinks { 
-	list-style: none; 
-	overflow-x: hidden; 
-	padding: 0;
-	margin: 0;
-}
-
-#tabLinks li {  
-}
-
-#tabLinks li a { 
-	font: bold 11px/16px arial, helvetica, sans-serif;
-	border-width: 1px;
-	border-bottom-color: #000000;
-	border-style: solid;
-	padding: 2px 3px;
-	background: #ffffff;
-	
-	color: black; 
-	float: left;  
-}
-
-#tabLinks li a:hover { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabLinks li a.active { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabLinks li a.active:hover { 
-	color: #a00;
-	border-bottom-color: #ffffff;
-}
-
-#tabContents { 
-	height: 20em;
-	padding: 0px 0px 0px 0px;
-	border-width: 0px;
-	overflow: hidden; 
-}
-
 .tabContent { 
-	height: 20em; 
+	height: 20em;
+	width: 60em;  
 	overflow: auto;
 	background: #FFF;
 }
