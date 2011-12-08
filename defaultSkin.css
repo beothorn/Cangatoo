@@ -12,8 +12,7 @@ canvas {
 }
 
 canvas, img { 
-	display: block; 
-	margin: 1em auto; 
+	display: block;  
 	border: 1px solid black; 
 }
 

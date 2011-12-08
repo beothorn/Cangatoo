@@ -40,11 +40,6 @@ Drag.init(theHandle, theRoot);
 	<body>
 <a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: -18; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
 
-<div id="root" style="left:50px; top:50px;float: left;position:absolute;">
-<div id="handle">Handle</div>
-Some text
-</div>
-
 	<div id="menuCentering">
 		<div id="menu">
 			<ul>
@@ -103,9 +98,15 @@ Some text
 			<a id="loadCode" href="#">Load</a>
 		</div>
 		
-		<canvas id="gameCanvas" width="500" height="300">
-			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
-		</canvas>
+		<div id="root" style="left:50px; top:50px;float: left;position:absolute;">
+			<div id="handle" style="background:green;">
+				<input type="button" value="X" onclick="this.parentNode.parentNode.style.visibility = 'hidden';"/>
+			</div>
+			<canvas id="gameCanvas" width="500" height="300">
+				<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
+			</canvas>
+		</div>
+
 		<div id="gameState"></div>		
 		
 		<div id="gameEditor">
