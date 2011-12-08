@@ -168,6 +168,3 @@ function Bindings(){
 		$("#gameState").text("Editing");
 	};
 };
-
-
-

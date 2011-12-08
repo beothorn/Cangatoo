@@ -50,12 +50,16 @@ function Game(){
 		this.internalLoadLevel(previousLevel);
 	};
 	
+	this.levelExists = function(levelName){
+		return this.getLevelByName(levelName) != null;
+	};
+	
 	this.getLevelByName = function(levelName){
 		for (var i in this.levels){
 			if(this.levels[i].levelName == levelName)
 				return this.levels[i];
 		}                                                        
-		throw "Level '"+levelName+"' doesn't exist.";
+		return null;
 	};                               
 	
 	this.setLevel = function(_level){
@@ -112,10 +116,24 @@ function Game(){
 	};
 
 	this.addFactory = function(factory){
+		var nameAddition = 1;
+		var factoryName = factory.factoryName;
+		while(this.factoryExists(factoryName)){
+			factoryName = factory.factoryName+nameAddition;
+			nameAddition++;
+		}
+		factory.factoryName = factoryName;
 		this.elementFactories.push(factory);
 	};
 	
 	this.addLevel = function(level){
+		var nameAddition = 1;
+		var levelName = level.levelName;
+		while(this.levelExists(levelName)){
+			levelName = level.levelName+nameAddition;
+			nameAddition++;
+		}
+		level.levelName = levelName;
 		this.levels.push(level);
 	};
 	
@@ -218,11 +236,7 @@ function Game(){
 	};
 
 	this.getEventsForLevel = function(levelName){
-		var level = null;
-		for (var i in this.levels){
-			if(this.levels[i].levelName == levelName)
-				level = this.levels[i];
-		}
+		var level = this.getLevelByName(levelName);
 		if(level == null)
 			throw "level "+levelName+" does not exist";
 
@@ -235,11 +249,7 @@ function Game(){
 	};
 	
 	this.getEventsFor = function(factoryName){
-		var factory = null;
-		for (var i in this.elementFactories){
-			if(this.elementFactories[i].factoryName == factoryName)
-				factory = this.elementFactories[i];
-		}
+		var factory = this.getFactoryByName(factoryName);
 		if(factory == null)
 			throw "factory "+factoryName+" does not exist";
 
@@ -251,6 +261,10 @@ function Game(){
 		return events;
 	};
 
+	this.factoryExists = function(factoryName){
+		return this.getFactoryByName(factoryName) != null;
+	};
+	
 	this.getFactoryByName = function(factoryName){
 		for (var i in this.elementFactories){
 			if(this.elementFactories[i].factoryName == factoryName)
