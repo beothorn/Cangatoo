@@ -12,11 +12,6 @@ var gameCode;
 
 var intervalID;
 
-var down  = 	40;
-var right = 	39;
-var up    = 	38;
-var left  = 	37;
-
 var globalGameState = {
 	left:false,
 	right:false,
@@ -71,24 +66,24 @@ function canvasClick(position){
 }
 
 function keyDown(key){
-	if(key == left)
+	if(key == KeyEvent.DOM_VK_LEFT)
 		globalGameState.left = true;
-	if(key == right)
+	if(key == KeyEvent.DOM_VK_RIGHT)
 		globalGameState.right = true;
-	if(key == up)
+	if(key == KeyEvent.DOM_VK_UP)
 		globalGameState.up = true;
-	if(key == down)
+	if(key == KeyEvent.DOM_VK_DOWN)
 		globalGameState.down = true;
 }
 
 function keyUp(key){
-	if(key == left)
+	if(key == KeyEvent.DOM_VK_LEFT)
 		globalGameState.left = false;
-	if(key == right)
+	if(key == KeyEvent.DOM_VK_RIGHT)
 		globalGameState.right = false;
-	if(key == up)
+	if(key == KeyEvent.DOM_VK_UP)
 		globalGameState.up = false;
-	if(key == down)
+	if(key == KeyEvent.DOM_VK_DOWN)
 		globalGameState.down = false;
 }
 
