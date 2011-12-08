@@ -5,10 +5,11 @@ var include = [
 	"GameBasis/src/Level.js",
 	"GameBasis/src/Utils.js",
 	"GameBasis/src/Game.js",
-	"GameBasis/src/GameUtils.js",
 	"GameBasis/src/ElementFactory.js",
-	"GameBasis/src/GameSetup.js"
+	"GameBasis/src/GameSetup.js",
+	"GameBasis/src/GameGlobals.js"
 ];
+
 var cangatooIncludes = [
 	"Bindings.js",
 	"Export/src/GameSourceExport.js",
@@ -86,7 +87,7 @@ function overrideCanvasClick(canvas){
   			removeElement(x,y);
   		}
   	}else{
-  		canvasClick({x:x,y:y});
+  		globalGameState.click = {x:x,y:y};
   	};
   };
   

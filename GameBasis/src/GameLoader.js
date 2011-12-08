@@ -31,6 +31,6 @@ function GameLoader(){
 	};
 	
 	this.loadingComplete = function(){
-		startGameAfterLoading();
+		restartGame();
 	};
 }

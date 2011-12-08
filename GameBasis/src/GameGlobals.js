@@ -1,11 +1,57 @@
+//Globals
+var game;
+var level;
+var canvas;
+var self;
+var resources = new Resources();
+var loader = new GameLoader();
+var mouse = {x:0,y:0};
+var gamePaused = false;
+var gameCode;
+var gameSetup = new GameSetup();
+var intervalID;
+
+var globalGameState = {
+		left:false,
+		right:false,
+		up:false,
+		down:false,
+		click:null
+};
+
+//--end globals
+
+//Game control
+function startGame(drawCanvas){
+	gameSetup.doBeforeStart(drawCanvas);
+	loader.load();
+}
+
+function restartGame(){
+	gameSetup.restartGame();
+}
+
+function play(){
+	var FPS = 30;
+	var oneSecond = 1000;
+	gamePaused = false;
+	if(intervalID!=null)
+		clearInterval(intervalID);
+	intervalID = setInterval(function(){
+		game.gameLoop(globalGameState);
+	}, oneSecond / FPS);
+}
+
 function pause(){
 	gamePaused = true;
 	clearInterval(intervalID);
 }
 
-function play(){
-	startGameLoop();
+function setGameToLoad(newGameCode){
+	gameCode = newGameCode;
 }
+
+//-- end game control
 
 function applyGravity(element,delta,gravity){
 	element.yAccelerate((delta*gravity)/1000);
