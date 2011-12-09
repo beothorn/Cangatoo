@@ -6,6 +6,14 @@ canvas {
 	background:#FFFFFF;
 }
 
+#loadGameCodeDiv { 
+	background:#FFFFFF;
+}
+
+#helpAboutText{
+	background:#FFFFFF;
+}
+
 #menu{ 
 	background:#FFFFFF;
 	color: #000000;
@@ -83,10 +91,6 @@ canvas, img {
 
 #pageOutput,#codeToLoad{
 	width:100%;
-}
-
-#exportHtml,#helpAboutText,#loadGameCodeDiv{
-	display:none;
 }
 
 .tabContent { 
