@@ -1,24 +1,63 @@
 body{
-	background: gray;
-}
-
-a:link,a:visited,a:hover,a:active {
-	color: #FFFFFF;
-	text-decoration: none;
+	background: #dedede;
 }
 
 canvas { 
 	background:#FFFFFF;
 }
 
+#loadGameCodeDiv { 
+	background:#FFFFFF;
+}
+
+#helpAboutText{
+	background:#FFFFFF;
+}
+
+#menu{ 
+	background:#FFFFFF;
+	color: #000000;
+	padding: 0px;
+	margin: 0px;
+}
+
+#menu ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width: 160px; /* Width of Menu Items */
+	border-bottom: 1px solid #ccc;
+}
+
+#menu ul li{
+	position: relative;
+	list-style: none;
+	align-text: center;
+}
+
+/* Sub level menu links style */
+#menu ul li a{
+	display: block;
+	overflow: auto; /*force hasLayout in IE7 */
+	color: black;
+	text-decoration: none;
+	background: #fff;
+	padding: 1px 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+}
+
+#menu ul li a:visited{
+	color: black;
+}
+
+#menu ul li a:hover{
+	background-color: gray;
+}
+
 canvas, img { 
 	display: block;  
 	border: 1px solid black; 
-}
-
-.ctrlButton{
-	width:3em;
-	height:3em;
 }
 
 #ElementFacoryEditor,#LevelEditor{
@@ -54,20 +93,9 @@ canvas, img {
 	width:100%;
 }
 
-#exportHtml,#helpAboutText,#loadGameCodeDiv{
-	display:none;
-}
-
-/* tabs BEGIN */
-
 .tabContent { 
 	height: 20em;
 	width: 60em;  
 	overflow: auto;
 	background: #FFF;
 }
-
-#factoriesTab:target, #resourcesTab:target, #box3:target {
-}
-
-/* tabs END */

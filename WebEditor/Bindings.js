@@ -245,10 +245,5 @@ function Bindings() {
 			$("#loadGameCodeDiv").hide("fast");
 			$("#exportHtml").hide("fast");
 		});
-
-		$("#hideHelpAbout").click(function(event) {
-			event.preventDefault();
-			$("#helpAboutText").hide("slow");
-		});
-	};
+	};	
 };
