@@ -11,6 +11,10 @@ $(document).ready(function() {
 	addWindowFrameAndSetPosition("menu",6,6);
 	addWindowFrameAndSetPosition("factoriesTab",6 , 482);
 	addWindowFrameAndSetPosition("levelsTab",969 , 482);
+	
+	addWindowFrameAndSetPosition("helpAboutText",969 , 482);
+	addWindowFrameAndSetPosition("exportHtml",969 , 482);
+	addWindowFrameAndSetPosition("loadGameCodeDiv",969 , 482);
 });
 
 
@@ -36,117 +40,114 @@ $(document).ready(function() {
 		
 	</head>
 	<body>
-<a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+	
+	<a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
 
-	<div id="menuCentering">
-		<div id="menu">
-			<ul>
-				<li><h2>Options</h2>
-					<ul>
-						<li><a id="newGame" href="#">New game</a></li>
-						<li><a id="loadGame" href="#">Load game</a></li>
-						<li><a id="exportGame" href="#">Export to .js</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul>
-				<li><h2>Game flow</h2>
-					<ul>
-						<li><a id="gameRestartLevel" href="#">Restart level</a></li>
-						<!--<li><a id="gameRestart" href="#">Restart game</a></li>-->
-						<li><a id="gamePause" href="#">Pause</a></li>
-						<li><a id="gameEdit" href="#">Edit level</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul>
-				<li><h2>View</h2>
-					<ul>
-						<li><a id="viewEditor" href="#">&#10003; Editor</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul>
-				<li><h2>Help</h2>
-					<ul>
-						<li><a id="helpAbout" href="#">About</a></li>
-						<li><a id="helpTutorial" href="#">Tutorial</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+	<div id="menu">
+		<ul>
+			<li>Options
+				<ul>
+					<li><a id="newGame" href="#">New game</a></li>
+					<li><a id="loadGame" href="#">Load game</a></li>
+					<li><a id="exportGame" href="#">Export to .js</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li>Game flow
+				<ul>
+					<li><a id="gameRestartLevel" href="#">Restart level</a></li>
+					<!--<li><a id="gameRestart" href="#">Restart game</a></li>-->
+					<li><a id="gamePause" href="#">Pause</a></li>
+					<li><a id="gameEdit" href="#">Edit level</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li>View
+				<ul>
+					<li><a id="" href="#">&#10003; Canvas</a></li>
+					<li><a id="" href="#">&#10003; Level editor</a></li>
+					<li><a id="" href="#">&#10003; Factory editor</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li>Help
+				<ul>
+					<li><a id="helpAbout" href="#">About</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<div id="helpAboutText">
+		<a id="hideHelpAbout" href="#">Hide About</a>
+		<p id="help">Cangatoo is a event oriented game editor. Its goal is to be an easy to use tool to create
+		simple 2d games using the power of html5 canvas. There is still a lot of things to be done on Cangatoo,
+		this is just the very beginning of the project.</p>
+	</div>
+
+	<div id="exportHtml">
+		<a id="hideHtml" href="#">Hide Html</a>
+		<textarea id="pageOutput" rows="30"></textarea>
 	</div>
 	
-		<br>
+	<div id="loadGameCodeDiv">
+		<textarea id="codeToLoad" rows="30"></textarea>
+		<a id="loadCode" href="#">Load</a>
+	</div>
+		
+	<canvas id="gameCanvas" width="500" height="300">
+		<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
+	</canvas>
 
-		<div id="helpAboutText">
-			<a id="hideHelpAbout" href="#">Hide About</a>
-			<p id="help">Cangatoo is a event oriented game editor. Its goal is to be an easy to use tool to create
-			simple 2d games using the power of html5 canvas. There is still a lot of things to be done on Cangatoo,
-			this is just the very beginning of the project.</p>
-		</div>
-
-		<div id="exportHtml">
-			<a id="hideHtml" href="#">Hide Html</a>
-			<textarea id="pageOutput" rows="30"></textarea>
-		</div>
-		
-		<div id="loadGameCodeDiv">
-			<textarea id="codeToLoad" rows="30"></textarea>
-			<a id="loadCode" href="#">Load</a>
-		</div>
-		
-		<canvas id="gameCanvas" width="500" height="300">
-			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
-		</canvas>
-
-		<div id="gameState"></div>		
+	<div id="gameState"></div>		
 		
 		
-		<div id="factoriesTab" class="tabContent">
-			<table id="ElementFacoryEditor" border ="0">
-				<tr>
-					<td id="editorFirstCol">
-						<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
-					</td>
-					<td>
-						<select id="factoryEvents" ></select>
-						<input type="button" id="saveFactoryCode" value="save"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<select id="factories" size="2"></select>
-					</td>
-					<td>
-						<textarea id="factoryCodeEditor"></textarea>
-					</td>
-				</tr>
-			</table>
-		</div>
+	<div id="factoriesTab" class="tabContent">
+		<table id="ElementFacoryEditor" border ="0">
+			<tr>
+				<td id="editorFirstCol">
+					<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
+				</td>
+				<td>
+					<select id="factoryEvents" ></select>
+					<input type="button" id="saveFactoryCode" value="save"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select id="factories" size="2"></select>
+				</td>
+				<td>
+					<textarea id="factoryCodeEditor"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
 		
-		<div id="levelsTab" class="tabContent">
-			<table id="LevelEditor" border ="0">
-				<tr>
-					<td id="editorFirstCol">
-						<input type="text" id="searchOrAddLevel" value="NewLevel"/>
-					</td>
-					<td>
-						<select id="levelEvents" ></select>
-						<input type="button" id="saveLevelCode" value="save"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<select id="levels" size="2"></select>
-					</td>
-					<td>
-						<textarea id="levelCodeEditor"></textarea>
-					</td>
-				</tr>
-			</table>
-		</div>
-				
+	<div id="levelsTab" class="tabContent">
+		<table id="LevelEditor" border ="0">
+			<tr>
+				<td id="editorFirstCol">
+					<input type="text" id="searchOrAddLevel" value="NewLevel"/>
+				</td>
+				<td>
+					<select id="levelEvents" ></select>
+					<input type="button" id="saveLevelCode" value="save"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select id="levels" size="2"></select>
+				</td>
+				<td>
+					<textarea id="levelCodeEditor"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
 				
 	</body>
 </html>

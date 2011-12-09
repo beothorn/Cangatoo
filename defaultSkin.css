@@ -1,24 +1,31 @@
 body{
-	background: gray;
-}
-
-a:link,a:visited,a:hover,a:active {
-	color: #FFFFFF;
-	text-decoration: none;
+	background: #dedede;
 }
 
 canvas { 
 	background:#FFFFFF;
 }
 
+#menu{ 
+	background:#FFFFFF;
+	color: #000000;
+	padding: 0px;
+	margin: 0px;
+	
+	border-bottom-color: #000000;
+	border-style: solid;
+}
+
+#menu li a { 
+	font: bold 11px/16px arial, helvetica, sans-serif;
+	border-width: 0px;
+	padding: 0px 0px; 
+	float: left;  
+}
+
 canvas, img { 
 	display: block;  
 	border: 1px solid black; 
-}
-
-.ctrlButton{
-	width:3em;
-	height:3em;
 }
 
 #ElementFacoryEditor,#LevelEditor{
@@ -58,16 +65,9 @@ canvas, img {
 	display:none;
 }
 
-/* tabs BEGIN */
-
 .tabContent { 
 	height: 20em;
 	width: 60em;  
 	overflow: auto;
 	background: #FFF;
 }
-
-#factoriesTab:target, #resourcesTab:target, #box3:target {
-}
-
-/* tabs END */
