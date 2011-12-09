@@ -69,6 +69,15 @@ function CangatooBoot(){
 		});
 	};
 	
+	addWindowFrameAndSetPosition("gameCanvas",496 , 89);
+	addWindowFrameAndSetPosition("menu",6,6);
+	addWindowFrameAndSetPosition("factoriesTab",6 , 482);
+	addWindowFrameAndSetPosition("levelsTab",969 , 482);
+	
+	addWindowFrameAndSetPosition("helpAboutText",969 , 482);
+	addWindowFrameAndSetPosition("exportHtml",969 , 482);
+	addWindowFrameAndSetPosition("loadGameCodeDiv",969 , 482);
+	
 	this.totalIncludes = this.include.length+ this.cangatooIncludes.length;
 	for(var i in this.include){
 		this.includeJSFile(this.include[i],i);
@@ -76,4 +85,6 @@ function CangatooBoot(){
 	for(var i in this.cangatooIncludes){
 		this.includeJSFile(this.cangatooIncludes[i],parseInt(i)+this.include.length);
 	}
+	
+	
 }

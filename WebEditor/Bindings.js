@@ -250,5 +250,5 @@ function Bindings() {
 			event.preventDefault();
 			$("#helpAboutText").hide("slow");
 		});
-	};
+	};	
 };
