@@ -11,16 +11,40 @@ canvas {
 	color: #000000;
 	padding: 0px;
 	margin: 0px;
-	
-	border-bottom-color: #000000;
-	border-style: solid;
 }
 
-#menu li a { 
-	font: bold 11px/16px arial, helvetica, sans-serif;
-	border-width: 0px;
-	padding: 0px 0px; 
-	float: left;  
+#menu ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width: 160px; /* Width of Menu Items */
+	border-bottom: 1px solid #ccc;
+}
+
+#menu ul li{
+	position: relative;
+	list-style: none;
+	align-text: center;
+}
+
+/* Sub level menu links style */
+#menu ul li a{
+	display: block;
+	overflow: auto; /*force hasLayout in IE7 */
+	color: black;
+	text-decoration: none;
+	background: #fff;
+	padding: 1px 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+}
+
+#menu ul li a:visited{
+	color: black;
+}
+
+#menu ul li a:hover{
+	background-color: gray;
 }
 
 canvas, img { 
