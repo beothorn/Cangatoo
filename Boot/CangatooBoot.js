@@ -2,7 +2,7 @@ $(document).ready(function(){
 	new CangatooBoot();
 });
 
-var gameCanvasElementId = "#gameCanvas";
+var gameCanvasElementId = "#Canvas";
 var defaultGameUrl = "Demos/BouncingBalls.js";
 var cangatoo;
 
