@@ -2,20 +2,11 @@ body{
 	background: #dedede;
 }
 
-canvas { 
-	background:#FFFFFF;
-}
-
-#loadGameCodeDiv { 
-	background:#FFFFFF;
-}
-
-#helpAboutText{
+#loadGameCodeDiv,#helpAboutText,#menu,.tabContent{ 
 	background:#FFFFFF;
 }
 
 #menu{ 
-	background:#FFFFFF;
 	color: #000000;
 	padding: 0px;
 	margin: 0px;
@@ -85,17 +76,11 @@ canvas, img {
 	height:100%;
 }
 
-#output{
-	width:100%;
-}
-
 #pageOutput,#codeToLoad{
 	width:100%;
 }
 
 .tabContent { 
 	height: 20em;
-	width: 60em;  
-	overflow: auto;
-	background: #FFF;
+	width: 60em; 
 }
