@@ -119,13 +119,13 @@ function Bindings() {
 		});
 
 		$("#loadGame").click(function(event) {
-			$("#exportHtml").hide("fast");
+			closeWindow("#Exported_javascript");
 			$("#loadGameCodeDiv").show("fast");
 		});
 
 		$("#exportGame").click(function(event) {
+			showWindow("Exported_javascript");
 			$("#loadGameCodeDiv").hide("fast");
-			$("#exportHtml").show("fast");
 			exportJSTo(game, include, function(code) {
 				$('#pageOutput').val(code);
 			});
@@ -166,11 +166,6 @@ function Bindings() {
 			$("#gameState").text("Editing");
 			$("#gamePause").text("Play");
 			cangatoo.editLevel();			
-		});
-
-		$("#helpAbout").click(function(event) {
-			event.preventDefault();
-			$("#helpAboutText").show("slow");
 		});
 	};
 
@@ -235,15 +230,10 @@ function Bindings() {
 	};
 
 	this.bindHideLinks = function() {
-		$("#hideHtml").click(function(event) {
-			$("#exportHtml").hide("fast");
-		});
-
 		$("#loadCode").click(function(event) {
 			var codeToLoad = $("#codeToLoad").val();
 			cangatoo.loadGameCode(codeToLoad);
 			$("#loadGameCodeDiv").hide("fast");
-			$("#exportHtml").hide("fast");
 		});
 	};	
 };
