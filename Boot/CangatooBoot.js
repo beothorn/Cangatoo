@@ -69,16 +69,12 @@ function CangatooBoot(){
 		});
 	};
 	
-	//todo all divs with class should turn into windows
-	addWindowFrameAndSetPosition("gameCanvas",496 , 89);
-	addWindowFrameAndSetPosition("menu",6,6);
-	addWindowFrameAndSetPosition("factoriesTab",6 , 482);
-	addWindowFrameAndSetPosition("levelsTab",969 , 482);
+	setupWindows();
 	
-	addWindowFrameAndSetPosition("helpAboutText",0 , 0);
-	addWindowFrameAndSetPosition("exportHtml",969 , 482);
-	addWindowFrameAndSetPosition("loadGameCodeDiv",969 , 482);
-	//
+	var gameCanvasElement = $(gameCanvasElementId)[0];
+	var context = gameCanvasElement.getContext('2d');
+	context.fillStyle = "white";
+	context.fillRect(0, 0, gameCanvasElement.width, gameCanvasElement.height);
 	
 	this.totalIncludes = include.length+ this.cangatooIncludes.length;
 	for(var i in include){

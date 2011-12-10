@@ -190,8 +190,14 @@ function Game(){
 	};
 	
 	this.drawelementFactories = function(delta){
+		if(level.backgroundColor == null){
+			this.context.fillStyle = "white";
+		}else{				
+			this.context = level.backgroundColor ;
+		}
+		this.context.fillRect(0, 0, canvas.width, canvas.height);
+		
 		if(level.backgroundImage == null){
-			this.context.clearRect(0, 0, canvas.width, canvas.height);
 		}else{
 			this.context.clearRect(0, 0, canvas.width, canvas.height);
 			this.context.drawImage(level.backgroundImage,0,0);
