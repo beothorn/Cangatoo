@@ -21,7 +21,6 @@ body{
 }
 
 #menu ul li{
-	position: relative;
 	list-style: none;
 	align-text: center;
 }
