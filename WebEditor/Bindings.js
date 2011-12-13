@@ -236,7 +236,11 @@ function Bindings() {
 		$("#loadCode").click(function(event) {
 			var codeToLoad = $("#codeToLoad").val();
 			cangatoo.loadGameCode(codeToLoad);
-			$("#"+loadGameCodeDiv).hide("fast");
+		});
+		
+		$("#executeCode").click(function(event) {
+			var codeToLoad = $("#codeToLoad").val();
+			eval(codeToLoad);
 		});
 	};	
 };
