@@ -74,9 +74,15 @@
 	</div>
 	
 	<div id="Load_game_window" class="windowHidden" title="Add code to be loaded here" style="left: 100px; top: 100px;">
-		<textarea id="codeToLoad" rows="30"></textarea>
-		<a id="loadCode" href="#">Load and restart</a>
-		<a id="executeCode" href="#">Execute</a>
+		<textarea id="codeToLoad" rows="30">Write code or add game code to loade here. example: println("Hello world");</textarea>
+		<br>
+		<input type="button" id="loadCode" value="Load as new game"/>
+		<input type="button" id="executeCode" value="Execute"/>
+		<input type="button" id="clearCodeToLoad" value="Clear"/>
+		<br>
+		<textarea id="console" rows="10">console</textarea>
+		<br>
+		<input type="button" id="clearConsole" value="Clear"/>
 	</div>
 		
 	<canvas id="Canvas" class="window" title="Canvas" style="left: 496px; top: 89px;" width="500" height="300">

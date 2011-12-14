@@ -1,3 +1,7 @@
+function println(string){
+	 $('#console').val($('#console').val()+string+'\n'); 
+}
+
 function Bindings() {
 	
 	var editor = this;
@@ -10,6 +14,16 @@ function Bindings() {
 		this.bindMenuEvents();
 		this.bindGameEditor();
 		this.bindHideLinks();
+		window.onerror = function (msg, url, num) {
+			println(msg + ';' + url + ';' + num);
+	        return true;
+	    };
+	    $("#clearCodeToLoad").click(function(event) {
+	    	$("#codeToLoad").val("");
+		});
+	    $("#clearConsole").click(function(event) {
+	    	$("#console").val("");
+		});
 		this.overrideCanvasClick();
 		this.reloadGameEditor();
 	};

@@ -61,7 +61,7 @@ canvas, img {
 	height:2em;
 }
 
-#searchOrAddFactory,#searchOrAddLevel{
+#pageOutput,#codeToLoad,#console,#searchOrAddFactory,#searchOrAddLevel{
 	width:100%;
 }
 
@@ -73,10 +73,6 @@ canvas, img {
 #factories,#levels{
 	width:100%;
 	height:100%;
-}
-
-#pageOutput,#codeToLoad{
-	width:100%;
 }
 
 .tabContent { 
