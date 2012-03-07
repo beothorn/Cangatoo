@@ -143,3 +143,18 @@ function create(elementFactory,x,y){
 	var factory = game.getFactoryByName(elementFactory);
 	factory.addElementAt(x,y);
 }
+
+function drawText(text,x,y){
+    var context = canvas.getContext('2d');
+    var oldColor = context.fillStyle; 
+    context.fillStyle = "#000000";
+    context.font = "12pt Calibri";
+    var spaceBetweenLines = 2;
+    var fontHeight = 12;
+    var lineCarretPosition = 0;
+    var lines = text.split('\n');
+    for(var i in lines){
+    	lineCarretPosition++;
+    	context.fillText(lines[i], x, y +(lineCarretPosition*(fontHeight+spaceBetweenLines)));
+    }
+}
