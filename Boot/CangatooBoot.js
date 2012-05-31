@@ -1,5 +1,7 @@
 $(document).ready(function(){
+	console.log("Booting Cangatoo");
 	new CangatooBoot();
+	console.log("Booting finished");
 });
 
 var gameCanvasElementId = "#Canvas";
