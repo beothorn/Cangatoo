@@ -162,27 +162,27 @@ function Bindings() {
 			}
 		});
 
-		$("#gameRestartLevel").click(function(event) {
+		$("#restartLevel").click(function(event) {
 			$("#gamePause").text("Pause");
 			cangatoo.restartLevel();
 		});
 
-		$("#gamePause").click(function(event) {
-			if ($("#gamePause").text() == "Pause") {
-				$("#gameState").text("Paused");
-				$("#gamePause").text("Play");
-				cangatoo.pause();
-			} else {
-				$("#gameState").text("");
-				$("#gamePause").text("Pause");
+		$("#rPause").click(function(event) {
+                        if($(this).is(':checked')){
+                                cangatoo.pause();
+                        }
+                });
+
+		$("#rPlay").click(function(event) {
+			if($(this).is(':checked')){
 				cangatoo.play();
 			}
 		});
 
-		$("#gameEdit").click(function(event) {
-			$("#gameState").text("Editing");
-			$("#gamePause").text("Play");
-			cangatoo.editLevel();			
+		$("#rEdit").click(function(event) {
+			if($(this).is(':checked')){
+				cangatoo.editLevel();
+			}	
 		});
 	};
 
