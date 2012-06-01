@@ -25,8 +25,6 @@
 	</head>
 	<body>
 	
-	<a href="https://github.com/beothorn/Cangatoo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
-
 	<div id="Menu" class="windowDialog" title="Menu" style="left: 6px; top: 6px;">
 		<ul>
 			<li>Options
@@ -50,7 +48,6 @@
 		<ul>
 			<li>View
 				<ul>
-					<li><a onclick="showWindow('Canvas')">Canvas</a></li>
 					<li><a onclick="showWindow('Factories_editor')">Factories editor</a></li>
 					<li><a onclick="showWindow('Levels_editor')">Levels editor</a></li>
 					<li><a onclick="showWindow('Exported_javascript')">Export javascript</a></li>
@@ -85,10 +82,14 @@
 		<input type="button" id="clearConsole" value="Clear"/>
 	</div>
 		
-	<div id="CanvasWindow" class="window" title="Canvas" style="background:#FFFFFF;left: 496px; top: 89px;">
-		<input type="radio" name="gameFlow" id="r-yes" />Play</label>
-		<input type="radio" name="gameFlow" id="r-no" />Pause</label>
-		<input type="radio" name="gameFlow" id="r-dunno" />Edit</label>
+	<div id="CanvasWindow" class="windowDialog" title="Canvas" style="background:#FFFFFF;left: 496px; top: 89px;">
+		<input type="radio" name="gameFlow" id="rPlay" checked="checked"/>Play</label>
+		<input type="radio" name="gameFlow" id="rPause" />Pause</label>
+		<input type="radio" name="gameFlow" id="rEdit" />Edit level</label>
+		<input type="button" id="restartLevel" value="Restart Level"/>
+		<input type="button" id="restartGame" value="Restart Game"/>
+		&nbsp;Go to level:
+		<select id="levelGoto"></select>
 		<canvas id="Canvas" width="500" height="300">
 			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox!</p>
 		</canvas>
