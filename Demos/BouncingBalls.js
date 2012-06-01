@@ -184,10 +184,9 @@ function Bouncing_balls() {
 		};
 		
 		level_SecondLevel.levelElements = [ 
-		    {"MainCharacter" : [ { x : 50, y : 50} ]}, 
-		    {"Box" : [ { x : 140, y : 220}, { x : 300, y : 200}, { x : 200, y : 100} ]}
-		];
-		
+			{"MainCharacter":[{x:59,y:207}]},
+			{"Box":[{x:220,y:285},{x:269,y:240},{x:316,y:188},{x:366,y:142},{x:412,y:92},{x:454,y:47}]}
+    		];	
 		game.addLevel(level_SecondLevel);
 	};
 	this.loadLevels = function() {
