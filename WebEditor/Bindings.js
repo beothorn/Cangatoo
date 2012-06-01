@@ -67,6 +67,7 @@ function Bindings() {
 	this.reloadLevels = function(){
 		var levelNames = cangatoo.getLevels();
 		this.setListTo(levelNames, "#levels");
+		this.setSelectListTo(levelNames, "#levelGoto");
 	};
 	
 	this.reloadLevelEvents = function(){
@@ -116,6 +117,13 @@ function Bindings() {
 		if ($(listId + " option:selected").length == 0)
 			$(listId).prop("selectedIndex", 0);
 	};
+
+	this.setSelectListTo = function(stringArray, selectId){
+		$(selectId).empty();
+                for ( var i in stringArray) {
+                        $(selectId).append('<option>' + stringArray[i] + '</option>');
+                }
+	}
 
 	this.setListTo = function(stringArray, listId) {
 		$(listId).empty();
@@ -183,6 +191,11 @@ function Bindings() {
 			if($(this).is(':checked')){
 				cangatoo.editLevel();
 			}	
+		});
+		
+		$("#levelGoto").change(function(event){
+			var levelSelected = $(this).val(); 
+			game.loadLevel(levelSelected);
 		});
 	};
 
