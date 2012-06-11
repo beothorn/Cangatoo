@@ -25,7 +25,7 @@
 	</head>
 	<body>
 	
-	<div id="Menu" class="windowDialog" title="Menu" style="left: 6px; top: 6px;">
+	<div id="Menu" class="windowDialog" title="Menu" style="left: 6px; top: 6px;" data-x="6px" data-y="6px">
 		<ul>
 			<li>Options
 				<ul>
@@ -38,17 +38,17 @@
 		<ul>
 			<li>View
 				<ul>
-					<li><a onclick="showWindow('Factories_editor')">Factories editor</a></li>
-					<li><a onclick="showWindow('Levels_editor')">Levels editor</a></li>
-					<li><a onclick="showWindow('Exported_javascript')">Export javascript</a></li>
-					<li><a onclick="showWindow('Load_game_window')">Code execution window</a></li>
-					<li><a onclick="showWindow('About')">About</a></li>
+					<li><a onclick="showWindow('Factories_editor')" href="#">Factories editor</a></li>
+					<li><a onclick="showWindow('Levels_editor')" href="#">Levels editor</a></li>
+					<li><a onclick="showWindow('Exported_javascript')" href="#">Export javascript</a></li>
+					<li><a onclick="showWindow('Load_game_window')" href="#">Code execution window</a></li>
+					<li><a onclick="showWindow('About')" href="#">About</a></li>
 				</ul>
 			</li>
 		</ul>
 	</div>
 
-	<div id="About" class="windowHidden" title="About" style="background:#FFFFFF;left: 100px; top: 100px;">
+	<div id="About" class="windowHidden" title="About" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
 		Cangatoo is an event oriented game editor.<br> 
 		It's goal is to be an easy to use tool to create<br>
 		simple 2d games using the power of html5 canvas.<br>
@@ -56,11 +56,11 @@
 		this is just the very beginning of the project.
 	</div>
 
-	<div id="Exported_javascript" class="windowHidden" title="Exported js" style="background:#FFFFFF;left: 100px; top: 100px;">
+	<div id="Exported_javascript" class="windowHidden" title="Exported js" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
 		<textarea id="pageOutput" rows="30"></textarea>
 	</div>
 	
-	<div id="Load_game_window" class="windowHidden" title="Add code to be loaded here" style="background:#FFFFFF;left: 100px; top: 100px;">
+	<div id="Load_game_window" class="windowHidden" title="Add code to be loaded here" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
 		<textarea id="codeToLoad" rows="30">Write code or add game code to loade here. example: println("Hello world");</textarea>
 		<br>
 		<input type="button" id="loadCode" value="Load as new game"/>
@@ -72,7 +72,7 @@
 		<input type="button" id="clearConsole" value="Clear"/>
 	</div>
 		
-	<div id="CanvasWindow" class="windowDialog" title="Canvas" style="background:#FFFFFF;left: 496px; top: 89px;">
+	<div id="CanvasWindow" class="windowDialog" title="Canvas" style="background:#FFFFFF;left: 180px; top: 89px;" data-x="180px" data-y="6px">
 		<input type="radio" name="gameFlow" id="rPlay" checked="checked"/>Play</label>
 		<input type="radio" name="gameFlow" id="rPause" />Pause</label>
 		<input type="radio" name="gameFlow" id="rEdit" />Edit level</label>
@@ -88,7 +88,7 @@
 	<div id="gameState"></div>		
 		
 		
-	<div id="Factories_editor" class="windowHidden" title="Factories editor" style="left: 100px; top: 100px;" >
+	<div id="Factories_editor" class="windowHidden" title="Factories editor" style="left: 6px; top: 377px;" data-x="6px" data-y="377px" >
 		<div class="tabContent">
 			<table id="ElementFacoryEditor" border ="0">
 				<tr>
@@ -112,7 +112,7 @@
 		</div>
 	</div>
 		
-	<div id="Levels_editor" class="windowHidden" title="Levels editor" style="left: 100px; top: 100px;">
+	<div id="Levels_editor" class="windowHidden" title="Levels editor" style="left: 6px; top: 377px;" data-x="6px" data-y="377px">
 		<div class="tabContent">
 			<table id="LevelEditor" border ="0" >
 				<tr>
