@@ -20,9 +20,7 @@ var include = [
    "GameBasis/src/GameGlobals.js"
 ];
 
-
 function CangatooBoot(){
-	
 	
 	this.totalIncludes = 0;
 	this.includeCount = 0;
@@ -77,6 +75,18 @@ function CangatooBoot(){
 	var context = gameCanvasElement.getContext('2d');
 	context.fillStyle = "white";
 	context.fillRect(0, 0, gameCanvasElement.width, gameCanvasElement.height);
+	
+	if(indexDebug){
+		console.log("DEBUG MODE ON");
+		var debugGame = new Bouncing_balls();
+		console.log("DEBUGGING: "+ debugGame);
+		setGameToLoad(debugGame);
+		cangatoo = new Cangatoo();
+		var bindings = new Bindings();
+		bindings.doAllBindings();
+		console.log("DEBUG MODE ON");
+		return;
+	}
 	
 	this.totalIncludes = include.length+ this.cangatooIncludes.length;
 	for(var i in include){
