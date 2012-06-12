@@ -95,7 +95,7 @@ function Bindings() {
 		$(gameCanvasElementId)[0].onmousedown = function(event) {
 			var x = event.layerX - $(gameCanvasElementId)[0].offsetLeft;
 			var y = event.layerY - $(gameCanvasElementId)[0].offsetTop;
-			if (gamePaused) {
+			if (gamePaused || editMode) {
 				if (event.button == 0) {
 					var selectedFactory = $("#factories option:selected").text();
 					cangatoo.addElementFromFactory(x, y,selectedFactory);

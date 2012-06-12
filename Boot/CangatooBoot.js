@@ -5,7 +5,7 @@ $(document).ready(function(){
 });
 
 var gameCanvasElementId = "#Canvas";
-var defaultGameUrl = "Demos/BouncingBalls.js";
+var defaultGameUrl = "Demos/EmptyGame.js";
 var cangatoo;
 
 var include = [
@@ -26,6 +26,7 @@ function CangatooBoot(){
 	this.includeCount = 0;
 	
 	this.cangatooIncludes = [
+			"Demos/EmptyGame.js",
 	    "CangatooEditor/Cangatoo.js",
 	    "WebEditor/Bindings.js",
 	    "Export/src/GameSourceExport.js",
@@ -78,7 +79,7 @@ function CangatooBoot(){
 	
 	if(indexDebug){
 		console.log("DEBUG MODE ON");
-		var debugGame = new Bouncing_balls();
+		var debugGame = new Empty_Game();
 		console.log("DEBUGGING: "+ debugGame);
 		setGameToLoad(debugGame);
 		cangatoo = new Cangatoo();

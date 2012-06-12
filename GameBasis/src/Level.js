@@ -1,8 +1,9 @@
 function Level(levelName){
 	this.levelName = levelName;
-
+	this.levelElements = new Array();
+	
 	this.removeElementFromLevelCreation = function(element){
-		if( this.levelElements == null)
+		if( this.levelElements.length == 0)
 			return;
 		for(var i in this.levelElements){
 			for(var factoryName in this.levelElements[i]){
