@@ -3,8 +3,46 @@
 		<title>Cangatoo - Canvas game Tool</title>
 		
 		<script src="./lib/jquery-1.7.2.min.js"></script>
-		<script src="./lib/dom-drag.js"></script><!-- http://www.dynamicdrive.com/dynamicindex11/domdrag/ -->		
+		<script src="./lib/dom-drag.js"></script>
+		
+		<!-- Boot debug START -->
+		
+		<script type="text/javascript">
+		  indexDebug = true;
+		</script>
+		
+		<!-- If you add anything here don't forget to add it on CangatooBoot include -->
+		
+		<script type="text/javascript" src="./GameBasis/src/GameLoader.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Resources.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Level.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Utils.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/GameSetup.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/GameGlobals.js"></script>
+		
+		<script type="text/javascript" src="./CangatooEditor/Cangatoo.js"></script>
+		<script type="text/javascript" src="./WebEditor/Bindings.js"></script>
+		<script type="text/javascript" src="./Export/src/GameSourceExport.js"></script>
+		<script type="text/javascript" src="./Export/src/HeaderRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/SetupRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/CanvasPropertiesRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/ResourcesRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/GameNameRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/FactoriesRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/LevelsRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/FooterRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/IncludesRenderer.js"></script>
+		
+		<script type="text/javascript" src="./Demos/BouncingBalls.js"></script>
+		<script type="text/javascript" src="./Demos/EmptyGame.js"></script>
+		
+		<!-- Boot debug END  -->
+		
 		<script type="text/javascript" src="./Boot/CangatooBoot.js"></script>
+		
 				
 		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
 		

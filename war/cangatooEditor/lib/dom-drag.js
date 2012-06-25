@@ -1,3 +1,6 @@
+//Based on http://www.dynamicdrive.com/dynamicindex11/domdrag/
+//Public domain
+
 var highestZ = 0;
 var wrapperDivSuffix = "WrapperDiv";
 var titleBarDivSuffix = "TitleBarDiv";

@@ -5,7 +5,7 @@ $(document).ready(function(){
 });
 
 var gameCanvasElementId = "#Canvas";
-var defaultGameUrl = "Demos/BouncingBalls.js";
+var defaultGameUrl = "Demos/EmptyGame.js";
 var cangatoo;
 
 var include = [
@@ -20,15 +20,13 @@ var include = [
    "GameBasis/src/GameGlobals.js"
 ];
 
-
 function CangatooBoot(){
-	
 	
 	this.totalIncludes = 0;
 	this.includeCount = 0;
 	
 	this.cangatooIncludes = [
-	    "CangatooEditor/NewGame.js",
+			"Demos/EmptyGame.js",
 	    "CangatooEditor/Cangatoo.js",
 	    "WebEditor/Bindings.js",
 	    "Export/src/GameSourceExport.js",
@@ -78,6 +76,18 @@ function CangatooBoot(){
 	var context = gameCanvasElement.getContext('2d');
 	context.fillStyle = "white";
 	context.fillRect(0, 0, gameCanvasElement.width, gameCanvasElement.height);
+	
+	if(indexDebug){
+		console.log("DEBUG MODE ON");
+		var debugGame = new Empty_Game();
+		console.log("DEBUGGING: "+ debugGame);
+		setGameToLoad(debugGame);
+		cangatoo = new Cangatoo();
+		var bindings = new Bindings();
+		bindings.doAllBindings();
+		console.log("DEBUG MODE ON");
+		return;
+	}
 	
 	this.totalIncludes = include.length+ this.cangatooIncludes.length;
 	for(var i in include){
