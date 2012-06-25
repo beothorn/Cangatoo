@@ -164,9 +164,11 @@ function GameSetup(){
 	};
 	
 	this.restartGame = function(){
+		console.log("restartGame Start");
 		game.clear();
 		gameCode.setup();
 		game.reset();
 		play();
+		console.log("restartGame End");
 	};
 }

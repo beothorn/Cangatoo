@@ -29,6 +29,7 @@ function Bindings() {
 	};
 	
 	this.reloadGameEditor = function() {
+		console.log("reloadGameEditor start");
 		editor.reloadFactories();
 		editor.reloadEvents();
 		editor.reloadFactoryCodeEditor();
@@ -36,6 +37,7 @@ function Bindings() {
 		editor.reloadLevels();
 		editor.reloadLevelEvents();
 		editor.reloadLevelCodeEditor();
+		console.log("reloadGameEditor end");
 	};
 
 	this.reloadFactories = function() {
@@ -139,8 +141,10 @@ function Bindings() {
 		};
 
 		$("#newGame").click(function(event) {
-			cangatoo.newGame();
+			console.log("bindings.newGame():start");
+			cangatoo.restart();
 			editor.reloadGameEditor();
+			console.log("bindings.newGame():end");
 		});
 
 		$("#loadGame").click(function(event) {

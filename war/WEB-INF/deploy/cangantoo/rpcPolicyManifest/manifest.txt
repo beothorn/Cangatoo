@@ -1,0 +1,3 @@
+# Module cangantoo
+# RPC service class, partial path of RPC policy file
+com.appspot.cangatoo.client.GreetingService, E7A88B8D5B47519BB792D17671D9CE0C.gwt.rpc

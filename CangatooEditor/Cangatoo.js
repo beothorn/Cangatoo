@@ -31,8 +31,14 @@ function Cangatoo(){
 		startGame(gameCanvas);
 	};
 	
-	this.newGame = function(){
-		game.newGame();
+	this.restart = function(){
+		console.log("cangatoo.clear():start");
+		console.log("game.clear();Start");
+		game.clear();
+		console.log("game.clear();End");
+		var newGame = new NewGame();
+		newGame.load();
+		console.log("cangatoo.clear():end");
 	};
 	
 	this.restartLevel = function(){

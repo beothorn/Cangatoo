@@ -28,6 +28,7 @@ function CangatooBoot(){
 	this.includeCount = 0;
 	
 	this.cangatooIncludes = [
+	    "CangatooEditor/NewGame.js",
 	    "CangatooEditor/Cangatoo.js",
 	    "WebEditor/Bindings.js",
 	    "Export/src/GameSourceExport.js",

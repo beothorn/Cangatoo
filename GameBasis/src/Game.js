@@ -9,13 +9,6 @@ function Game(){
 
 	this.context = canvas.getContext('2d');
 	
-	this.newGame = function(){
-		this.gameName = "New game";
-		this.width = 500;
-		this.height = 300;
-		this.clear();
-	};
-	
 	this.gameLoop = function(globalGameState){
 		var currentTime = new Date().getTime();
 		var delta = currentTime - this.lastLoopTime;
@@ -69,7 +62,6 @@ function Game(){
 	this.clear = function(){
 		this.elementFactories = new Array();
 		this.levels = new Array();
-		
 	};
 	
 	this.reset = function(){
