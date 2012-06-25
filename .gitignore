@@ -1,1 +1,5 @@
 *~
+*.class
+war/WEB-INF/deploy/cangatoo/symbolMaps/*
+war/cangatoo/*.cache.png
+gwt-unitCache/*
