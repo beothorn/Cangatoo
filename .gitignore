@@ -1,7 +1,7 @@
 *~
 *.class
-war/WEB-INF/deploy/cangantoo/symbolMaps/*
-war/cangantoo/*.cache.*
+war/WEB-INF/deploy/cangatoo/symbolMaps/*
+war/cangatoo/*.cache.*
 gwt-unitCache/*
-war/cangantoo/*.gwt.rpc
-war/WEB-INF/deploy/cangantoo/rpcPolicyManifest/manifests/*
+war/cangatoo/*.gwt.rpc
+war/WEB-INF/deploy/cangatoo/rpcPolicyManifest/manifests/*

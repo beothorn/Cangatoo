@@ -13,12 +13,12 @@
   
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/cangantoo/greet</url-pattern>
+    <url-pattern>/cangatoo/greet</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Cangantoo.html</welcome-file>
+    <welcome-file>Cangatoo.html</welcome-file>
   </welcome-file-list>
 
 </web-app>
