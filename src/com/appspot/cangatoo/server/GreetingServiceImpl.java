@@ -3,6 +3,9 @@ package com.appspot.cangatoo.server;
 import com.appspot.cangatoo.client.GreetingService;
 import com.appspot.cangatoo.shared.FieldVerifier;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyService;
 
 /**
  * The server side implementation of the RPC service.
@@ -27,8 +30,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		input = escapeHtml(input);
 		userAgent = escapeHtml(userAgent);
 
+		Objectify ofy = ObjectifyService.begin();
+		ObjectifyService.register(Test.class);
+		ofy.put(new Test("123123", "red"));
+		
+		
 		return "Hello, " + input + "!<br><br>I am running " + serverInfo
-				+ ".<br><br>It looks like you are using:<br>" + userAgent;
+				+ ".<br><br>It looks like you are using:<br>" + userAgent+"<br>"+
+		ofy.get(new Key<Test>(Test.class,"123123")).color;
 	}
 
 	/**
