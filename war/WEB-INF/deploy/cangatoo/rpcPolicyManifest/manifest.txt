@@ -1,2 +1,0 @@
-# Module cangatoo
-# RPC service class, partial path of RPC policy file
